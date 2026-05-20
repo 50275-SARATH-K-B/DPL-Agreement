@@ -1,0 +1,136 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/LMS/cleared-bounced/add-cleared-bounced
+UI created by : Hareesh N
+Date : 26/12/2018
+emi-calculator :
+add-cleared-bounced.component.html
+add-cleared-bounced.component.scss
+add-cleared-bounced.component.ts
+Functionally Coded by : Hareesh N
+Date : 
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-subtitle>
+          <h2>Cheque Clear/Bounced</h2>
+        </mat-card-subtitle> 
+      </mat-card-header>
+      <div fxLayout.xs="column" fxLayoutGap="2%">
+      </div>
+      <div fxLayout.xs="column" fxLayoutGap="2%">
+        <mat-radio-group fxFlex="15" aria-required="true" [(ngModel)]="loanSearchType" name="loanTypes" fxLayoutGap="2%">
+          <mat-radio-button value="2" class="p-r" (change)="radioLoanIdChange($event)">Loan ID
+          </mat-radio-button>
+          <mat-radio-button value="1" class="p-r" (change)="radioAllChange($event)">All</mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field *ngIf='loanSearchType=="2"' fxFlex="10">
+          <input [disabled]='loanSearchType=="1"' myNumberOnly matInput placeholder="Enter Loan ID"
+            [(ngModel)]='loanId'>
+        </mat-form-field>
+        <mat-form-field fxFlex="30">
+          <mat-select [(ngModel)]="paymentModeSearchType" placeholder="Select Payment Mode" name="paymentModeSearchText"
+            #paymentModeSearchText="ngModel">
+            <mat-option *ngFor="let item of paymentModeList" value={{item.PaymentModeID}}>
+              {{item.PaymentMode}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex="30">
+          <input matInput [matDatepicker]="picker1" readonly [(ngModel)]="instrumentDate" name="instrumentDate"
+            placeholder="Instrument Date">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <button *ngIf='loanSearchType=="2"'
+          [disabled]='!loanId || loanSearchType=="1" ||  !paymentModeSearchType || !instrumentDate' mat-mini-fab
+          color="primary" class="mat-elevation-z12 box-button" (click)='GetLoanDetails()' color="primary">
+          <mat-icon>search</mat-icon>
+        </button>
+        <button *ngIf='loanSearchType=="1"' [disabled]='!paymentModeSearchType || !instrumentDate' mat-mini-fab
+          color="primary" class="mat-elevation-z12 box-button" (click)='GetChequeDetails()' color="primary">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+     
+        <div *ngIf='isVisible' class="example-container  overflow">
+          <table mat-table [dataSource]="loanDataSource2" class="mat-elevation-z8 width-1-1">
+
+            <ng-container matColumnDef="realisationStatus">
+              <th mat-header-cell mat-header-cell *matHeaderCellDef> Status
+                <mat-checkbox (change)="$event ? masterToggle(row) : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                  [(ngModel)]="selection.checked">
+                              </mat-checkbox>
+              </th>
+              <td mat-cell mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? findTotal(row) : null"
+                  [checked]="selection.isSelected(row)" [(ngModel)]="row.checked">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="loanId">
+              <th mat-header-cell *matHeaderCellDef> Loan Id </th>
+              <td mat-cell *matCellDef="let element"> {{element.loanId}} </td>
+            </ng-container>
+            <ng-container matColumnDef="customerName">
+              <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="instrumentRefNo">
+              <th mat-header-cell *matHeaderCellDef> Instrument Reference No </th>
+              <td mat-cell *matCellDef="let element"> {{element.instrumentRefNo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="interestAmount">
+              <th mat-header-cell *matHeaderCellDef> Interest Amount </th>
+              <td mat-cell *matCellDef="let element"> {{element.interestAmount}} </td>
+            </ng-container>
+            <ng-container matColumnDef="principle">
+              <th mat-header-cell *matHeaderCellDef> Principle </th>
+              <td mat-cell *matCellDef="let element"> {{element.principle}} </td>
+            </ng-container>
+            <ng-container matColumnDef="vapAmount">
+              <th mat-header-cell *matHeaderCellDef> VAP Amount </th>
+              <td mat-cell *matCellDef="let element"> {{element.vapAmount}} </td>
+            </ng-container>
+            <ng-container matColumnDef="otherCharges">
+              <th mat-header-cell *matHeaderCellDef> Other Charges </th>
+              <td *matCellDef="let element"> {{element.otherCharges}} </td>
+            </ng-container>
+            <ng-container matColumnDef="collectionId">
+              <th mat-header-cell *matHeaderCellDef> Collection Id </th>
+              <td mat-cell *matCellDef="let element"> {{element.collectionId}} </td>
+            </ng-container>
+            <ng-container matColumnDef="collectionAmount">
+              <th mat-header-cell *matHeaderCellDef> Collection Amount </th>
+              <td mat-cell *matCellDef="let element"> {{element.collectionAmount}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumn2"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumn2;" class="a_custom">
+            </tr>
+          </table>
+        </div>
+      
+      <div >
+        <mat-form-field fxFlex="20%" fxFlex.xs="100%">
+          <input matInput placeholder="Total" [(ngModel)]='totalNetAmount' name='totalNetAmount'>
+        </mat-form-field>
+      </div>
+   
+        <div  fxLayoutGap="2%" fxLayoutAlign="end" fxLayout.xs="column">
+          <button mat-raised-button color="primary" (click)='PostCleared()'
+            [disabled]="!totalNetAmount" id="confirm_btn">Cleared</button>
+          <button mat-raised-button color="primary" (click)='PostBounced()'
+            [disabled]="!totalNetAmount">Bounced</button>
+          <button mat-raised-button color="primary" (click)='Clear()' id="clear_btn">Clear</button>
+        </div>
+   
+    </mat-card>
+  </div>
+</div>

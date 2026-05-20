@@ -1,0 +1,204 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxLayout="column" fxFlex="100" class="flex-p">
+    <form #creditSchedule="ngForm">
+      <mat-card fxFlex="100%" fxLayout="column">
+        <div fxLayout="column" fxFlex="100%" *ngIf="dataInput['flag'] == 2"
+          [ngClass]="{ 'form-block' : dataInput['flag'] === 2}" class="disabled">
+          <mat-card-content fxLayout.xs="column" fxLayout="row" class="mat-content-margin" fxLayoutGap="2%"
+            fxFlex="100%">
+            <mat-form-field fxFlex="50%">
+              <input matInput placeholder="Proposal ID" name="Proposal_ID" [(ngModel)]="dataInput['proposalID']">
+            </mat-form-field>
+            <mat-form-field fxFlex="50%">
+              <input matInput placeholder="Customer name" name="CustomerName" [(ngModel)]="dataInput['customerName']">
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-content fxLayout.xs="column" fxLayout="row" class="mat-content-margin" fxLayoutGap="2%"
+            fxFlex="100%">
+            <mat-form-field fxFlex="50%">
+              <input matInput placeholder="Bureau Score" name="Bureau_Score" [(ngModel)]="dataInput['bureauScore']">
+            </mat-form-field>
+            <mat-form-field fxFlex="50%">
+              <input matInput placeholder="Bureau Agency" name="Bureau_Agency" [(ngModel)]="bureauAgencyName">
+            </mat-form-field>
+          </mat-card-content>
+        </div>
+        <div fxFlex='100%' fxLayout.xs='row' *ngIf="!!customerObject"
+          [ngClass]="{ 'form-block' : dataInput['flag'] === 2}" class="disabled" fxLayout='column'>
+          <h4>Primary Customer Details</h4>
+          <div fxLayout='row' fxLayout.xs='column' fxLayoutGap='2%' fxFlex='100%'>
+            <mat-form-field fxFlex="50%">
+              <input matInput placeholder="Customer Name" [(ngModel)]="dataInput['customerName']"
+                name="customerNameText">
+            </mat-form-field>
+            <mat-form-field fxFlex='50%'>
+              <input matInput placeholder="Gender" [(ngModel)]="customerObject['gender']" name="gendertext">
+            </mat-form-field>
+          </div>
+          <div fxLayout='row' fxLayout.xs='column' fxLayoutGap='2%' fxFlex="100">
+            <mat-form-field fxFlex="33.3">
+              <input matInput placeholder="House/Office Name" [(ngModel)]="customerObject['houseName']"
+                name="houseName">
+            </mat-form-field>
+            <mat-form-field fxFlex="33.3">
+              <input matInput placeholder="Locality" [(ngModel)]="customerObject['locality']" name="mAddressLine2">
+            </mat-form-field>
+            <mat-form-field fxFlex="33.3">
+              <input matInput placeholder="Street Name" [(ngModel)]="customerObject['streetName']" name="mAddressLine3">
+            </mat-form-field>
+          </div>
+          <div fxLayout='row' fxLayout.xs='column' fxLayoutGap='2%' fxFlex="100">
+            <mat-form-field fxFlex="33.3">
+              <input matInput placeholder="City" [(ngModel)]="customerObject['city']" name="mCity">
+            </mat-form-field>
+            <mat-form-field fxFlex="33.3">
+              <input matInput placeholder="Post Office" [(ngModel)]="customerObject['postOffice']" name="PostOffice">
+            </mat-form-field>
+            <mat-form-field fxFlex="33.3">
+              <input matInput placeholder="District" [(ngModel)]="customerObject['districtName']" name="mDistricts">
+            </mat-form-field>
+          </div>
+          <div fxLayout='row' fxLayout.xs='column' fxLayoutGap='2%' fxFlex="100">
+            <mat-form-field fxFlex="33.3">
+              <input matInput placeholder="Pincode" [(ngModel)]="customerObject['pincode']" name="mPIN">
+            </mat-form-field>
+            <mat-form-field fxFlex="33.3">
+              <input matInput placeholder="State" [(ngModel)]="customerObject['stateName']" name="mStates">
+            </mat-form-field>
+            <mat-form-field fxFlex="33.3">
+              <input matInput [(ngModel)]="customerObject['countryName']" placeholder="Country" name="Country">
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayout.xs='column' fxLayoutGap="2%" fxFlex="100%">
+            <mat-form-field fxFlex="50%">
+              <input matInput placeholder="Mobile No" [(ngModel)]="customerObject['mobilePhone']" name="mobileNoText"
+                #mobileNoText="ngModel" required readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="50%">
+              <input matInput placeholder="DOB" [(ngModel)]="customerObject['dob']" name="custDOBext">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxFlex='100%' [ngClass]="{ 'form-block' : dataInput['flag'] === 2}" fxLayout.xs='row' fxLayout='column'>
+          <h4>Nominee Detail</h4>
+          <form #nomineeForm="ngForm" fxLayout="column" novalidate>
+            <div fxLayout='row' fxLayout.xs='column' fxLayOutGap='2%' fxFlex='100%' fxLayoutGap='2%'>
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Nominee Name" [(ngModel)]="nomineeName" name="nomineeNameText"
+                  #nomineeNameText="ngModel" required>
+              </mat-form-field>
+              <mat-form-field fxFlex="50%">
+                <mat-select placeholder="Select gender" [(ngModel)]="nomineeGender" name="nomineeGenderText"
+                  #nomineeGenderText="ngModel" required>
+                  <mat-option value="M">Male</mat-option>
+                  <mat-option value="F">Female</mat-option>
+                  <mat-option value="O">Others</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout='row' fxLayout.xs='column' fxLayOutGap='2%' fxFlex='100%' fxLayoutGap='2%'>
+              <mat-form-field fxFlex="50%">
+                <input matInput readonly [matDatepicker]="picker3" required placeholder="DOB" [(ngModel)]="nomineeBDate"
+                  name="Meeting_Date" (ngModelChange)="getAgeOfominee()" required>
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker style="width:150px;" #picker3></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field fxFlex="50%">
+                <mat-select placeholder="Select RelationShip" [(ngModel)]="nomineeRelationShip"
+                  name="nomineeRelationShipText" #nomineeRelationShipText="ngModel" required>
+                  <mat-option *ngFor="let option of RelationShipList" value="{{option.CommonDataName}}">
+                    {{option.Description}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout.xs='column' fxLayout='row' fxLayoutGap='2%' fxFlex="100%" *ngIf="guardianFlag">
+              <mat-form-field fxFlex='50%'>
+                <input matInput placeholder="Gaurdian Name" [(ngModel)]="gaurdianName" name="gaurdianNameText"
+                  #gaurdianNameText="ngModel" [required]="guardianFlag" pattern="[a-zA-z\s]+$">
+                <mat-error *ngIf="gaurdianNameText.errors?.required">Gaurdian Name is required</mat-error>
+                <mat-error *ngIf="gaurdianNameText.errors?.pattern">Enter the valid Name</mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="50%">
+                <input matInput readonly [matDatepicker]="picker4" [min]="maxDate" required placeholder="DOB"
+                  [(ngModel)]="GaurdianBDate" name="dob_Date" [required]="guardianFlag" #dob_Date="ngModel">
+                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                <mat-datepicker style="width:150px;" #picker4></mat-datepicker>
+                <mat-error *ngIf="dob_Date.errors?.required">Gaurdian DOB is required is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs='column' fxFlex='100%' fxLayoutGap="2%" *ngIf="guardianFlag">
+              <mat-form-field fxFlex="50%">
+                <mat-select placeholder="select Relationship" [(ngModel)]="GaurdianRelationShip"
+                  name="GaurdianRelationShipText" #GaurdianRelationShipText="ngModel" [required]="guardianFlag">
+                  <mat-option *ngFor="let option of RelationShipList" value="{{option.CommonDataName}}">
+                    {{option.Description}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="GaurdianRelationShipText.errors?.required">please Mention the Guardian RelationShip
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Mobile No" [(ngModel)]="GaurdianMobileNo" name="GaurdianMobileNoText"
+                  #GaurdianMobileNoText="ngModel" [required]="guardianFlag" pattern="[0-9]{10,13}" maxlength="13">
+                <mat-error *ngIf="GaurdianMobileNoText.errors?.required">Mobile No is required</mat-error>
+                <mat-error *ngIf="GaurdianMobileNoText.errors?.pattern">Enter the Valid Mobile Num</mat-error>
+              </mat-form-field>
+            </div>
+
+          </form>
+        </div>
+        <div fxFlex='100%' fxLayout.xs='row' [ngClass]="{ 'form-block' : dataInput['flag'] === 2}" fxLayout='column'>
+          <h4>Insurance Detail</h4>
+          <form #insuranceForm="ngForm" fxLayout="column" novalidate>
+            <div fxLayout="row" fxLayout.xs='column'  fxFlex='100%' fxLayoutGap="2%" class="disabled">
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Sum Assured Amount" [(ngModel)]="dataInput['loanamount']" name="amountText" #amountText="ngModel">
+              </mat-form-field>
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Sum Assured Tenure" [(ngModel)]="dataInput['tenure']" name="tenureText">
+              </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayout.xs='column' fxFlex='100%' fxLayoutGap="2%">
+              <mat-form-field fxFlex="50%">
+                <mat-select placeholder="Select Insurance Agency" [(ngModel)]="agency" name="agencyText"
+                  #agencyText="ngModel" required>
+                  <mat-option *ngFor="let option of AgencyList" value="{{option.id}}">{{option.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="agencyText.errors?.required">Agency is Required</mat-error>
+              </mat-form-field>
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Premium Amount" [(ngModel)]="premiumAmount" name="premiumAmountText"
+                  #premiumAmountText="ngModel" (blur)="validatePremiumAmount()" required numbersOnly maxlength="8">
+                <mat-error *ngIf="premiumAmountText.errors?.required">Premium Amount is Required</mat-error>
+                <mat-error *ngIf="premiumAmountText.value > amountText.value">Premium Amount should not be Greater than
+                  Premium Amount</mat-error>
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
+        <div style="margin-top: 20px" *ngIf="dataInput['flag'] == 1">
+          <div fxLayoutGap="2%" fxFlex="15% auto" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end">
+            <button mat-raised-button type="button" class="mat-elevation-z12 box-button" color="primary"
+              (click)="save(creditSchedule)">Confirm</button>
+            <button mat-raised-button class="mat-elevation-z12 box-button" type="button" color="primary">Clear</button>
+          </div>
+        </div>
+        <mat-card-content fxLayout="column" fxFlex="100%" class="mat-content-margin" fxLayoutAlign="end"
+          *ngIf="dataInput['flag'] == 2">
+          <mat-card-actions fxLayout="column" fxLayoutGap="2%" fxLayoutAlign="end">
+            <div fxLayoutGap="2%" fxFlex="15% auto" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end">
+              <button mat-raised-button class="mat-elevation-z12 box-button" type="button"
+                (click)="creditShieldSubmit(insuranceForm,0)" color="primary">Back</button>
+              <button mat-raised-button class="mat-elevation-z12 box-button" type="button"
+                [disabled]="!insuranceForm.valid||!nomineeForm.valid" (click)="creditShieldSubmit(insuranceForm,1)"
+                color="primary">Next</button>
+            </div>
+          </mat-card-actions>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+</div>

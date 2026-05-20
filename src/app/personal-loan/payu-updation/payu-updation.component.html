@@ -1,0 +1,67 @@
+<div fxLayout="column" class="flex-p">
+  <mat-card>
+    <mat-card-content>
+      <div fxLayoutGap="3%" fxLayout.xs="column">
+        <div fxFlex="50%">
+          <h3 class="flex-p py-1">PayU Updation</h3>
+        </div>
+      </div>
+      <div class="flex-p">
+        <div fxLayout="column" class="form-block">
+          <div fxFlex="100%" fxLayoutGap="5%">
+            <form #payUSearchForm="ngForm">
+              <mat-form-field fxFlex="40%">
+                <input matInput placeholder="Transaction No" name="transactionNumber" [(ngModel)]="transactionNumber"
+                  required #transactionNumberText="ngModel" numbersOnly maxlength="25" [readonly]="tn_readonly" >
+                <mat-error *ngIf="transactionNumberText.errors?.required">Transaction number is required</mat-error>
+              </mat-form-field>
+              <mat-form-field fxFlex="40%" fxLayoutGap="2%" class="align">
+                <input  matInput placeholder="Amount" name="searchAmount" pattern="^[0-9]\d{0,9}(\.\d{1,2})?%?$" [(ngModel)]="searchAmount" required
+                  #amountText="ngModel" [readonly]="ta_readonly" >
+                <mat-error *ngIf="amountText.errors?.required">Transaction amount is required</mat-error>
+                <mat-error *ngIf="amountText.errors?.pattern">Enter a valid transaction amount</mat-error>
+              </mat-form-field>
+            
+            <div fxFlex="20%" fxLayoutAlign="end">
+              <button mat-raised-button color="primary" type="button" (click)="getPayuDetails(payUSearchForm,payUForm)"
+                [disabled]="payUSearchForm.invalid" class="mat-elevation-z12 box-button">Search</button>
+            </div>
+          </form>
+          </div>
+        </div>
+
+        <form #payUForm="ngForm">
+          <div class="form-block">
+            <div fxLayoutGap="5%">
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Loan ID" name="loanId" [(ngModel)]="loanId" readonly>
+
+              </mat-form-field>
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Amount" name="transAmount" [(ngModel)]="transAmount" readonly>
+              </mat-form-field>
+
+            </div>
+            <div fxLayoutGap="5%">
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Customer Name" name="customerName" [(ngModel)]="customerName" readonly
+                  >
+              </mat-form-field>
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Date" name="dateOfTxn" [(ngModel)]="dateOfTxn" readonly>
+              </mat-form-field>
+
+            </div>
+
+            <div fxLayoutGap="2%" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+              <button mat-raised-button color="primary" class="mat-elevation-z12 box-button btn-class" [disabled]="payUForm.invalid"
+                (click)="confirm(payUForm,payUSearchForm)">Confirm</button>
+              <button mat-raised-button color="primary" class="mat-elevation-z12 box-button btn-class"
+              (click)="clear(payUForm,payUSearchForm)">Clear</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

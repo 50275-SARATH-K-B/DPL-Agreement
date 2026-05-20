@@ -1,0 +1,73 @@
+<mat-card>
+  <div class="head">
+    <h3>CHARGE UPLOAD</h3>
+  </div>
+  <h2 class="h2-head">
+    <mat-icon class="home-icon" routerLink="/home">home</mat-icon>Home/Charge Upload
+  </h2>
+  <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%">
+    <mat-form-field appearance="outline" fxFlex="25%">
+        <mat-label>Value Date</mat-label>
+        <input matInput [matDatepicker]="picker" autocomplete="off" [(ngModel)]="value_date"
+        #DateText="ngModel" name="vdate" [max]="datesdata" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="DateText.errors?.required">Date is required</mat-error>
+        </mat-form-field>
+        <div fxFlex="25%"></div>
+        <div fxFlex="25%"></div>
+        <div fxFlex="25%"></div>
+    </div> -->
+  <div fxLayout="column" fxLayoutGap="2%">
+    <div fxFlex="100%" fxLayoutGap="2%">
+      <div fxFlex="30%">
+        <button mat-raised-button class="mat-elevation-z12" (click)="exportexcel('tableWithHeader')"
+          color="primary">Download Format</button>
+      </div>
+      <div fxFlex="60%" fxLayoutAlign="end">
+        <div fxLayout.xs="column" fxLayoutGap=2% fxLayoutAlign="end">
+          <input style="visibility: hidden;" type='file'
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" (change)="onSelectFile($event)"
+            #document>
+          <button mat-raised-button color="primary" (click)="document.click()"
+            class="mat-elevation-z12 box-button swing">
+            Upload EXCEL </button>
+        </div>
+      </div>
+    </div>
+    <div fxFlex="100%" style="visibility: hidden;">
+      <table class="table table-bordered" id="tableWithHeader">
+        <thead>
+          <tr>
+            <th>Record_number</th>
+            <th>Customer_id</th>
+            <th>Loan_number</th>
+            <th>ledger_id</th>
+            <th>transaction_type</th>
+            <th>Rec_Pay_amt</th>
+            <th>Business_Partner</th>
+            <th>Rec_Pay_chargecode</th>
+            <th>Rec_Pay_date</th>
+            <th>Remark</th>
+            <th>Reason</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</mat-card>

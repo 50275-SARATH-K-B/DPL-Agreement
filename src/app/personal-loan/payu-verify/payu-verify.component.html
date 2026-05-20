@@ -1,0 +1,93 @@
+<div fxLayout="column" class="flex-p">
+  <mat-card>
+    <mat-card-content>
+      <div fxLayoutGap="3%" fxLayout.xs="column">
+        <div fxFlex="50%">
+          <h3 class="flex-p py-1">PayU Verification</h3>
+        </div>
+      </div>
+      <div class="flex-p">
+        <div fxLayout="column" class="form-block">
+          <div fxFlex="100%" fxLayoutGap="5%">
+            <form #payUSearchForm="ngForm">
+              <mat-form-field fxFlex="24%">
+                <mat-select [(ngModel)]="accountListType" placeholder="Loan ID" (ngModelChange)="onChangeAction($event)"
+                  name="accountListTypeText" #accountListTypeText="ngModel" required>
+                  <mat-option *ngFor="let item of accountList" value={{item.LoanID}}>
+                    {{item.CustomerNameWithLoanID}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            
+            <div fxFlex="20%" fxLayoutAlign="end">
+              <button mat-raised-button color="primary" type="button" (click)="getPayuDetails(payUSearchForm,payUForm)"
+                [disabled]="payUSearchForm.invalid" class="mat-elevation-z12 box-button">Search</button>
+            </div>
+          </form>
+          </div>
+
+
+        </div>
+
+        <form #payUForm="ngForm">
+          <div class="form-block">
+            <div fxLayoutGap="5%">
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Loan ID" name="loanId" [(ngModel)]="loanId" readonly>
+
+              </mat-form-field>
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Transaction ID" name="transID" [(ngModel)]="transid" readonly>
+              </mat-form-field>
+
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Amount" name="transAmount" [(ngModel)]="transAmount" readonly>
+              </mat-form-field>
+
+            </div>
+            <div fxLayoutGap="5%">
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Customer Name" name="customerName" [(ngModel)]="customerName" readonly
+                  >
+              </mat-form-field>
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Date" name="dateOfTxn" [(ngModel)]="dateOfTxn" readonly>
+              </mat-form-field>
+
+            </div>
+
+            
+        <div fxLayout="row" style="margin-top: 10px;" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="center"
+        >
+        <!-- <div fxFlex=80% fxLayout.xs="row" fxLayoutGap="3%"> -->
+
+          <mat-form-field class="field_lengths" appearance="outline">
+            <mat-label>Maker EmpCode</mat-label>
+            <input matInput readonly  [(ngModel)]="requesteD_BY" name="requesteD_BY">
+          </mat-form-field>
+
+          <mat-form-field class="field_lengths" appearance="outline">
+            <mat-label>Maker Name</mat-label>
+            <input matInput readonly  [(ngModel)]="requesteD_NAME" name="requesteD_NAME">
+          </mat-form-field>
+
+
+        <!-- </div> -->
+      </div>
+
+            <div fxLayoutGap="2%" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+              <!-- <button mat-raised-button color="primary" class="mat-elevation-z12 box-button"
+                [disabled]="!payUForm.valid" [ngStyle]="{'height':'40px'}" (click)="confirm(payUForm)">Confirm</button> -->
+                <button mat-raised-button color="primary" class="mat-elevation-z12 box-button btn-class" 
+                (click)="rejects(payUForm,payUSearchForm)">Reject</button>
+              <button mat-raised-button color="primary" class="mat-elevation-z12 box-button btn-class" [disabled]="payUForm.invalid"
+                (click)="confirm(payUForm,payUSearchForm)">Confirm</button>
+              <button mat-raised-button color="primary" class="mat-elevation-z12 box-button btn-class"
+              (click)="clear(payUForm,payUSearchForm)">Clear</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

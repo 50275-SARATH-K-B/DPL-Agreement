@@ -1,0 +1,272 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/Allocation Priority
+UI created by : Niphy Anto
+Date : 30/11/2018
+Assets : 
+view-allocation-priority.component.html
+view-allocation-priority.component.scss
+view-allocation-priority.component.ts
+
+Functionally Coded by : 
+Date : 
+
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+
+<div fxLayout="row" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100%" class="flex-p">
+    <mat-card fxFlex="100%" fxLayout="row" fxLayout.xs="column">
+      <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="5%" fxFlex="80%">
+        <h2>Installment Schedule/Account Statement Reports</h2>
+      </mat-card-content> 
+      <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="20%" fxFlex.xs="100%"
+        fxLayoutAlign="end"> 
+        <div fxLayoutGap="2%" fxFlex="100%" fxLayout="row" style="text-align: center;" fxLayoutAlign="end">
+          <button mat-raised-button fxFlex="100%" class="mat-elevation-z12 box-button addLoan" color="primary"
+            (click)="convert()" type="button">Generate PDF</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100%" class="flex-p">
+    <mat-card fxFlex="100%" fxLayout="column" id="contentToConvert">
+      <form #reportForm="ngForm" id="customerDetails" class="form-report">
+        <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="5%">
+          <mat-form-field fxFlex="33.33%">
+            <mat-select placeholder="Select Type" (selectionChange)="onTypeChange(field['type'])" name="type" required
+              #typeText="ngModel" [(ngModel)]="field['type']" required>
+              <mat-option value="accountStatement">Account Statement</mat-option>
+              <mat-option value="installmentSchedule">Installment Schedule</mat-option>
+            </mat-select>
+            <mat-error *ngIf="typeText.errors?.required">Type is required</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="33.33%">
+            <input matInput placeholder="Loan No" pattern="^[0-9]*$" numbersOnly autocomplete="off"
+              #loanNoText="ngModel" name="loanNo" [(ngModel)]="field['loanNo']" required>
+            <mat-error *ngIf="loanNoText.errors?.required">Loan number is required</mat-error>
+            <mat-error *ngIf="loanNoText.errors?.pattern">Please enter valid loan number</mat-error>
+
+          </mat-form-field>
+          <mat-form-field fxFlex="33.33%"
+            *ngIf="field['type']!==null&&field['type']!==''&&field['type']=='accountStatement'">
+            <!-- <input matInput placeholder="Account No" pattern="^[0-9]*$" numbersOnly autocomplete="off"
+              #accountText="ngModel" maxlength="5" name="accountNo" [(ngModel)]="field['accountNo']" required>
+            <mat-error *ngIf="accountText.errors?.required">Account number is required</mat-error>
+            <mat-error *ngIf="accountText.errors?.pattern">Please enter valid account number</mat-error> -->
+            <mat-select placeholder="Account No"
+            #accountText="ngModel" name="accountNo" [(ngModel)]="field['accountNo']" required>
+            <mat-option  value="37220">Loan Account</mat-option>
+            <mat-option  value="37221">Debtors Account </mat-option>
+          </mat-select>
+          <mat-error *ngIf="accountText.errors?.required">Account number is required</mat-error>
+          </mat-form-field>
+          <mat-card-actions fxLayoutAlign="end" fxLayout="column"
+            *ngIf="field['type']==null||field['type']==''||field['type']!='accountStatement'">
+            <div fxLayoutGap="2%" fxFlex="15% auto" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end">
+              <button mat-raised-button class="mat-elevation-z12 box-button" color="primary"
+                (click)="search(reportForm)" [disabled]="!reportForm.valid">Proceed</button>
+            </div>
+          </mat-card-actions>
+        </mat-card-content>
+        <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="5%"
+          *ngIf="field['type']!==null&&field['type']!==''&&field['type']=='accountStatement'">
+          <mat-form-field fxFlex="30%">
+            <input matInput [matDatepicker]="picker1" readonly autocomplete="off" [(ngModel)]="field['from_date']"
+              placeholder="From Date" name="fromDate" (ngModelChange)="onFromDateChange()" #FromDateText="ngModel"
+              required>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+            <mat-error *ngIf="FromDateText.errors?.required">Please enter a valid date</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="30%"
+            [class.disabled]="!field['from_date']||field['from_date']==null||field['from_date']==''">
+            <input matInput [matDatepicker]="picker2" readonly autocomplete="off" [(ngModel)]="field['to_date']"
+              placeholder="To Date" name="toDate" [min]="minDate" #ToDateText="ngModel" required>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+            <mat-error *ngIf="ToDateText.errors?.required">Please enter a valid date</mat-error>
+          </mat-form-field>
+          <mat-card-actions fxLayoutAlign="end" fxLayout="column">
+            <div fxLayoutGap="2%" fxFlex="15% auto" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end">
+              <button mat-raised-button class="mat-elevation-z12 box-button" color="primary"
+                (click)="search(reportForm)" [disabled]="!reportForm.valid">Proceed</button>
+            </div>
+          </mat-card-actions>
+        </mat-card-content>
+      </form>
+      <br><br>
+
+      <!--Customer Details Addded -->
+      <div class="flex-p" *ngIf="!!customerDetails" fxLayoutAlign="center"
+        style="overflow: scroll;-ms-overflow-style: scrollbar">
+        <table fxFlex="100%" fxLayoutGap="10%" id="customerDetails1" fxFlexOffset.xs="100px">
+         
+          <tr>
+            <th fxLayoutAlign="left">Customer ID</th>
+            <td>:</td>
+            <td>{{customerDetails['CustID']}}</td>
+            <th>Loan No</th>
+            <td>:</td>
+            <td>{{field['loanNo']}}</td>
+            <th></th>
+
+            <th fxLayoutAlign="left">Type of Loan</th>
+            <td>:</td>
+            <td>Digital Personal Loan</td>
+          </tr>
+          <tr>
+              <th fxLayoutAlign="left">Customer Name </th>
+              <td>:</td>
+              <td>{{customerDetails['Name']}}</td>
+          
+            <th>Loan Date</th>
+            <td>:</td>
+            <td style="padding: 0px;">{{customerDetails['LoanDate'] | date:'dd/MM/yyyy' }}</td>
+            <th></th>
+
+            <th fxLayoutAlign="left">Interest Rate</th>
+            <td>:</td>
+            <td>{{customerDetails['InterestRate']}}%</td>
+          </tr>
+          <tr>
+              <th fxLayoutAlign="left">Customer Address </th>
+              <td>:</td>
+              <td>{{this.custAddress1}},</td>
+            <th>Amount</th>
+            <td>:</td>
+            <td>{{customerDetails['LoanAmount'] | number:'.2-2' }}</td>
+          </tr>
+          <tr>
+              <th></th>
+              <td></td>
+              <td>{{this.custAddress2}}-{{this.custAddress3}}</td>
+              
+              
+          </tr>
+          <tr>
+            <th fxLayoutAlign="left">Loan Tenure :</th>
+            <td>:</td>
+      <td>{{loantenure}}</td>
+      <th fxLayoutAlign="left">Total Installments :</th>
+      <td>:</td>
+      <td>{{totalinstallments}}</td>
+      <th></th>
+
+      <th fxLayoutAlign="left">Installments Paid :</th>
+      <td>:</td>
+      <td>{{installmentpaid}}</td>
+          </tr>
+          <tr>
+           
+      
+      <th fxLayoutAlign="left">Unpaid Installments :</th>
+            <td>:</td>
+      <td>{{unpaid}}</td>
+      <th fxLayoutAlign="left">NPA Category</th>
+      <td>:</td>
+      <td>{{npa_category}}</td>
+      <th></th>
+
+      <th fxLayoutAlign="left">Accounting Classification</th>
+      <td>:</td>
+      <td>{{accounting_classification}}</td>
+          </tr>
+          
+          <tr>
+            <th fxLayoutAlign="left">NPA Date</th>
+            <td>:</td>
+            <td>{{npa_date }}</td>
+            <th fxLayoutAlign="left">NPA Release Date</th>
+            <td>:</td>
+            <td>{{npa_release_date}}</td>
+          </tr>
+          <tr>
+
+
+              <th>Date :{{myDate | date:'dd-MM-yyyy'}}</th>
+              <th></th>
+              <th></th>
+
+              <th colspan ="3"  fxLayoutAlign="center" style="text-transform: uppercase;">{{(field['accountNo']=="37220"?"Loan Account":field['accountNo']=="37221"?"Debtors Account":field['type']=="installmentSchedule"?"Installment Schedule":"")}} {{(field['type']=="installmentSchedule"?"":"from")}} {{  format_FromDt }} {{(field['type']=="installmentSchedule"?"":"to")}} {{formatToDt }}</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th>Time:{{time | date:'hh:mm a'}}</th>
+
+          </tr>
+          
+          <tr>
+            <th></th>
+            <td></td>
+            <th fxLayoutAlign="left"></th>
+            <td></td>
+          </tr>
+          <tr>
+            <th></th>
+            <td></td>
+            <th fxLayoutAlign="left"></th>
+            <td></td>
+
+          </tr>
+     
+
+        </table>
+      </div>
+      <!-- Customer Details Addded ends -->
+
+      <div fxLayoutAlign="center" ngStyle.xs='margin-left:300px'
+        *ngIf="accountStatementList.length>0">
+        <table fxFlex="100%" id="accountStatement">
+          <tr>
+            <th> Trans.Date</th>
+            <th>TransID</th>
+
+            <th>Description</th>
+            <th style="text-align: right;">Debit</th>
+            <th style="text-align: right;">Credit</th>
+            <th style="text-align: right;">Balance</th>
+          </tr>
+          <tr *ngFor="let option of accountStatementList">
+            <td>{{option.Tradt }}</td>
+            <td>{{option.Transid}}</td>
+            <td>{{option.Descr}}</td>
+            <td style="text-align: right;" id="col1">{{option.Debit }}</td>
+            <td style="text-align: right;" id="col2">{{option.Credit }}</td>
+            <td style="text-align: right;" id="col3">{{(0>+option.Balance)?option.Balance*(-1)+(' CR'):option.Balance+(' DB') }}</td>
+          </tr>
+        </table>
+      </div>
+      <div fxLayoutAlign="center" ngStyle.xs='margin-left:300px'
+        *ngIf="installmentScheduleList.length>0">
+        <table  fxFlex="100%" id="installmentSchedule">
+          <tr>
+            <th >Installment No</th>
+            <th >Due Date</th>
+            <th >Installment Amount</th>
+            <!-- <th>Opening Balance</th> -->
+            <th>Principal Amount</th>
+            <th>Interest Amount</th>
+            <!-- <th>Closing Balance</th> -->
+          </tr>
+          <tr *ngFor="let option of installmentScheduleList">
+            <td >{{option.InstallmentNo}}</td>
+            <td >{{option.DueDate}}</td>
+            <td >{{option.InstallmentAmount}}</td>
+            <!-- <td>{{option.OpeningBalance}}</td> -->
+            <td>{{option.PrincipalAmount}}</td>
+            <td>{{option.InterestAmount}}</td>
+            <!-- <td>{{option.ClosingBalance}}</td> -->
+          </tr>
+        </table>
+      </div>
+      <br />
+    </mat-card>
+  </div>
+</div>

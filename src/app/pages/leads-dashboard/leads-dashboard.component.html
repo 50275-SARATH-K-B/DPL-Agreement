@@ -1,0 +1,72 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/Allocation Priority
+UI created by : Niphy Anto
+Date : 30/11/2018
+Assets :
+view-allocation-priority.component.html
+view-allocation-priority.component.scss
+view-allocation-priority.component.ts
+
+Functionally Coded by : 
+Date : 
+
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+<div class="flex-p">
+<mat-card>
+  <mat-card-content>
+    <div fxLayout="column" >
+
+        <h2>Lead Dashboard</h2>
+
+      <div fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+        <mat-form-field fxFlex="50%" fxFlex.xs="90%">
+          <input matInput autocomplete="off" placeholder="Search here..." type="text" [(ngModel)]="filter"
+            name="filter">
+        </mat-form-field>
+
+        <button  matTooltip="Search" class="mat-elevation-z12 box-button" type="button"
+          color="primary" (click)="filterSource()" mat-mini-fab>
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+
+      <div style="overflow:scroll;-ms-overflow-style: -ms-autohiding-scrollbar" >
+        <table mat-table [dataSource]="dataSource" matSort  width="100%">
+          <ng-container matColumnDef="leadId">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef> Lead Id </th>
+            <td mat-cell *matCellDef="let element"><a routerLinkActive="active" [routerLink]="['/lead/follow-up', {leadId:+element.leadId}]">
+                {{element.leadId}}</a> </td>
+          </ng-container>
+          <ng-container matColumnDef="customerName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header > Customer </th>
+            <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="contactPhoneNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header > Contact No. </th>
+            <td mat-cell *matCellDef="let element">
+              <p x-ms-format-detection="none"> {{element.contactPhoneNo}}</p>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="leadByName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header > Lead By</th>
+            <td mat-cell *matCellDef="let element"> {{element.leadByName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="leadStatusDescr">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header >Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.leadStatusDescr}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"[ngClass]="{hovered: row.hovered}" (mouseover)="row.hovered = true"
+          (mouseout)="row.hovered = false"></tr>
+        </table>
+        <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+      </div>
+ 
+    </div>
+  </mat-card-content>
+</mat-card>
+</div>

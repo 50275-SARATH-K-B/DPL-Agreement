@@ -1,0 +1,14 @@
+.form-block {
+    display: block !important;
+   
+    box-shadow: -1px 0px 4px 0px #888888;
+    margin-bottom: 16px;
+    border-radius: 5px;
+  
+    padding: 10px 14px 10px 14px;
+  }
+  .long-value-input {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }

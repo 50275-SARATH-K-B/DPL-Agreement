@@ -1,0 +1,103 @@
+<div class="flex-p">
+  <mat-card>
+    <div class="head">
+      <h3>Death Account Status</h3>
+    </div>
+
+    <div fxLayout.xs="column" fxLayout="row" class="flex-p" style="margin-top: 50px;" fxLayoutAlign="center center"
+      fxLayoutGap="5%">
+      <div fxFlex="100" fxLayoutGap="3%" fxLayout.xs="column" id="mg">
+        <div fxFlex="100" fxLayoutGap="3%" style="margin-left:20px" fxLayoutAlign="center center">
+          
+          <mat-form-field fxFlex="33.33" >
+            <mat-label>Loan ID</mat-label>
+            <input matInput [(ngModel)]="enterID" name="enterid" autocomplete="off" readonly>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="33.33" >
+            <mat-label>Current Loan Status</mat-label>
+            <input matInput [(ngModel)]="status" name="loanStatus" autocomplete="off" readonly>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="33.33" >
+            <mat-label>Customer ID</mat-label>
+            <input matInput [(ngModel)]="custId" name="cust_id" autocomplete="off" readonly>
+          </mat-form-field>
+
+        </div>
+      </div>
+    </div>
+      <div fxLayout.xs="column" fxLayout="row" class="flex-p" style="margin-top: 50px;" fxLayoutAlign="center center"
+        fxLayoutGap="5%">
+        <div fxFlex="100" fxLayoutGap="3%" fxLayout.xs="column" id="mg">
+          <div fxFlex="100" fxLayoutGap="3%" style="margin-left:20px" fxLayoutAlign="center center">
+          
+          <mat-form-field fxFlex="33.33" >
+            <mat-label>Customer Name</mat-label>
+            <input matInput [(ngModel)]="custName" name="cust_name" autocomplete="off" readonly>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="33.33" >
+            <mat-label>Death Date</mat-label>
+            <input matInput [(ngModel)]="deathDate" name="death_date" autocomplete="off" readonly>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="33.33" >
+            <mat-label>Loan Amount</mat-label>
+            <input matInput [(ngModel)]="loanAmnt" name="loan_amt" autocomplete="off" readonly>
+          </mat-form-field>
+
+        </div>
+      </div>
+      </div>
+
+      <div fxLayout.xs="column" fxLayout="row" class="flex-p" style="margin-top: 50px;" fxLayoutAlign="center center"
+      fxLayoutGap="5%">
+      <div fxFlex="100" fxLayoutGap="3%" fxLayout.xs="column" id="mg">
+        <div fxFlex="100" fxLayoutGap="3%" style="margin-left:20px" fxLayoutAlign="center center">
+          
+          <mat-form-field fxFlex="33.33" >
+            <mat-label>Requested Date</mat-label>
+            <input matInput [(ngModel)]="reqDate" name="req_date" autocomplete="off" readonly>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="33.33" >
+            <mat-label>Requested Employee</mat-label>
+            <input matInput [(ngModel)]="reqEmp" name="req_emp" autocomplete="off" readonly>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="33.33" >
+            <mat-label>Settlement Amount</mat-label>
+            <input matInput [(ngModel)]="settlementAmnt" name="settlement_amt" autocomplete="off" readonly>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+  <div fxLayout.xs="column" fxLayout="row" class="flex-p" style="margin-top: 50px;" fxLayoutAlign="center center"
+    fxLayoutGap="5%">
+    <div fxFlex="100" fxLayoutGap="3%" fxLayout.xs="column" id="mg">
+      <div fxFlex="100" fxLayoutGap="3%" style="margin-left:20px" fxLayoutAlign="center center">
+        <mat-label>Death Certificate</mat-label>   
+        <a mat-icon-button type="button"  color="primary">
+          <mat-icon (click)="DeathCertificateView()">visibility</mat-icon>
+        </a>
+        <mat-label>Legal Document</mat-label>  
+        <a mat-icon-button type="button"  color="primary">
+          <mat-icon (click)="LegalCertificateView()">visibility</mat-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+
+   <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="end" style="margin-top: 30px;">
+    <div fxLayoutGap="3%" fxFlex="30" fxLayout.xs="row">
+      <button mat-button style="color:rgb(39, 195, 238)" class="false mat-elevation-z12" (click)="back()">Back</button>
+      <button mat-button style="color:rgb(85, 237, 118)" class="true mat-elevation-z12" (click)="approve()"
+      [disabled]="!enterID || !status || !custId || !custName || !deathDate || !loanAmnt || !reqDate || !reqEmp" >Approve</button>
+      <button mat-button color="warn" class="false mat-elevation-z12" (click)="reject()">Reject</button>
+    </div>
+  </div>
+
+</mat-card>
+</div>

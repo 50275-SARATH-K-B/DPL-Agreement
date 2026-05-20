@@ -1,0 +1,80 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/Allocation Priority
+UI created by : Niphy Anto
+Date : 30/11/2018
+Assets :
+view-allocation-priority.component.html
+view-allocation-priority.component.scss
+view-allocation-priority.component.ts
+
+Functionally Coded by : 
+Date : 
+
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+
+
+<div class="flex-p" fxLayout="column">
+  <!-- <mat-card>
+    <mat-card-content>
+    
+    </mat-card-content>
+  </mat-card> -->
+
+  <mat-card>
+    <mat-card-content fxLayout="column">
+      <h2>Customer Loan Details</h2>
+
+      <div class="form-block">
+        <div style="overflow: scroll;-ms-overflow-style: scrollbar;">
+          <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="branchID">
+              <th mat-header-cell *matHeaderCellDef> Branch ID </th>
+              <td mat-cell *matCellDef="let element">{{element.BranchID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="CustID">
+              <th mat-header-cell *matHeaderCellDef>Customer ID </th>
+              <td mat-cell *matCellDef="let element"> {{element.CustomerID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="custName">
+              <th mat-header-cell *matHeaderCellDef> Customer Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.CustomerName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="approvedAmount">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">Max. Approved Amount </th>
+              <td mat-cell *matCellDef="let element" style="text-align: right;padding-right: 12px;">
+                {{element.MaxPreApprovedAmt| number:'.2-2'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="tenure">
+              <th mat-header-cell *matHeaderCellDef>Max. Tenure </th>
+              <td mat-cell *matCellDef="let element"> {{element.MaxTenure}} </td>
+            </ng-container>
+            <ng-container matColumnDef="roi">
+              <th mat-header-cell *matHeaderCellDef>Max. ROI </th>
+              <td mat-cell *matCellDef="let element"> {{element.MaxROI}} </td>
+            </ng-container>
+            <ng-container matColumnDef="LoanAmount">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">Loan Amount </th>
+              <td mat-cell *matCellDef="let element" style="text-align: right;padding-right: 12px;">
+                {{element.LoanAmount| number:'.2-2'}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <div fxLayoutAlign.xs="center" fxLayoutGap="2%" fxFlex="99%">
+    <mat-card-actions fxFlex.xs="auto" fxFlex="100%">
+      <div fxFlex="100%" fxLayout="row" fxLayout.xs="column" fxFlex.xs="auto" fxLayoutAlign="end">
+        <button mat-raised-button class="mat-elevation-z12 box-button" color="primary" mat-dialog-close
+          class="btd-close">Close</button>
+      </div>
+    </mat-card-actions>
+  </div>
+</div>

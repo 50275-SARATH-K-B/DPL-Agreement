@@ -1,0 +1,139 @@
+<div fxLayout="column" class="flex-p">
+  <mat-card>
+    <mat-card-content>
+      <div fxLayoutGap="3%" fxLayout.xs="column">
+        <div fxFlex="50%">
+          <h3 class="flex-p py-1"></h3>
+        </div>
+      </div>
+      <div class="flex-p">
+        <form #settlementForm="ngForm">
+          <div fxLayout="column" class="form-block">
+            <div fxFlex="100%" fxLayoutGap="2%">
+              <mat-form-field fxFlex="24%">
+                <mat-select [(ngModel)]="loan__id" placeholder="Settlement through Cliam" (ngModelChange)="claimchange($event)"
+                  name="paymentModeSearchText" #paymentModeSearchText="ngModel" required>
+                  <mat-option *ngFor="let item of paymentModeList2"
+                    value="{{item.loan_id}}">
+                    {{item.loan_id}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="paymentModeSearchText.errors?.required">Payment Mode is required</mat-error>
+              </mat-form-field>
+            </div>
+
+
+          </div>
+          <div class="form-block">
+            <div fxLayoutGap="1%">
+              <mat-form-field fxFlex="24%">
+                <input matInput placeholder="Customer ID" name="customerID" [(ngModel)]="customerID" readonly>
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                <input matInput placeholder="Customer Name" name="customerName" [(ngModel)]="customerName" readonly>
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                <input matInput placeholder="Loan Date" name="loanDate" [(ngModel)]="loanDate" readonly>
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                <input matInput placeholder="Loan Amount" name="loanAmount" [(ngModel)]="loanAmount" readonly>
+              </mat-form-field>
+            </div>
+            <div>
+              <div fxLayoutGap="1%" fxLayout.xs="column">
+                <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Installment Paid" name="installmentPaid" [(ngModel)]="installmentPaid"
+                    readonly>
+                </mat-form-field>
+                <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Total Installment" name="totalInstallment" [(ngModel)]="totalInstallment"
+                    readonly>
+                </mat-form-field>
+                <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Unpaid Installment" name="unpaidInstallment"
+                    [(ngModel)]="unpaidInstallment" readonly>
+                </mat-form-field>
+
+                <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Principal Outstanding" name="principalOutstanding"
+                    [(ngModel)]="principalOutstanding" readonly>
+                </mat-form-field>
+
+              </div>
+              <div fxLayoutGap="1%" fxLayout.xs="column">
+      
+
+                <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Other Charges" name="otherCharges" [(ngModel)]="otherCharges" readonly>
+                </mat-form-field>
+
+
+              </div>
+              <div fxLayoutGap="1%" fxLayout.xs="column">
+                <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Total Settlement Amount" name="settlementAmount" [(ngModel)]="settlementAmount"
+                    required readonly>
+                </mat-form-field>
+                <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Confirm Amount" name="settlementAmountamt"  [(ngModel)]="settlementAmount2"
+                    required >
+                </mat-form-field>
+                <mat-form-field fxFlex="24%">
+                  <mat-select [(ngModel)]="paymentModeSearchType" placeholder="Payment Mode" (ngModelChange)="onChange($event)"
+                    name="paymentModeSearchText" #paymentModeSearchText="ngModel" required>
+                    <mat-option *ngFor="let item of paymentModeList"
+                      value="{{item.LedgerID}}^{{item.PaymentModeID}}^{{item.PaymentMode}}">
+                      {{item.PaymentMode}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="paymentModeSearchText.errors?.required">Payment Mode is required</mat-error>
+                </mat-form-field>
+
+      
+                <div fxFlex=77.5% fxLayout.xs="row" fxLayoutGap="2%">
+                  <div fxFlex=100% ngClass.xs="single-search-responsive">
+                    <mat-form-field fxFlex="100%" appearance="outline">
+                      <mat-label>Approval Attachment</mat-label>
+                      <input matInput readonly *ngIf="FileName == 'No File Selected'" style="font-size: 12px;"
+                        value="Approval Attachment(Supports:PDF)">
+                      <input matInput readonly *ngIf="FileName != 'No File Selected'" [(ngModel)]="FileName" name="FileNAME"
+                        #tittleAttachment="ngModel" >
+                      <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1% fxLayoutAlign="end" *ngIf="FileName">
+                         <i (click)="OpenFile()"  class="fa fa-eye eye"></i>
+                      </div>
+                      <a mat-icon-button type="button" matTooltip="View file" *ngIf="!!FileName"
+                      (click)="OpenFile()" color="primary">
+                      <mat-icon>visibility</mat-icon>
+                    </a>
+                      <mat-hint>(Support:PDF)</mat-hint>
+                    </mat-form-field>
+          
+                  </div>
+                  <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1%>
+                    <input hidden="hidden" type='file' accept=".xlsx, application/pdf, image/*" (change)="onChangeFile($event)"
+                      #document>
+                    <button mat-icon-button color="primary" type="button" (click)="document.click()"
+                      class="mat-elevation-z12 box-button swing" id="but" color="primary">
+                      <mat-icon>scanner</mat-icon>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+     
+        
+            <div fxLayoutGap="2%" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+              <button mat-raised-button color="primary" class="mat-elevation-z12 box-button"
+                [disabled]="!settlementForm.valid" [ngStyle]="{'height':'40px'}"
+                (click)="confirm(settlementForm)">Request</button>
+              <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" 
+                [ngStyle]="{'height':'40px'}" (click)="clear(settlementForm)">Clear</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

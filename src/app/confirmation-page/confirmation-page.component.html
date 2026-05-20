@@ -1,0 +1,16 @@
+<div class="flex-p" ngStyle.xs="max-width:160px !important" fxFlex="100%">
+  <div fxLayout="column" fxFlex="100%">
+    <div class="flex-p" style="margin-top: 10px" fxLayoutGap="2%">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <h2 [class.alert]= "data.type  === 'Alert'"> {{data.type}} ! </h2>
+      </div>
+      <div fxLayout.xs="column" fxLayout="column">
+        <label fxLayoutAlign="center"> {{data.message}} </label>
+      </div>
+    </div>
+    <div fxLayoutAlign="end" fxLayoutGap="3%"  style="margin-top: 2rem;">
+      <button class="false mat-elevation-z12" mat-button (click)="close(false)" id="clear_btn">No</button>
+      <button class="true mat-elevation-z12" mat-button (click)="close(true)" id="confirm_btn">Yes</button>
+    </div>
+  </div>
+</div>

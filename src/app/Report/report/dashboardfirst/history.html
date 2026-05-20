@@ -1,0 +1,610 @@
+
+
+<div class="select" fxFlex="100%" fxLayout="column" fxLayout.xs="column">
+    <div class="mt" fxLayout="row" fxLayout.xs="column" fxLayout.sm="row wrap" fxLayoutGap="2%" fxflex="100%"
+        fxLayoutAlign="end" style="margin: 0 20px;">
+        <div class="relative" fxFlex="100" fxLayout="row" style="margin: 30px;
+        margin-bottom: 0;">
+        </div>
+    </div>
+    <div class="wraper"> 
+  
+    <div id="approval">
+        <mat-tab-group> 
+  
+            <mat-tab label="Home" >
+                <div class="container">
+                    <div class="icons" >
+                        <button  mat-button color="primary" class="tile mat-elevation-z12"
+                         (click)="installment()">
+                        <img src="assets/img/payment.svg" alt="">
+                    </button>
+                        <label>Installment Reciept</label>
+                    </div>
+               
+                    <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="Settlement()">
+                      <img src="assets/img/settlement.svg" alt="">
+                  </button>
+                      <label>Settlement</label>
+                  </div>
+                  
+                
+                
+                  
+                  <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="AccountStatement()">
+                      <img src="assets/img/admin.svg" alt="">
+                  </button>
+                      <label>Account Statement</label>
+                  </div>
+  
+                 
+                 
+                  <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="AccountStatement2()">
+                      <img src="assets/img/admin.svg" alt="">
+                  </button>
+                      <label>Account Statement/SOA</label>
+                  </div>
+                  <!-- <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="Outstanding()">
+                      <img src="assets/img/bank-statement.svg" alt="">
+                  </button>
+                      <label>Outstanding</label>
+                  </div> -->
+          
+                  <!-- <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="DisbursementCancel()">
+                      <img src="assets/img/cancel.svg" alt="">
+                  </button>
+                      <label>Disbursement Cancel Request</label>
+                  </div> -->
+            
+                  <!-- <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="DisbursementCancelapproval()">
+                      <img src="assets/img/disb-cancel-aprvl.svg" alt="">
+                  </button>
+                      <label>Disbursement cancel approval</label>
+                  </div> -->
+             
+                  <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="Report()">
+                      <img src="assets/img/laptop.svg" alt="">
+                  </button>
+                      <label>Report</label>
+                  </div>
+           
+                  <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="almReport()">
+                      <img src="assets/img/laptop.svg" alt="">
+                  </button>
+                      <label>ALM RBI Report</label>
+                  </div>
+  
+                  <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="DetailAccountStatement()">
+                      <img src="assets/img/admin.svg" alt="">
+                  </button>
+                      <label>Detail Account Statement</label>
+                  </div>
+             
+                  <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="ManualEntry()">
+                      <img src="assets/img/checker.svg" alt="">
+                  </button>
+                      <label>Manual Entry</label>
+                  </div>
+       
+                  <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="Payu()">
+                      <img src="assets/img/payment.svg" alt="">
+                  </button>
+                      <label>PayU Updation</label>
+                  </div>
+           
+                  <!-- <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="Duelist()">
+                      <img src="assets/img/schedule.svg" alt="">
+                  </button>
+                      <label>Due list</label>
+                  </div> -->
+            
+                  <!-- <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="outstandingreport()">
+                      <img src="assets/img/laptop.svg" alt="">
+                  </button>
+                      <label>Customer outstanding report</label>
+                  </div> -->
+              
+                  <div class="icons" >
+                      <button  mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="Downloadagreement()">
+                      <img src="assets/img/checker.svg" alt="">
+                  </button>
+                      <label>Download agreement</label>
+                  </div>
+            
+                <div class="icons" >
+                    <button  mat-button color="primary" class="tile mat-elevation-z12"
+                     (click)="Declaration()">
+                    <img src="assets/img/disb-cancel-aprvl.svg" alt="">
+                </button>
+                    <label>Declaration</label>
+                </div>
+  <!--         
+              <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                   (click)="DisbursementReport()">
+                  <img src="assets/img/laptop.svg" alt="">
+              </button>
+                  <label>Disbursement Report</label>
+              </div> -->
+        
+            <!-- <div class="icons" >
+                <button  mat-button color="primary" class="tile mat-elevation-z12"
+                 (click)="rbi()">
+                <img src="assets/img/laptop.svg" alt="">
+            </button>
+                <label>RBI Report</label>
+            </div> -->
+     
+          <!-- <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+               (click)="arbitrationrp()">
+              <img src="assets/img/laptop.svg" alt="">
+          </button>
+              <label>Arbitration Report</label>
+          </div> -->
+  
+        <!-- <div class="icons" >
+            <button  mat-button color="primary" class="tile mat-elevation-z12"
+             (click)="enachpre()">
+            <img src="assets/img/noc.svg" alt="">
+        </button>
+            <label>E Nach Presentation</label>
+        </div> -->
+  
+      <!-- <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="Enachre()">
+          <img src="assets/img/pdc.svg" alt="">
+      </button>
+          <label>E Nach Realization</label>
+      </div> -->
+  <!-- 
+          <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="enachapp()">
+              <img src="assets/img/laptop.svg" alt="">
+          </button>
+              <label>E Nach Approval</label>
+          </div> -->
+          <!-- <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="EligibilityUpdate()">
+              <img src="assets/img/notifications.svg" alt="">
+          </button>
+              <label>Eligibility Updation</label>
+          </div> -->
+          <!-- <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="EligibilityApproval()">
+              <img src="assets/img/waver-approval.svg" alt="">
+          </button>
+              <label>Eligibility Approval</label>
+          </div> -->
+  
+          <!-- <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="collectionpre()">
+              <img src="assets/img/reverse-engineering.svg" alt="">
+          </button>
+              <label>Collection Presentation</label>
+          </div> -->
+  
+          <!-- <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="enachsend()">
+              <img src="assets/img/upload.svg" alt="">
+          </button>
+              <label>E Nach Send</label>
+          </div> -->
+  
+          <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="noc()">
+              <img src="assets/img/letter.svg" alt="">
+          </button>
+              <label>NOC</label>
+          </div>
+  
+  
+  <!--   
+  
+          <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="enachurl()">
+              <img src="assets/img/link-loan.svg" alt="">
+          </button>
+              <label>E nach Url</label>
+              </div> -->
+          
+          <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="waiverentry()">
+              <img src="assets/img/payment.svg" alt="">
+          </button>
+              <label>Waiver Entry</label>
+          </div> 
+          <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="waiverapprval()">
+              <img src="assets/img/waver-approval.svg" alt="">
+          </button>
+              <label>Waiver Approval</label>
+          </div>
+  
+          <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="insurance()">
+              <img src="assets/img/bank-statement.svg" alt="">
+          </button>
+              <label>Insurance</label>
+          </div>
+  
+  
+  
+          <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="sanctionletter()">
+              <img src="assets/img/letter.svg" alt="">
+          </button>
+              <label>Sanction Letter</label>
+          </div>
+  
+          <!-- <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="customerremoval()">
+              <img src="assets/img/cancel.svg" alt="">
+          </button>
+              <label>Customer Removal</label>
+          </div> -->
+          <!-- <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="identityview()">
+              <img src="assets/img/notifications.svg" alt="">
+          </button>
+              <label>Identity Verify</label>
+          </div> -->
+          <!-- <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="kycstatus()">
+              <img src="assets/img/checker.svg" alt="">
+          </button>
+              <label>Identity Report</label>
+          </div> -->
+  
+          <!-- <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="kycVerification()">
+              <img src="assets/img/verification.png" alt="" width="60px">
+          </button>
+              <label>KYC Verification</label>
+          </div> -->
+  
+          <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="kycVerificationStatus()">
+              <img src="assets/img/report (1).png" alt="" width="60px">
+              </button>
+              <label>KYC Verification Report</label>
+          </div>
+  
+          <!-- <div class="icons" > -->
+          
+          
+  
+          <!-- <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="enachreports()">
+              <img src="assets/img/laptop.svg" alt="">
+          </button>
+              <label>Enach Report</label>
+          </div> -->
+          
+          <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="nocreports()">
+              <img src="assets/img/laptop.svg" alt="">
+          </button>
+              <label>NOC Report</label>
+          </div>
+  
+          <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="deathreports()">
+              <img src="assets/img/laptop.svg" alt="">
+          </button>
+              <label>Death Report</label>
+          </div>
+  <!-- 
+          <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="welcolett()">
+              <img src="assets/img/letter.svg" alt="">
+          </button>
+              <label>Welcome Letter</label>
+          </div> -->
+          <div class="icons" >
+              <button  mat-button color="primary" class="tile mat-elevation-z12"
+              (click)="welcolettrpt()">
+              <img src="assets/img/letter.svg" alt="">
+          </button>
+              <label>Welcome Letter Report</label>
+          </div>
+          </div>
+      
+            </mat-tab>
+          <mat-tab label="Upload">
+  
+        <div class="container">
+  
+         <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="collectionupload()">
+          <img src="assets/img/upload.svg" alt="">
+         </button>
+          <label>Collection Upload</label>
+         </div>
+  
+         <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="excelupload()">
+          <img src="assets/img/upload.svg" alt="">
+      </button>
+          <label>Charge Upload</label>
+      </div>
+  
+      <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="enachupload()">
+          <img src="assets/img/upload.svg" alt="">
+      </button>
+          <label>Enach Bulk Upload</label>
+      </div>
+  
+        <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="payuupload()">
+          <img src="assets/img/upload.svg" alt="">
+      </button>
+          <label>PayU Upload</label>
+      </div>
+  
+      <!-- <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="disbexcel()">
+          <img src="assets/img/upload.svg" alt="">
+      </button>
+          <label>Disburse Upload</label>
+      </div> -->
+      <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="bulkupload()">
+          <img src="assets/img/upload.svg" alt="">
+      </button>
+          <label>Bulk Upload E-Nach Realization</label>
+      </div>
+  
+      <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="chargesbulk()">
+          <img src="assets/img/collection-upload.svg" alt="">
+      </button>
+          <label>Charges Bulk Upload</label>
+      </div>
+      <!-- <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="csedataupload()">
+          <img src="assets/img/collection-upload.svg" alt="">
+      </button>
+          <label>CSE Data Upload</label>
+      </div> -->
+      <!-- <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="dataallocation()">
+          <img src="assets/img/collection-upload.svg" alt="">
+      </button>
+          <label>Customer Data Allocation</label>
+      </div> -->
+      <!-- <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="eligibledataup()">
+          <img src="assets/img/collection-upload.svg" alt="">
+      </button>
+          <label>Eligible Data Upload</label>
+      </div> -->
+      <!-- <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="salesempdata()">
+          <img src="assets/img/collection-upload.svg" alt="">
+      </button>
+          <label>Sales Employee Data Upload</label>
+      </div> -->
+      <!-- <div class="icons" >
+          <button  mat-button color="primary" class="tile mat-elevation-z12"
+           (click)="Insuranceupload()">
+          <img src="assets/img/collection-upload.svg" alt="">
+      </button>
+          <label>Insurance Policy Upload</label>
+      </div> -->
+      
+  </div>
+  </mat-tab>
+  
+  
+          <mat-tab label="Request">
+  
+              <div class="container">
+            
+                <!-- <div class="icons" >
+                    <button  mat-button color="primary" class="tile mat-elevation-z12"
+                     (click)="schemeCreation()">
+                    <img src="assets/img/bank-statement.svg" alt="">
+                </button>
+                    <label>Scheme Creation</label>
+                </div> -->
+                <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                   (click)="DuedateChange()">
+                  <img src="assets/img/cancel.svg" alt="">
+              </button>
+                  <label>DuedateChange Request</label>
+              </div>
+              
+                <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                  (click)="loanAccountStatus()">
+                  <img src="assets/img/account-status.png" alt="" width="60px">
+                  </button>
+                  <label>Death Status Request</label>
+              </div>
+  
+              <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                   (click)="InstallmentCancel()">
+                  <img src="assets/img/settlement.svg" alt="">
+              </button>
+                  <label>Installment Cancel Request</label>
+              </div>
+  
+              <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                   (click)="settlemntnew()">
+                  <img src="assets/img/admin.svg" alt="">
+              </button>
+                  <label>Back Date Settlement Request </label>
+              </div>
+  
+              <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                   (click)="deathrequest()">
+                  <img src="assets/img/admin.svg" alt="">
+              </button>
+                  <label>Death Claim Track Request </label>
+              </div>
+      
+              <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                   (click)="settlementblok()">
+                  <img src="assets/img/admin.svg" alt="">
+              </button>
+                  <label>Settlement Block Request </label>
+              </div>
+              </div>
+          </mat-tab>
+  
+          <mat-tab label="Approval">
+  
+              <div class="container">
+                  
+                <!-- <div class="icons" >
+                    <button  mat-button color="primary" class="tile mat-elevation-z12"
+                     (click)="schemeApproval()">
+                    <img src="assets/img/disb-cancel-aprvl.svg" alt="">
+                </button>
+                    <label>Scheme Approval</label>
+                </div> -->
+                <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                   (click)="Duedateapprovl()">
+                  <img src="assets/img/cancel.svg" alt="">
+              </button>
+                  <label>DuedateChange Approval</label>
+              </div>
+                <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                  (click)="loanAccountApproval()">
+                  <img src="assets/img/immigration.png" alt="" width="60px">
+                  </button>
+                  <label>Death Status Approval</label>
+              </div>
+  
+              <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                   (click)="InstallmentCancelappr()">
+                  <img src="assets/img/settlement.svg" alt="">
+              </button>
+                  <label>Installment Cancel Approval</label>
+              </div>
+              <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                   (click)="settlementapproval()">
+                  <img src="assets/img/admin.svg" alt="">
+              </button>
+                  <label>Back Date Settlement Approval</label>
+              </div>
+              <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                   (click)="settlementblkapp()">
+                  <img src="assets/img/admin.svg" alt="">
+              </button>
+                  <label>Settlement Block Approval</label>
+              </div>
+              <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                   (click)="daethstatusapp()">
+                  <img src="assets/img/admin.svg" alt="">
+              </button>
+                  <label>Death Claim Track Approval</label>
+              </div>
+              </div>
+          </mat-tab>
+  
+          <mat-tab label="Dashboard">
+  
+              <div class="container">
+            
+                <!-- <div class="icons" >
+                    <button  mat-button color="primary" class="tile mat-elevation-z12"
+                     (click)="schemeCreationDashboard()">
+                    <img src="assets/img/admin.svg" alt="">
+                </button>
+                    <label>Scheme Dashboard</label>
+                </div> -->
+   
+                <div class="icons" >
+                  <button  mat-button color="primary" class="tile mat-elevation-z12"
+                   (click)="loanAccountDashboard()">
+                  <img src="assets/img/analysis.png" alt="" width="60px">
+              </button>
+                  <label>Death Status Dashboard</label>
+              </div>
+      
+              </div>
+          </mat-tab>
+  
+  
+        </mat-tab-group>
+    </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  

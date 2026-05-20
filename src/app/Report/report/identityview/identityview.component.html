@@ -1,0 +1,121 @@
+<div class="flex-p">
+  <mat-card>
+    <div class="head">
+      <h3>VERIFICATION</h3>
+    </div>
+    <!-- <h2 class="h2-head">
+      <mat-icon class="home-icon" routerLink="/home">home</mat-icon>HOME/VERIFICATION
+    </h2> -->
+    <div fxLayout="row" fxLayoutGap="5%" fxflex="50%" fxLayoutAlign="center" style="margin-top:30px ;">
+
+
+      <div fxLayoutGap="2%" fxFlex="30">
+          <mat-card-content class="image-content" fxLayoutAlign="center">
+    
+            <div class="snapshot">
+              <img [height]="170" [width]="200" [src]="imageData" />
+            </div>
+          </mat-card-content>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="center">
+          <mat-form-field fxFlex="25%" appearance="outline">
+              <mat-label>customer Id</mat-label>
+              <input matInput [(ngModel)]="custid" name="custid" autocomplete="off" readonly>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="25%" appearance="outline">
+              <mat-label>pan Id</mat-label>
+              <input matInput [(ngModel)]="panid" name="panid" autocomplete="off" readonly>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="25%" appearance="outline">
+              <mat-label>Aadhar Id</mat-label>
+              <input matInput [(ngModel)]="adharid" name="adhar" autocomplete="off" readonly>
+            </mat-form-field>
+
+
+          </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="center" style="margin-top: 50px;">
+
+          <div fxLayoutGap="2%" fxFlex="30" fxLayout.xs="raw">
+
+              <div>
+                 <h3> Aadhar photo1 </h3>
+                </div></div>
+
+          <div fxLayoutGap="2%" fxFlex="30" fxLayout.xs="raw">
+              <mat-card-content class="image-content" fxLayoutAlign="center">
+        
+                <div class="zoom" (click)="edit(1)">
+                  <img [height]="200"  [width]="300" [src]="adharData1" />
+                </div>
+
+              </mat-card-content>
+              <button mat-button color="primary"  (click)="downloadd()">Download</button>
+
+            </div>
+
+           
+           
+
+            </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="center">
+          <div fxLayoutGap="2%" fxFlex="30" fxLayout.xs="raw">
+
+          <div>
+             <h3> Aadhar photo2 </h3>
+            </div></div>
+          <div fxLayoutGap="2%" fxFlex="30" fxLayout.xs="raw">
+              <mat-card-content class="image-content" fxLayoutAlign="center">
+        
+                <div class="zoom" (click)="edit(2)">
+                  <img [height]="200" [width]="300" [src]="adharData2" />
+                </div>
+
+              </mat-card-content>
+              <button mat-button color="primary"  (click)="downloadd1()">Download</button>
+
+            </div>
+
+           </div>
+          
+
+
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="center">
+                  <div fxLayoutGap="2%" fxFlex="30" fxLayout.xs="raw">
+      
+                  <div>
+                     <h3> Pan photo </h3>
+                    </div></div>
+                  <div fxLayoutGap="2%" fxFlex="30" fxLayout.xs="raw">
+                      <mat-card-content class="image-content" fxLayoutAlign="center">
+                
+                          <div class="zoom" (click)="edit(3)">
+                              <img [height]="200" [width]="400" [src]="panData" />
+                            </div>
+
+                      </mat-card-content>
+                      <button mat-button color="primary"  (click)="downloadd2()">Download</button>
+
+                    </div>
+      
+      
+                  </div><br>
+  
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="end">
+        <div></div>
+        <div fxLayoutGap="3%" fxFlex="30" fxLayout.xs="raw">  
+          <button mat-button color="primary" class="false mat-elevation-z12" (click)="back()">Back</button>
+
+          <button mat-button color="primary" class="true mat-elevation-z12" (click)="approve()">Approve</button>
+
+          <button mat-button color="primary" class="false mat-elevation-z12" (click)="reject()">Reject</button>
+        </div>
+
+        </div>
+      </mat-card>
+      </div>

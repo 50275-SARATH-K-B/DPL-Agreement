@@ -1,0 +1,10 @@
+<mat-card fxLayout="column">
+  <div fxLayoutGap="1%" fxLayoutGap.gt-sm="2%" style="margin-bottom: 10px;">
+    <mat-form-field>
+      <mat-select placeholder="Select Query" [(ngModel)]="queryID" name="queryName" #queryText="ngModel"
+        (ngModelChange)="onQueryChange($event)">
+        <mat-option *ngFor="let item of queryList" value={{item.Id}}>{{item.Name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</mat-card>

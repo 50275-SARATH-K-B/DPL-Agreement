@@ -1,0 +1,21 @@
+<div fxLayout="column" fxFlex="100%">
+  <div class="flex-p" class="scroll-wrapper"> 
+    <mat-card fxLayout="column">
+      <mat-card-content fxLayout.xs="column" fxLayout="column">
+        <pdf-viewer [src]="'data:application/pdf;base64,'+fileName" *ngIf="fileExtention=='pdf'||fileExtention=='.pdf'" [original-size]="false"></pdf-viewer>
+        <img [src]="'data:image/jpg;base64,'+fileName" fxFlex=100 *ngIf="fileExtention=='jpg'||fileExtention=='.jpg'" ngClass="padding-bottom" height="400" FxLayoutAlign="center">
+        <ngx-image-viewer [src]="fileArray" *ngIf="IsImage"></ngx-image-viewer>
+
+      </mat-card-content>
+      <mat-card-content fxLayout.xs="column" fxLayout="column">
+        <div class="example-button-row" fxLayoutGap="2%" fxLayoutAlign="end">
+          <button mat-button color="primary"  (click)="downloadd()">Download</button>
+
+          <button mat-raised-button color="primary" [mat-dialog-close]="true">Close</button>
+        </div>
+      </mat-card-content>
+      
+    </mat-card>
+
+  </div>
+</div>

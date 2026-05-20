@@ -1,0 +1,203 @@
+<div fxLayout="column" class="flex-p">
+  <mat-card>
+    <mat-card-content>
+      <div fxLayoutGap="3%" fxLayout.xs="column">
+        <div fxFlex="50%">
+          <h3 class="flex-p py-1"></h3>
+        </div>
+      </div>
+      <div class="flex-p">
+        <form #settlementForm="ngForm">
+          <div fxLayout="column" class="form-block">
+            <div fxFlex="100%" fxLayoutGap="2%">
+              <mat-form-field fxFlex="30%">
+                <input matInput placeholder="Loan Number" name="loadid" [(ngModel)]="loanId" required>
+              </mat-form-field>
+              <div fxFlex="70%" fxLayoutAlign="end">
+                <button mat-raised-button color="primary" type="button" (click)="displayLoanSearchPopup()"
+                  class="mat-elevation-z12 box-button">Search</button>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="form-block">
+            <div fxLayoutGap="1%">
+              <mat-form-field fxFlex="24%">
+                <input matInput placeholder="Loan ID" name="loannid" [(ngModel)]="loanId" readonly>
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                <input matInput placeholder="Loan Amount" name="loannAmount" [(ngModel)]="loanAmount" >
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                <input matInput placeholder="Branch Name" name="branchnmes" [(ngModel)]="branchnmaee" >
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                <input matInput placeholder="Nominee Name" name="nomname" [(ngModel)]="nominname" >
+              </mat-form-field>
+           
+            </div>
+            <div fxLayoutGap="1%">
+              <mat-form-field fxFlex="24%">
+                <input matInput placeholder="Nominee Address" name="nomaddress" [(ngModel)]="nomnieeadress" >
+              </mat-form-field>
+              <mat-form-field fxFlex="25%" appearance="outline">
+                <mat-label>Death date</mat-label>
+                <input matInput [matDatepicker]="picker2" autocomplete="off"  readonly [(ngModel)]="deathdte"
+                  name="Effective" #EffectiveText="ngModel"  required  readonly>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="EffectiveText.errors?.required">Rescheduling Effective date is required
+                </mat-error>
+              </mat-form-field>
+               
+              <mat-form-field fxFlex="80">
+               <!-- <mat-label>CUSTOMERID</mat-label> -->
+              <textarea [(ngModel)]="remarks" name="Effesctive" #Customer_IDTxt="ngModel" required matInput placeholder="Remarks" autocomplete="off"  type="text"></textarea>
+              <mat-error *ngIf="Customer_IDTxt.errors?.required">Remarks Is required</mat-error>
+
+  </mat-form-field>
+
+            </div>
+            <div>
+              <div fxLayoutGap="1%" fxLayout.xs="column">
+                <div fxFlex=77.5% fxLayout.xs="row" fxLayoutGap="2%">
+                  <div fxFlex=100% ngClass.xs="single-search-responsive">
+                    <mat-form-field fxFlex="100%" appearance="outline">
+                      <mat-label>Death Certificate</mat-label>
+                      <input matInput readonly *ngIf="deathname == 'No File Selected'" style="font-size: 12px;"
+                        value="Approval Attachment(Supports:JPG,PNG,PDF)">
+                      <input matInput readonly *ngIf="deathname != 'No File Selected'" [(ngModel)]="deathname" name="FileNAME1"
+                        #tittleAttachment1="ngModel">
+                      <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1% fxLayoutAlign="end" *ngIf="deathname">
+                         <i (click)="OpenFile()"  class="fa fa-eye eye"></i>
+                      </div>
+                      <a mat-icon-button type="button" matTooltip="View file" *ngIf="!!deathname"
+                      (click)="OpenFile()" color="primary">
+                      <mat-icon>visibility</mat-icon>
+                    </a>
+                      <mat-hint>(Supports:JPG,PNG,EXCEL,PDF)</mat-hint>
+                    </mat-form-field>
+          
+                  </div>
+                  <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1%>
+                    <!-- <mat-form-field fxFlex="100%"></mat-form-field> -->
+                    <input hidden="hidden" type='file' accept=".xlsx, application/pdf, image/*" (change)="onChangeFile1($event)"
+                      #document1>
+                    <button mat-icon-button color="primary" type="button" (click)="document1.click()"
+                      class="mat-elevation-z12 box-button swing" id="but" color="primary">
+                      <mat-icon>scanner</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                
+                <div fxFlex=77.5% fxLayout.xs="row" fxLayoutGap="2%">
+                  <div fxFlex=100% ngClass.xs="single-search-responsive">
+                    <mat-form-field fxFlex="100%" appearance="outline">
+                      <mat-label>Nominee Aadhar</mat-label>
+                      <input matInput readonly *ngIf="nomineeadrname == 'No File Selected'" style="font-size: 12px;"
+                        value="Approval Attachment(Supports:JPG,PNG,PDF)">
+                      <input matInput readonly *ngIf="nomineeadrname != 'No File Selected'" [(ngModel)]="nomineeadrname" name="FileNAME2"
+                        #tittleAttachment2="ngModel">
+                      <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1% fxLayoutAlign="end" *ngIf="nomineeadrname">
+                         <i (click)="OpenFile2()"  class="fa fa-eye eye"></i>
+                      </div>
+                      <a mat-icon-button type="button" matTooltip="View file" *ngIf="!!nomineeadrname"
+                      (click)="OpenFile2()" color="primary">
+                      <mat-icon>visibility</mat-icon>
+                    </a>
+                      <mat-hint>(Supports:JPG,PNG,EXCEL,PDF)</mat-hint>
+                    </mat-form-field>
+          
+                  </div>
+                  <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1%>
+                    <!-- <mat-form-field fxFlex="100%"></mat-form-field> -->
+                    <input hidden="hidden" type='file' accept=".xlsx, application/pdf, image/*" (change)="onChangeFile2($event)"
+                      #document2>
+                    <button mat-icon-button color="primary" type="button" (click)="document2.click()"
+                      class="mat-elevation-z12 box-button swing" id="but" color="primary">
+                      <mat-icon>scanner</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                <div fxFlex=77.5% fxLayout.xs="row" fxLayoutGap="2%">
+                  <div fxFlex=100% ngClass.xs="single-search-responsive">
+                    <mat-form-field fxFlex="100%" appearance="outline">
+                      <mat-label>Nominee Pan</mat-label>
+                      <input matInput readonly *ngIf="nompanname == 'No File Selected'" style="font-size: 12px;"
+                        value="Approval Attachment(Supports:JPG,PNG,PDF)">
+                      <input matInput readonly *ngIf="nompanname != 'No File Selected'" [(ngModel)]="nompanname" name="FileNAME3"
+                        #tittleAttachment3="ngModel">
+                      <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1% fxLayoutAlign="end" *ngIf="nompanname">
+                         <i (click)="OpenFile3()"  class="fa fa-eye eye"></i>
+                      </div>
+                      <a mat-icon-button type="button" matTooltip="View file" *ngIf="!!nompanname"
+                      (click)="OpenFile3()" color="primary">
+                      <mat-icon>visibility</mat-icon>
+                    </a>
+                      <mat-hint>(Supports:JPG,PNG,EXCEL,PDF)</mat-hint>
+                    </mat-form-field>
+          
+                  </div>
+                  <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1%>
+                    <!-- <mat-form-field fxFlex="100%"></mat-form-field> -->
+                    <input hidden="hidden" type='file' accept=".xlsx, application/pdf, image/*" (change)="onChangeFile3($event)"
+                      #document3>
+                    <button mat-icon-button color="primary" type="button" (click)="document3.click()"
+                      class="mat-elevation-z12 box-button swing" id="but" color="primary">
+                      <mat-icon>scanner</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                <div fxFlex=77.5% fxLayout.xs="row" fxLayoutGap="2%">
+                  <div fxFlex=100% ngClass.xs="single-search-responsive">
+                    <mat-form-field fxFlex="100%" appearance="outline">
+                      <mat-label>Nominee Bank Details</mat-label>
+                      <input matInput readonly *ngIf="nomineebanknme == 'No File Selected'" style="font-size: 12px;"
+                        value="Approval Attachment(Supports:JPG,PNG,PDF)">
+                      <input matInput readonly *ngIf="nomineebanknme != 'No File Selected'" [(ngModel)]="nomineebanknme" name="FileNAME4"
+                        #tittleAttachment4="ngModel">
+                      <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1% fxLayoutAlign="end" *ngIf="nomineebanknme">
+                         <i (click)="OpenFile4()"  class="fa fa-eye eye"></i>
+                      </div>
+                      <a mat-icon-button type="button" matTooltip="View file" *ngIf="!!nomineebanknme"
+                      (click)="OpenFile4()" color="primary">
+                      <mat-icon>visibility</mat-icon>
+                    </a>
+                      <mat-hint>(Supports:JPG,PNG,EXCEL,PDF)</mat-hint>
+                    </mat-form-field>
+          
+                  </div>
+                  <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1%>
+                    <!-- <mat-form-field fxFlex="100%"></mat-form-field> -->
+                    <input hidden="hidden" type='file' accept=".xlsx, application/pdf, image/*" (change)="onChangeFile4($event)"
+                      #document4>
+                    <button mat-icon-button color="primary" type="button" (click)="document4.click()"
+                      class="mat-elevation-z12 box-button swing" id="but" color="primary">
+                      <mat-icon>scanner</mat-icon>
+                    </button>
+                  </div>
+                </div>
+
+           
+
+              </div>
+         
+       
+            </div>
+
+         
+        
+            <div fxLayoutGap="2%" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+              <button mat-raised-button color="primary" class="mat-elevation-z12 box-button"
+                 [ngStyle]="{'height':'40px'}"
+                (click)="confirm(settlementForm)" [disabled]="!settlementForm.valid || !deathname || !nomineeadrname || !nompanname || !nomineebanknme">Confirm</button>
+              <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" 
+                [ngStyle]="{'height':'40px'}" (click)="clear(settlementForm)">Clear</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

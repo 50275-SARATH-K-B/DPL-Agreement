@@ -1,0 +1,118 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/Allocation Priority
+UI created by : Niphy Anto
+Date : 30/11/2018
+Assets :
+view-allocation-priority.component.html
+view-allocation-priority.component.scss
+view-allocation-priority.component.ts
+
+Functionally Coded by : 
+Date : 
+
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+
+<div fxLayout="row" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100%" class="flex-p">
+    <mat-card fxFlex="100%" fxLayout="row">
+      <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="5%" fxFlex="80%">
+        <h2>Collection Report</h2>
+      </mat-card-content>
+      <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="20%" fxLayoutAlign="end">
+        <div fxLayoutGap="2%" fxLayout="row" style="text-align: center;" fxLayoutAlign="end">
+          <button mat-raised-button class="mat-elevation-z12 box-button addLoan" color="primary" (click)="convert()"
+            type="button">Generate PDF</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100%" class="flex-p">
+    <mat-card fxFlex="100%" fxLayout="column" id="contentToConvert">
+      <form #reportForm="ngForm">
+        <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="5%">
+          <mat-form-field fxFlex="20%">
+            <input matInput [matDatepicker]="picker1" readonly autocomplete="off" [(ngModel)]="field['from_date']"
+              placeholder="From Date" name="fromDate" #FromDateText="ngModel" required>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+            <mat-error *ngIf="FromDateText.errors?.required">Please enter a valid date</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="20%">
+            <input matInput [matDatepicker]="picker2" readonly autocomplete="off" [(ngModel)]="field['to_date']"
+              placeholder="To Date" name="toDate" #ToDateText="ngModel" required>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+            <mat-error *ngIf="ToDateText.errors?.required">Please enter a valid date</mat-error>
+          </mat-form-field>
+          <div fxLayout.xs="row" fxLayout="row" fxFlex="30%" fxLayoutGap="10%" fxFlex="50%">
+            <div fxFlex="70%" layout-align="start center">
+              <mat-radio-group fxFlex="100%" [(ngModel)]="field['type']" name="loan" (change)="radioChange()" required>
+                <mat-radio-button type="button" class="content-color" [value]="1">Loanwise</mat-radio-button>
+                <mat-radio-button type="button" class="content-color" [value]="2">All</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <mat-form-field fxLayout.xs="column" fxFlex="25%" *ngIf="field['type']=='1'">
+            <input matInput placeholder="Loan No" pattern="^[0-9]*$" numbersOnly autocomplete="off"
+              #loanNoText="ngModel" name="loanNo" [(ngModel)]="field['loanNo']" required>
+            <mat-error *ngIf="loanNoText.errors?.required">Loan number is required</mat-error>
+            <mat-error *ngIf="loanNoText.errors?.pattern">Please enter valid loan number</mat-error>
+
+          </mat-form-field>
+          <mat-card-actions fxLayoutAlign="end" fxLayout="column">
+            <div fxLayoutGap="2%" fxFlex="15% auto" fxLayout="row" fxLayout.xs="column" style="margin-right: 20px" fxLayoutAlign="end">
+              <button mat-raised-button class="mat-elevation-z12 box-button" color="primary" (click)="search()"
+                [disabled]="!reportForm.valid">Proceed</button>
+            </div>
+          </mat-card-actions>
+        </mat-card-content>
+      </form>
+      <br><br>
+      <div fxLayoutAlign="center" style="overflow: scroll;max-height: 330px;" *ngIf="collectionList.length>0">
+        <table fxFlex="100%" id="collection" width="100%">
+          <tr style="position:sticky">
+            <th id="collection_ID">Collection ID</th>
+            <th >Loan ID</th>
+            <th >Customer Name</th>
+            <th >Branch Name</th>
+            <th >Product Code</th>
+            <th>Product Name</th>
+            <th>Payment Mode</th>
+            <th>Collection Amount</th>
+            <th>Receipt Number</th>
+            <th>Receipt Date</th>
+            <th>Collected By</th>
+            <th>Description</th>
+          </tr>
+          <tr *ngFor="let option of collectionList">
+            <td style=" margin-left: 150px;
+            padding-left: 100px ">{{option.CollectionID}}</td>
+            <td>{{option.LoanID}}</td>
+            <td>{{option.CustomerName}}</td>
+            <td>{{option.BranchName}}</td>
+            <td>{{option.ProductCode}}</td>
+            <td>{{option.ProductName}}</td>
+            <td>{{option.PaymentMode}}</td>
+            <td>{{option.CollectionAmount}}</td>
+            <td>{{option.ReceiptNumber}}</td>
+            <td>{{option.ReceiptDate}}</td>
+            <td>{{option.CollectedBy}}</td>
+            <td>{{option.Description}}</td>
+          </tr>
+        </table>
+      </div>
+      <br />
+      <mat-card-content fxLayout.xs="column" *ngIf="collectionList.length>0" fxLayoutAlign="end" fxLayout="row" fxLayoutGap="5%">
+        <p><b>
+            <h3>Total Collection Amount : {{total}}</h3>
+          </b></p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

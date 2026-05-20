@@ -1,0 +1,20 @@
+<mat-card [hidden]="!isAaadhar" >
+  <div id='aadhar' fxLayout="row"  fxLayoutGap="5%" fxflex="100%" fxLayoutAlign="center" > 
+   <div fxLayout="column" fxLayout.xs="column" >
+        <div id="" fxLayoutGap="3%" fxLayout="row">
+            <button type="button" mat-raised-button  color="primary"  style="height: 40px;" (click)="addMask()">Add Mask</button>
+            <button  type="button" mat-raised-button color="primary" style="height: 40px;" (click)="removeMasks()">Remove Masks</button>
+            <button  type="button" mat-raised-button color="primary" style="height: 40px;" (click)="doneAadharMask()">Done</button>
+        </div>
+
+        
+        <div fxFlex="50%" class='preview-image' fxLayout="row" fxLayout.xs="column" >
+          <img class='preview-img' [height]="120" *ngIf="!imgUrl" width="100%" src="assets/img/users/No-image-available.jpg" />
+        </div>
+
+        <div id="aadharCanvasDiv" fxLayoutAlign="center">
+          <canvas id="aadharCanvas" width="100%" height="auto"></canvas>
+        </div>
+      </div>
+  </div>
+</mat-card> 

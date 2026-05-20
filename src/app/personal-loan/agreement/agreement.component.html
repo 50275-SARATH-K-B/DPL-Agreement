@@ -1,0 +1,12 @@
+<div fxLayout="column" class="form-block flex-p" style="padding-top: 25px !important;">
+  <div fxLayoutGap="2%">
+      <mat-form-field fxFlex="33.3%" style="padding-left: 25px !important;">
+          <input matInput placeholder="Loan ID" name="loan_ID"  [(ngModel)]="loanID" required  readonly>
+          <mat-error>Loan ID ID is required</mat-error>
+      </mat-form-field>
+      <div fxFlex="70%" fxLayoutAlign="end">
+        <button mat-raised-button color="primary" type="button" (click)="loanSearch()"
+            class="mat-elevation-z12 box-button search-btn">Search</button>
+        </div>
+  </div>
+</div>

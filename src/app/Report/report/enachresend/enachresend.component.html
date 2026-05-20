@@ -1,0 +1,84 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/LMS/cleared-bounced/add-cleared-bounced
+UI created by : Hareesh N
+Date : 26/12/2018
+emi-calculator :
+add-cleared-bounced.component.html
+add-cleared-bounced.component.scss
+add-cleared-bounced.component.ts
+Functionally Coded by : Hareesh N
+Date : 
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <form #activityEntryDataUploadForm="ngForm">
+      <mat-card fxFlex="100%" fxLayout="column">
+        <h2>E Nach Resend </h2>
+ 
+   
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%">
+          <!-- <mat-form-field fxFlex="100%">
+          
+          </mat-form-field> -->
+          Upload Eligibility Data  Excel file
+          <label>  
+            <input type="file" (change)="addfile($event)" placeholder="Upload file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"> 
+          </label>
+        </div>
+        <div style="margin-top: 2rem;">
+          <table mat-table [dataSource]="eligibilitySource" >
+
+            <ng-container matColumnDef="SlNo">
+              <th mat-header-cell *matHeaderCellDef> SlNo </th>
+              <td mat-cell *matCellDef="let element ;  let i= index"> {{i+1}} </td>
+            </ng-container>
+            <ng-container matColumnDef="CustomerID">
+              <th mat-header-cell *matHeaderCellDef> CustomerID </th>
+              <td mat-cell *matCellDef="let element"> {{element.customerID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="CustomerName">
+              <th mat-header-cell *matHeaderCellDef> CustomerName </th>
+              <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="EligibilityAmount">
+              <th mat-header-cell *matHeaderCellDef> EligibilityAmount </th>
+              <td mat-cell *matCellDef="let element"> {{element.eligibilityAmount}} </td>
+            </ng-container>
+            <ng-container matColumnDef="InterestRate">
+              <th mat-header-cell *matHeaderCellDef> InterestRate </th>
+              <td mat-cell *matCellDef="let element"> {{element.interestRate}} </td>
+            </ng-container>
+            <ng-container matColumnDef="CustomerCategory">
+              <th mat-header-cell *matHeaderCellDef> CustomerCategory </th>
+              <td mat-cell *matCellDef="let element"> {{element.customerCategory}} </td>
+            </ng-container>
+            <!-- income_particulars: any;
+            income_Amount: any; -->
+            <!-- <ng-container matColumnDef="Action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element;  let i= index">
+                <div fxLayoutGap="2%" fxFlex="15% auto" fxLayout="row">             
+                  <button mat-icon-button (click)="deleteTableItem({element:element,index:i},1)"color="warn">
+                    <mat-icon>delete_forever</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container> -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+   
+          <div  fxLayoutGap="2%" fxLayoutAlign="end">
+            <button type="submit" class="button-box box" mat-raised-button color="primary" [disabled]="!activityEntryDataUploadForm.valid"
+              (click)="savedata(activityEntryDataUploadForm)"  id="confirm_btn">Confirm</button>
+            <button mat-raised-button class="button-box box" color="primary" (click)="clear(activityEntryDataUploadForm)"  id="clear_btn">Clear</button>
+          </div>
+      </mat-card>
+    </form>
+  </div>
+</div>

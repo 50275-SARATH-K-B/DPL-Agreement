@@ -1,0 +1,220 @@
+<div fxLayout="column">
+  <div fxLayout="column" class="form-block" fxFlex="100%" fxLayoutGap="2%">
+    <div fxFlex="100%" fxLayoutGap="2%">
+      <mat-form-field fxFlex="33.3%">
+        <input matInput placeholder="Loan ID" [(ngModel)]="loanID" name="loan_ID" #loanIDTxt="ngModel" 
+          required>
+        <mat-error *ngIf="loanIDTxt.errors?.required">Loan ID is required</mat-error>
+      </mat-form-field>
+      <div fxFlex="70%" fxLayoutAlign="end">
+        <button mat-raised-button color="primary" type="button" (click)="loanSearch()"
+          class="mat-elevation-z12 box-button">Search</button></div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxFlex.xs="100%" fxFlex="100%" *ngIf="!!AddressList">
+
+      <button type="button" *ngFor="let buttonItem of buttonList" mat-raised-button [disabled]="displayFlag==buttonItem.id" class="mat-elevation-z12 box-button"
+        color="primary" (click)="onDisplay(buttonItem.id)">{{buttonItem.name}}</button>
+
+<!-- 
+      <button type="button" mat-raised-button [disabled]="displayFlag==2" class="mat-elevation-z12 box-button"
+        color="primary" (click)="onDisplay(2)">Loan Installment</button>
+      <button type="button" mat-raised-button [disabled]="displayFlag==3" class="mat-elevation-z12 box-button"
+        color="primary" (click)="onDisplay(3)">Collateral</button>
+      <button type="button" mat-raised-button [disabled]="displayFlag==4" class="mat-elevation-z12 box-button"
+        color="primary" (click)="onDisplay(4)">Disbursement</button>
+
+      <button type="button" mat-raised-button [disabled]="displayFlag==9" class="mat-elevation-z12 box-button"
+        color="primary" (click)="onDisplay(9)">Loan Account</button>
+      <button type="button" mat-raised-button [disabled]="displayFlag==10" class="mat-elevation-z12 box-button"
+        color="primary" (click)="onDisplay(10)">Debitors Account</button> -->
+
+    </div>
+    <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxFlex.xs="100%" fxFlex="100%" *ngIf="!!AddressList">
+      <button type="button" mat-raised-button [disabled]="displayFlag==8" class="mat-elevation-z12 box-button"
+        color="primary" (click)="onDisplay(8)">Unrealized Receipts</button>
+      <button type="button" mat-raised-button [disabled]="displayFlag==0" class="mat-elevation-z12 box-button"
+        color="primary" (click)="onDisplay(0)">All</button>
+    </div> -->
+  </div>
+
+  <div fxFlex="100%" class="page-heading" *ngIf="displayFlag==1||displayFlag==0">
+    <h3>{{MainHeader}}</h3>
+  </div>
+  <div fxLayout="column" class="form-block" fxFlex="100%" *ngIf="displayFlag==1||displayFlag==0">
+    <table style="width: 100;border-color: transparent;">
+      <tr *ngFor="let item of AddressList">
+        <td style="text-align: left;border-color: transparent;">{{item}}</td>
+      </tr>
+    </table>
+  </div>
+  <div fxLayout="column" class="form-block" fxFlex="100%" *ngIf="displayFlag==1||displayFlag==0">
+    <table class="border-table">
+      <tr>
+        <th *ngFor='let item of TablLoaneHeader' style="background: #9c9c9c3d;">{{item}}</th>
+      </tr>
+      <tr *ngFor='let TableDataRows of TLoandata'>
+        <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+      </tr>
+    </table>
+  </div>
+  <div fxLayout="column" class="form-block" fxFlex="100%" *ngIf="displayFlag==1||displayFlag==0">
+    <table style="width: 100%;border-color: transparent;">
+      <tr>
+        <td style="text-align: left;border-color: transparent;width: 50%;">
+          <table style="width: 100%;border-color: transparent;">
+            <tr *ngFor="let item of TablCoAppListLeft;index as i">
+              <td style="text-align: left;border-color: transparent;">{{item}}</td>
+              <td style="text-align: left;border-color: transparent;">{{TableCoAppListLeftData[i]}}</td>
+            </tr>
+          </table>
+        </td>
+        <td style="align-content: flex-end;border-color: transparent;width: 50%;">
+          <table style="width: 100%;border-color: transparent;">
+            <tr *ngFor="let item of TablCoAppListRight;index as i">
+              <td style="text-align: right;border-color: transparent;">{{item}}</td>
+              <td style="text-align: right;border-color: transparent;">{{TableCoAppListRightData[i]}}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <table class="border-table" style="width: 100%;">
+      <tr>
+        <th *ngFor='let item of TableInstaHeader' style="background: #9c9c9c3d;">{{item}}</th>
+      </tr>
+      <tr *ngFor='let TableDataRows of TInstadata'>
+        <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+      </tr>
+    </table>
+  </div>
+  <div fxFlex="100%" class="page-heading" *ngIf="displayFlag==2||displayFlag==0">
+    <h3>{{T112Heading}}</h3>
+  </div>
+  <div fxLayout="column" class="form-block" fxFlex="100%" *ngIf="displayFlag==2||displayFlag==0">
+    <div class="overflow" style="height:550px;">
+      <table class="border-table" style="width: 100%;border: 1px solid black;">
+        <tr>
+          <th *ngFor='let item of Table112Header' style="background: #9c9c9c3d;">{{item}}</th>
+        </tr>
+        <tr *ngFor='let TableDataRows of T112data'>
+          <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div fxFlex="100%" class="page-heading" *ngIf="displayFlag==3||displayFlag==0">
+    <h3>{{collateralHeading}}</h3>
+  </div>
+  <div fxLayout="column" class="form-block" fxFlex="100%" *ngIf="displayFlag==3||displayFlag==0">
+    <table class="border-table" style="width: 100%;">
+      <tr>
+        <th *ngFor='let item of TableCollateralHeader' style="background: #9c9c9c3d;">{{item}}</th>
+      </tr>
+      <tr *ngFor='let TableDataRows of TCollateraldata'>
+        <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+      </tr>
+    </table>
+  </div>
+  <div fxFlex="100%" class="page-heading" *ngIf="displayFlag==4||displayFlag==0">
+    <h3>{{DisburseHeading}}</h3>
+  </div>
+  <div fxLayout="column" class="form-block" fxFlex="100%" *ngIf="displayFlag==4||displayFlag==0">
+    <table class="border-table" style="width: 100%;">
+      <tr>
+        <th *ngFor='let item of TableDisburseHeader' style="background: #9c9c9c3d;">{{item}}</th>
+      </tr>
+      <tr *ngFor='let TableDataRows of TDisbursedata'>
+        <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+      </tr>
+    </table>
+  </div>
+  <div fxFlex="100%" class="page-heading" *ngIf="displayFlag==5||displayFlag==0">
+    <h3>{{PartPrePaymentHeading}}</h3>
+  </div>
+  <div fxLayout="column" class="form-block" fxFlex="100%" *ngIf="displayFlag==5||displayFlag==0">
+    <table class="border-table" style="width: 100%;border: 1px solid black;">
+      <tr>
+        <th *ngFor='let item of TablePartPrePaymentHeader' style="background: #9c9c9c3d;">{{item}}</th>
+      </tr>
+      <tr *ngFor='let TableDataRows of TPartPrePaymentdata'>
+        <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+      </tr>
+    </table>
+  </div>
+  <div fxFlex="100%" class="page-heading" *ngIf="displayFlag==6||displayFlag==0">
+    <h3>{{TransactionHeading}}</h3>
+  </div>
+  <div fxLayout="column" class="form-block" fxFlex="100%" *ngIf="displayFlag==6||displayFlag==0">
+    <table class="border-table" style="width: 100%;border: 1px solid black;">
+      <tr>
+        <th *ngFor='let item of TableTransactionHeader' style="background: #9c9c9c3d;">{{item}}</th>
+      </tr>
+      <tr *ngFor='let TableDataRows of TTransactiondata'>
+        <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+      </tr>
+    </table>
+  </div>
+  <div fxFlex="100%" class="page-heading" *ngIf="displayFlag==7||displayFlag==0">
+    <h3>{{TransHeading}}</h3>
+  </div>
+  <div fxLayout="column" class="form-block" fxFlex="100%" *ngIf="displayFlag==7||displayFlag==0">
+    <div class="overflow" style="height:550px;">
+      <table class="border-table" style="width: 100%;border: 1px solid black;">
+        <tr>
+          <th *ngFor='let item of TableTransHeader' style="background: #9c9c9c3d;">{{item}}</th>
+        </tr>
+        <tr *ngFor='let TableDataRows of TTransdata'>
+          <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div fxFlex="100%" class="page-heading" *ngIf="displayFlag==8||displayFlag==0">
+    <h3>{{UnRealisedHeading}}</h3>
+  </div>
+  <div fxLayout="column" class="form-block" fxFlex="100%" *ngIf="displayFlag==8||displayFlag==0">
+    <div class="overflow" style="height:550px;">
+      <table class="border-table" style="width: 100%;border: 1px solid black;">
+        <tr>
+          <th *ngFor='let item of TableUnRealisedHeader' style="background: #9c9c9c3d;">{{item}}</th>
+        </tr>
+        <tr *ngFor='let TableDataRows of TUnRealiseddata'>
+          <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div fxFlex="100%" class="page-heading" *ngIf="displayFlag==9||displayFlag==0">
+    <h3>{{T113Heading}}</h3>
+  </div>
+  <div fxLayout="column" class="form-block" fxFlex="100%" *ngIf="displayFlag==9||displayFlag==0">
+    <div class="overflow" style="height:550px;">
+      <table class="border-table" style="width: 100%;border: 1px solid black;">
+        <tr>
+          <th *ngFor='let item of Table113Header' style="background: #9c9c9c3d;">{{item}}</th>
+        </tr>
+        <tr *ngFor='let TableDataRows of T113data'>
+          <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div fxFlex="100%" class="page-heading" *ngIf="displayFlag==10||displayFlag==0">
+    <h3>{{T114Heading}}</h3>
+  </div>
+  <div fxLayout="column" class="form-block" fxFlex="100%" *ngIf="displayFlag==10||displayFlag==0">
+    <div class="overflow" style="height:550px;">
+      <table class="border-table" style="width: 100%;border: 1px solid black;">
+        <tr>
+          <th *ngFor='let item of Table114Header' style="background: #9c9c9c3d;">{{item}}</th>
+        </tr>
+        <tr *ngFor='let TableDataRows of T114data'>
+          <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>

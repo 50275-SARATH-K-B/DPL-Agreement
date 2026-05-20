@@ -1,0 +1,17 @@
+<div fxLayout="column" class="form-block flex-p" style="padding-top: 25px !important;">
+  <div fxLayoutGap="2%">
+      <div style="margin-left: 50px;margin-top:30px;" fxFlex="100%" fxLayoutGap="2%">
+        <mat-form-field fxFlex="100">
+          <input matInput placeholder="Loan ID" pattern="^[0-9]+$" [(ngModel)]="LoanId"  #LoanNumber="ngModel"  required>
+          <mat-error *ngIf="LoanNumber.errors?.required">Loan ID is required</mat-error>
+        </mat-form-field>
+        <div  fxFlex="70%" >
+        <button mat-raised-button color="primary" type="button" [disabled]="!LoanId" (click)="loanSearch()"
+          class="mat-elevation-z12 box-button">Search</button></div>
+      </div>
+  </div>
+  <mat-card fxLayoutGap="2%" [hidden]="!downloadReady">
+    <div id="pdfContainer"  fxFlex="100%" fxLayout="column">
+    </div>
+  </mat-card>
+</div>

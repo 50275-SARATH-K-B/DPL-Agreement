@@ -1,0 +1,191 @@
+<div fxLayout="column" class="form-block">
+  <mat-card fxFlex="100%" fxLayout="column" *ngIf="!!applicantData&&applicantData!==null">
+    <h3>Application Details</h3>
+    <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%" ngStyle.xs="margin-top:50px">
+      <mat-form-field fxFlex="24%">
+        <input matInput readonly placeholder="Application ID" class="long-value-input"
+          matTooltip={{applicantData.applicationId}} value={{applicantData.applicationId}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput readonly placeholder="Created Date" class="long-value-input"
+          matTooltip={{applicantData.traDate}} value={{applicantData.traDate}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput readonly placeholder="Branch" class="long-value-input" matTooltip={{applicantData.branchName}}
+          value={{applicantData.branchName}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput class="long-value-input" readonly placeholder="Product" matTooltip={{applicantData.productName}}
+          value={{applicantData.productName}}>
+      </mat-form-field>
+    </div>
+  </mat-card>
+  <mat-card fxFlex="100%" fxLayout="column"
+    *ngIf="!!customerAddressData&&customerAddressData!==null&&!!customerData&&customerData!==null">
+    <h3>Customer Details</h3>
+    <div fxFlex="100%" fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutGap.xs="0%">
+      <div fxFlex="75%" fxLayout="column">
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+          <mat-form-field fxFlex="50%" fxFlex.sm="45%">
+            <input matInput readonly name="Name" type="text" autofocus="off" value={{customerData.custId}}
+              placeholder="Customer ID" class="long-value-input" matTooltip={{customerData.custId}}>
+          </mat-form-field>
+          <mat-form-field fxFlex="50%" fxFlex.sm="45%">
+            <input matInput readonly placeholder="Customer Name" type="text" value={{customerData.firstName}}
+              class="long-value-input" matTooltip={{customerData.firstName}}>
+          </mat-form-field>
+        </div>
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+          <mat-form-field fxFlex="50%" fxFlex.sm="45%">
+            <input matInput readonly name="Name" type="text" autofocus="off" value={{customerData.dob}}
+              placeholder="Date of birth" class="long-value-input" matTooltip={{customerData.dob}}>
+          </mat-form-field>
+          <mat-form-field fxFlex="50%" fxFlex.sm="45%">
+            <input matInput readonly placeholder="Gender" value={{customerData.gender}} class="long-value-input"
+              matTooltip={{customerData.gender}}>
+          </mat-form-field>
+        </div>
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+          <mat-form-field fxFlex="50%" fxFlex.sm="45%">
+            <input matInput readonly placeholder="House/Office Name" value={{customerAddressData.houseName}} type="text"
+              class="long-value-input" matTooltip={{customerAddressData.houseName}}>
+          </mat-form-field>
+          <mat-form-field fxFlex="50%" fxFlex.sm="45%">
+            <input matInput readonly name="Name" class="long-value-input"
+              matTooltip={{customerAddressData.addressLine2}} placeholder="Locality"
+              value={{customerAddressData.addressLine2}}>
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxFlex="25%" fxFlex.sm="20%" *ngIf="imageData!=null&&!!imageData" fxLayoutAlign="center">
+        <img [height]="180" [width]="160" ngStyle.xs="height:150px;width:150px"
+          ngStyle.sm="height:120px;width:120px;padding-top:30px" [src]="imageData" />
+      </div>
+    </div>
+    <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%" ngStyle.xs="margin-top:50px">
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Street" class="long-value-input"
+          matTooltip={{customerAddressData.addressLine3}} value={{customerAddressData.addressLine3}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Pin Code" class="long-value-input"
+          matTooltip={{customerAddressData.pincode}} value={{customerAddressData.pincode}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Post office" class="long-value-input"
+          matTooltip={{customerAddressData.postOffice}} value={{customerAddressData.postOffice}}>
+      </mat-form-field>
+    </div>
+    <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="District" class="long-value-input"
+          matTooltip={{customerAddressData.districtName}} value={{customerAddressData.districtName}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="State" class="long-value-input"
+          matTooltip={{customerAddressData.stateName}} value={{customerAddressData.stateName}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Mobile Number" matTooltip={{customerData.mobilePhone}}
+          value={{customerData.mobilePhone}}>
+      </mat-form-field>
+    </div>
+    <div fxLayoutGap=2% fxLayout.xs="column" *ngIf="documentList.length>0"  style="overflow: scroll;-ms-overflow-style: scrollbar;">
+      <table mat-table [dataSource]="documentDataSource" class="mat-elevation-z8 width-1-1" fxFlex="100%">
+        <ng-container matColumnDef="documentId">
+          <th mat-header-cell *matHeaderCellDef> Document No </th>
+          <td mat-cell *matCellDef="let element"> {{element.documentId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="identityTypeDescr">
+          <th mat-header-cell *matHeaderCellDef> Identity Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.identityTypeDescr}} </td>
+        </ng-container>
+        <ng-container matColumnDef="identityNo">
+          <th mat-header-cell *matHeaderCellDef> Identity No </th>
+          <td mat-cell *matCellDef="let element"> {{element.identityNo}} </td>
+        </ng-container>
+        <ng-container matColumnDef="countryName">
+          <th mat-header-cell *matHeaderCellDef> Country </th>
+          <td mat-cell *matCellDef="let element"> {{element.countryName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="view">
+          <th mat-header-cell *matHeaderCellDef> View</th>
+          <td mat-cell (click)="viewDocumentImage(element)" *matCellDef="let element">
+            <mat-icon>visibility</mat-icon>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card>
+  <mat-card fxFlex="100%" fxLayout="column" *ngIf="loanAssetData!==null&&!!loanAssetData">
+    <h3>Asset Details</h3>
+    <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%" ngStyle.xs="margin-top:50px">
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Asset Model" value={{loanAssetData.assetModelName}}
+          class="long-value-input" matTooltip={{loanAssetData.assetModelName}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Asset Category" value={{loanAssetData.assetCategoryName}}
+          class="long-value-input" matTooltip={{loanAssetData.assetCategoryName}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Manufacturer" value={{loanAssetData.manufacturerName}}
+          class="long-value-input" matTooltip={{loanAssetData.manufacturerName}}>
+      </mat-form-field>
+    </div>
+    <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Manufacturing Year" value={{loanAssetData.manufactureYear}}
+          class="long-value-input" matTooltip={{loanAssetData.manufactureYear}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Asset Cost" value={{loanAssetData.assetCost}} class="long-value-input"
+          matTooltip={{loanAssetData.assetCost}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Downpayment" value={{loanAssetData.downPaymentAmount}}
+          class="long-value-input" matTooltip={{loanAssetData.downPaymentAmount}}>
+      </mat-form-field>
+    </div>
+  </mat-card>
+  <mat-card fxFlex="100%" fxLayout="column" *ngIf="!!loanData&&loanData!==null">
+    <h3>Loan Details</h3>
+    <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%" ngStyle.xs="margin-top:50px">
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Loan Amount" value={{loanData.loanAmount}} class="long-value-input"
+          matTooltip={{loanData.loanAmount}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Scheme" value={{loanData.schemeName}} class="long-value-input"
+          matTooltip={{loanData.schemeName}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Tenure(Months)" value={{loanData.tenure}} class="long-value-input"
+          matTooltip={{loanData.tenure}}>
+      </mat-form-field>
+    </div>
+    <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Installment Type" value={{loanData.installmentTypeDescr}}
+          class="long-value-input" matTooltip={{loanData.installmentTypeDescr}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Installment Amount" value={{loanData.instAmount}} class="long-value-input"
+          matTooltip={{loanData.instAmount}}>
+      </mat-form-field>
+      <mat-form-field fxFlex="33.33%">
+        <input matInput readonly placeholder="Interest Type" value={{loanData.interestRateType}}
+          class="long-value-input" matTooltip={{loanData.interestRateType}}>
+      </mat-form-field>
+    </div>
+    <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+      <mat-form-field fxFlex="32%">
+        <input matInput readonly placeholder="Interest Rate(%)" value={{loanData.rate}} class="long-value-input"
+          matTooltip={{loanData.rate}}>
+      </mat-form-field>
+    </div>
+  </mat-card>
+</div>

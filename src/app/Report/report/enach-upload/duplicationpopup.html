@@ -1,0 +1,212 @@
+
+ <mat-card >
+  <div  fxLayoutGap="7%" fxFlex="50" fxLayoutAlign="left">
+   <!-- <div fxLayoutGap="3%" fxFlex="25" fxLayoutAlign="center"> -->
+    <button type="button" mat-raised-button  color="primary"
+       (click)="Duplicationcheck()">Duplication Check</button>
+ </div>
+ 
+ 
+ </mat-card>
+ <mat-card>
+
+
+      <div fxFlex="50" fxLayoutGap="5%" style="margin-left:10px">
+         <h2>Duplication</h2>
+
+      <div style="overflow:scroll;-ms-overflow-style: scrollbar;">
+         <table mat-table [dataSource]="duplicationSource">
+            <ng-container matColumnDef="select">
+               <th mat-header-cell *matHeaderCellDef>
+                 <mat-checkbox #ref (change)="$event ? masterToggle(ref) : null"
+                   [checked]="selection.hasValue() && isAllSelected()"
+                   [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                 </mat-checkbox>
+               </th>
+               <td mat-cell *matCellDef="let row">
+                 <mat-checkbox (click)="$event.stopPropagation()"
+                   (change)="$event ? selection.toggle(row) : null;isSomeSelected()"
+                   [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                 </mat-checkbox>
+               </td>
+             </ng-container>
+             <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let element">
+                <button *ngIf="!!resub" mat-raised-button color="primary"
+                (click) ="removfunc(element)" >Remove</button>             </td>
+                       
+              
+            </ng-container>
+            <ng-container matColumnDef="Advanceemi">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let element">
+                <button *ngIf="!!resub" mat-raised-button color="primary"
+                (click) ="advanceemi(element)" [disabled]="!element.remarks" >Advance EMI</button>             </td>
+                       
+              
+            </ng-container>
+            <!-- <ng-container matColumnDef="Resumit">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let element">
+                <button *ngIf="!!resub" mat-raised-button color="primary"
+                (click) ="resubfunc(element)" [disabled]="!element.remarks" >Resubmission</button>             </td>
+                       
+              
+            </ng-container> -->
+           <ng-container matColumnDef="SlNo">
+             <th mat-header-cell *matHeaderCellDef> SlNo </th>
+             <td mat-cell *matCellDef="let element ;  let i= index"> {{i+1}} </td>
+           </ng-container>
+           <ng-container matColumnDef="MandateID">
+             <th mat-header-cell *matHeaderCellDef>MandateID</th>
+             <td mat-cell *matCellDef="let element"> {{element.mandateid}} </td>
+           </ng-container>
+           <ng-container matColumnDef="CustomerName">
+             <th mat-header-cell *matHeaderCellDef>CustomerName</th>
+             <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+           </ng-container>
+           <ng-container matColumnDef="LoanID">
+             <th mat-header-cell *matHeaderCellDef>LoanID</th>
+             <td mat-cell *matCellDef="let element"> {{element.loanid}} </td>
+           </ng-container>
+           <ng-container matColumnDef="Customerid">
+             <th mat-header-cell *matHeaderCellDef>CustomerId</th>
+             <td mat-cell *matCellDef="let element"> {{element.Customerid}} </td>
+           </ng-container>
+           <ng-container matColumnDef="InstallmentAmount">
+             <th mat-header-cell *matHeaderCellDef>InstallmentAmount</th>
+             <td mat-cell *matCellDef="let element"> {{element.installmentamount}} </td>
+           </ng-container>
+           <ng-container matColumnDef="TransactionType">
+             <th mat-header-cell *matHeaderCellDef>TransactionType</th>
+             <td mat-cell *matCellDef="let element"> {{element.transactiontype}} </td>
+           </ng-container>
+           <ng-container matColumnDef="first_submissiondte">
+            <th mat-header-cell *matHeaderCellDef>First Submission Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.first_submissiondate}} </td>
+          </ng-container>
+           <ng-container matColumnDef="DueDate">
+             <th mat-header-cell *matHeaderCellDef>DueDate</th>
+             <td mat-cell *matCellDef="let element"> {{element.duedate}} </td>
+           </ng-container>
+           <ng-container matColumnDef="PresentationDate">
+             <th mat-header-cell *matHeaderCellDef>PresentationDate</th>
+             <td mat-cell *matCellDef="let element"> {{element.PresentationDate}} </td>
+           </ng-container>
+           <ng-container matColumnDef="remarks">
+            <th mat-header-cell *matHeaderCellDef>Remarks</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field>
+                <textarea [(ngModel)]="element.remarks" #Customer_IDTxt="ngModel" required matInput placeholder="Remarks" autocomplete="off"  (change)="fieldenachchange(element.remarks,element.mandateid)" type="text"></textarea>
+                <mat-error *ngIf="Customer_IDTxt.errors?.required">Remarks Is required</mat-error>
+              </mat-form-field>
+            </td>
+          </ng-container>
+          
+           <!-- income_particulars: any;
+       income_Amount: any; -->
+           <!-- <ng-container matColumnDef="Action">
+         <th mat-header-cell *matHeaderCellDef>Action</th>
+         <td mat-cell *matCellDef="let element;  let i= index">
+           <div fxLayoutGap="2%" fxFlex="15% auto" fxLayout="row">             
+             <button mat-icon-button (click)="deleteTableItem({element:element,index:i},1)"color="warn">
+               <mat-icon>delete_forever</mat-icon>
+             </button>
+           </div>
+         </td>
+       </ng-container> -->
+           <tr mat-header-row *matHeaderRowDef="displayedColumnsdupli"></tr>
+           <tr mat-row *matRowDef="let row; columns: displayedColumnsdupli;"></tr>
+         </table>
+       </div>
+       <div style="margin-top: 30px;">
+        <button *ngIf="!!resub" mat-raised-button color="primary"
+        (click) ="resubfunc(selectedDatas)"  [disabled]="selection.selected.length==0">Resubmission</button>
+       </div>
+   
+       <!-- <button *ngIf="!!resub" mat-raised-button color="primary"
+       (click) ="advfunc(selectedDatas.shift())" [disabled]="selection.selected.length==0">Advance EMI</button> -->
+
+       <!-- </div> -->
+
+     
+  <!-- <div > -->
+    <!-- <div fxFlex="50" fxLayoutGap="3%" > -->
+    
+   </div>
+   <div fxFlex="50" fxLayoutGap="3%" style="margin-right: 30px;">
+    <h2>Excel Data</h2>
+
+    <div style="overflow:scroll;-ms-overflow-style: scrollbar; max-height:410px;">
+       <table mat-table [dataSource]="enachSource">
+
+         <ng-container matColumnDef="SlNo">
+           <th mat-header-cell *matHeaderCellDef> SlNo </th>
+           <td mat-cell *matCellDef="let element ;  let i= index"> {{i+1}} </td>
+         </ng-container>
+         <ng-container matColumnDef="MandateID">
+           <th mat-header-cell *matHeaderCellDef>MandateID</th>
+           <td mat-cell *matCellDef="let element"> {{element.mandateid}} </td>
+         </ng-container>
+         <ng-container matColumnDef="CustomerName">
+           <th mat-header-cell *matHeaderCellDef>CustomerName</th>
+           <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+         </ng-container>
+         <ng-container matColumnDef="LoanID">
+           <th mat-header-cell *matHeaderCellDef>LoanID</th>
+           <td mat-cell *matCellDef="let element"> {{element.loanid}} </td>
+         </ng-container>
+         <ng-container matColumnDef="Customerid">
+           <th mat-header-cell *matHeaderCellDef>CustomerId</th>
+           <td mat-cell *matCellDef="let element"> {{element.Customerid}} </td>
+         </ng-container>
+         <ng-container matColumnDef="InstallmentAmount">
+           <th mat-header-cell *matHeaderCellDef>InstallmentAmount</th>
+           <td mat-cell *matCellDef="let element"> {{element.installmentamount}} </td>
+         </ng-container>
+         <ng-container matColumnDef="TransactionType">
+           <th mat-header-cell *matHeaderCellDef>TransactionType</th>
+           <td mat-cell *matCellDef="let element"> {{element.transactiontype}} </td>
+         </ng-container>
+         <ng-container matColumnDef="DueDate">
+           <th mat-header-cell *matHeaderCellDef>DueDate</th>
+           <td mat-cell *matCellDef="let element"> {{element.duedate}} </td>
+         </ng-container>
+         <ng-container matColumnDef="PresentationDate">
+           <th mat-header-cell *matHeaderCellDef>PresentationDate</th>
+           <td mat-cell *matCellDef="let element"> {{element.PresentationDate}} </td>
+         </ng-container>
+        
+         <!-- income_particulars: any;
+     income_Amount: any; -->
+         <!-- <ng-container matColumnDef="Action">
+       <th mat-header-cell *matHeaderCellDef>Action</th>
+       <td mat-cell *matCellDef="let element;  let i= index">
+         <div fxLayoutGap="2%" fxFlex="15% auto" fxLayout="row">             
+           <button mat-icon-button (click)="deleteTableItem({element:element,index:i},1)"color="warn">
+             <mat-icon>delete_forever</mat-icon>
+           </button>
+         </div>
+       </td>
+     </ng-container> -->
+         <tr mat-header-row *matHeaderRowDef="displayedColumnsSuccess"></tr>
+         <tr mat-row *matRowDef="let row; columns: displayedColumnsSuccess;"></tr>
+       </table>
+     </div>
+ <button type="button" mat-raised-button  color="primary"
+ (click)="savedata()">Confirm</button>
+
+ <button  mat-raised-button class="mat-elevation-z12 box-button true"
+ mat-dialog-close (click) ="close()">Close</button>
+   </div>
+  
+  
+  </mat-card>
+
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,212 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card fxLayout="column">
+      <div fxLayoutGap="2%" fxFlex="100%" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center">
+        <mat-form-field appearance="outline" fxFlex="33.3%">
+          <mat-label>Select Branch</mat-label>
+          <mat-select [(ngModel)]="branchID" name="Branch" #BranchText="ngModel" (ngModelChange)="getCustList()"
+            required>
+            <mat-option *ngFor="let item of branchList" value={{item.BranchID}}>
+              {{item.BranchName}} </mat-option>
+          </mat-select>
+          <mat-error *ngIf="BranchText.errors?.required"> Branch is required.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="33.3%">
+          <mat-label>Select customer</mat-label>
+          <mat-select [(ngModel)]="applicationId" name="applicationId" #CustomerText="ngModel" required
+            (ngModelChange)="getWaiverDetails()">
+            <mat-option *ngFor="let item of customerList" value={{item.applicationId}}>
+              {{item.address}} </mat-option>
+          </mat-select>
+          <mat-error *ngIf="CustomerText.errors?.required"> Customer is required.</mat-error>
+        </mat-form-field>
+      </div>
+    </mat-card>
+    <mat-card fxLayout="column" *ngIf="accountSource.data.length>0">
+      <h3>Waiver Detail</h3>
+      <form #waiverEntryForm="ngForm" fxLayout="column">
+        <mat-card-content>
+          <div *ngIf="accountSource.data.length>0"
+            style="overflow-y: scroll; -ms-overflow-style: scrollbar; max-height: 310px">
+            <table mat-table [dataSource]="accountSource" fxFlex="100%">
+              <ng-container matColumnDef="LoanID">
+                <th mat-header-cell *matHeaderCellDef> Loan ID </th>
+                <td mat-cell *matCellDef="let element; let i = index;"> {{element.LoanID}} </td>
+              </ng-container>
+              <ng-container matColumnDef="applicationid">
+                <th mat-header-cell *matHeaderCellDef>Application ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.application_id}} </td>
+              </ng-container>
+              <ng-container matColumnDef="TDate">
+                <th mat-header-cell *matHeaderCellDef> Receivable Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.ReceivableDate}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Bussiness">
+                <th mat-header-cell *matHeaderCellDef> Business Partner </th>
+                <td mat-cell *matCellDef="let element"> {{element.BusinessPartner}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Descr">
+                <th mat-header-cell *matHeaderCellDef> Description </th>
+                <td mat-cell *matCellDef="let element"> {{element.Descr}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Due">
+                <th mat-header-cell *matHeaderCellDef>Due Amount </th>
+                <td mat-cell *matCellDef="let element"> {{element.DUE_AMOUNT}} </td>
+              </ng-container>
+              <ng-container matColumnDef="TaxAmt">
+                <th mat-header-cell *matHeaderCellDef>Tax Amount </th>
+                <td mat-cell *matCellDef="let element"> {{element.TAX_AMOUNT}} </td>
+              </ng-container>
+              <ng-container matColumnDef="OVERDUE">
+                <th mat-header-cell *matHeaderCellDef> Overdue Amount</th>
+                <td mat-cell *matCellDef="let element"> {{element.OVERDUE_AMOUNT}} </td>
+              </ng-container>
+              <ng-container matColumnDef="WaiverAmount">
+                <th mat-header-cell *matHeaderCellDef>Waiver Amount </th>
+                <td mat-cell *matCellDef="let element"> {{element.WaiverAmount}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Tax">
+                <th mat-header-cell *matHeaderCellDef>Tax Waiver Amount </th>
+                <td mat-cell *matCellDef="let element"> {{element.TAX_WAIVED_AMT}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Reason">
+                <th mat-header-cell *matHeaderCellDef>Reason </th>
+                <td mat-cell *matCellDef="let element"> {{element.reason_name}} </td>
+              </ng-container>
+             
+              <!-- <ng-container matColumnDef="Date">
+                <th mat-header-cell *matHeaderCellDef>Value Date</th>
+                <td mat-cell *matCellDef="let element; let i = index;"> {{element.valuE_DATE}} </td>
+              </ng-container> -->
+              
+
+              <!-- <ng-container matColumnDef="Attachment">
+                <th mat-header-cell *matHeaderCellDef>Attachment</th>
+                <td mat-cell *matCellDef="let element"> {{element.attachemenT_NAME}} 
+                  <!-- <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1% fxLayoutAlign="end"> -->
+                    <!-- <mat-icon  *ngIf="element.attachemenT_NAME" (click)="OpenFile(element.attachement,element.attachemenT_TYPE,element.attachemenT_EXTENSION)" class="visibility">visibility</mat-icon> -->
+                  <!-- </div> -->
+                <!-- </td>
+              </ng-container> --> -->
+              
+              <!-- <ng-container matColumnDef="Makercode">
+                <th mat-header-cell *matHeaderCellDef>Maker EmpCode</th>
+                <td mat-cell *matCellDef="let element"> {{element.requesteD_BY}} </td>
+              </ng-container> -->
+              <!-- <ng-container matColumnDef="Makername">
+                <th mat-header-cell *matHeaderCellDef>Maker Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.requesteD_NAME}} </td>
+              </ng-container> -->
+              <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true">
+              </tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="a_custom">
+              </tr>
+            </table>
+          </div>
+          <!-- <div fxFlex=100% ngClass.xs="single-search-responsive"> -->
+            
+              
+             
+              
+              
+
+          <!-- </div> -->
+        </mat-card-content>
+        <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" *ngIf="accountSource.data.length>0">
+          <mat-form-field fxFlex="50%" appearance="outline">
+            <mat-label>Reason</mat-label>
+            <input matInput [(ngModel)]="Reasoncode" name="Reasoncode" autocomplete="off" #reasoncode="ngModel"
+              readonly>
+            <mat-error *ngIf="reasoncode.errors?.required"> Reason required</mat-error>
+          </mat-form-field>
+
+          <div fxFlex=50% fxLayout.xs="row" fxLayoutGap="2%">
+            <div fxFlex=100% ngClass.xs="single-search-responsive">
+              <mat-form-field fxFlex="100%" appearance="outline">
+                <mat-label>Approval Attachment</mat-label>
+                <input matInput readonly *ngIf="FileName == 'No File Selected'" style="font-size: 12px;"
+                  value="Approval Attachment(Supports:JPG,PNG,PDF)">
+                <input matInput readonly *ngIf="FileName != 'No File Selected'" [(ngModel)]="FileName" name="FileNAME"
+                  #tittleAttachment="ngModel">
+                <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1% fxLayoutAlign="end" *ngIf="FileName">
+                   <i (click)="OpenFile()"  class="fa fa-eye eye"></i>
+                </div>
+                <mat-hint>(Supports:JPG,PNG,EXCEL,PDF)</mat-hint>
+              </mat-form-field>
+
+            </div>
+            <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1%>
+              <input hidden="hidden" type='file'
+                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet/*"
+                (change)="onChangeFile($event)" #document>
+              <button mat-icon-button color="primary" type="button" (click)="document.click()"
+                class="mat-elevation-z12 box-button swing" id="but" color="primary">
+                <mat-icon>scanner</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="center"
+          *ngIf="accountSource.data.length>0" style="margin-top: 10px;">
+          <mat-form-field fxFlex="25%" appearance="outline">
+            <mat-label>Maker EmpCode</mat-label>
+            <input matInput [(ngModel)]="EmpCode" name="EmpCode" autocomplete="off" readonly>
+          </mat-form-field>
+          <mat-form-field fxFlex="25%" appearance="outline">
+            <mat-label>Maker Name</mat-label>
+            <input matInput [(ngModel)]="Name" name="Name" autocomplete="off" readonly>
+          </mat-form-field>
+        </div> -->
+
+
+
+
+
+
+        <div fxLayout="row" style="margin-top: 10px;" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="center"
+          *ngIf="accountSource.data.length>0">
+          <div fxFlex=80% fxLayout.xs="row" fxLayoutGap="3%">
+
+            <mat-form-field class="field_lengths" appearance="outline">
+              <mat-label>Maker EmpCode</mat-label>
+              <input matInput readonly  [(ngModel)]="requesteD_BY" name="requesteD_BY">
+            </mat-form-field>
+
+            <mat-form-field class="field_lengths" appearance="outline">
+              <mat-label>Maker Name</mat-label>
+              <input matInput readonly  [(ngModel)]="requesteD_NAME" name="requesteD_NAME">
+            </mat-form-field>
+  
+
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="center"
+          *ngIf="accountSource.data.length>0">
+          <div fxFlex=50% fxLayout.xs="row" fxLayoutGap="3%">
+          <mat-form-field class="field_length" appearance="outline">
+            <mat-label>Approval Attachment</mat-label>
+            <input matInput readonly  [(ngModel)]="FileName" name="FileNAME"
+              #tittleAttachment="ngModel">
+            <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1% fxLayoutAlign="end">
+               <i (click)="OpenFile()"  class="fa fa-eye eye"></i>
+            </div>
+          </mat-form-field>
+
+          
+
+          <button mat-raised-button type="button" class="mat-elevation-z12 box-button false" (click)="clearForm()"
+            id="clear_btn">Clear</button>
+          <button mat-raised-button class="mat-elevation-z12 box-button false"
+            [disabled]="waiverEntryForm.invalid || accountSource.data.length<=0" type="button"
+            (click)="save('2',waiverEntryForm)" id="clear_btn">Reject</button>
+          <button mat-button class="mat-elevation-z12 box-button true"
+            [disabled]="waiverEntryForm.invalid || accountSource.data.length<=0" color="primary" type="button"
+            (click)="save('1',waiverEntryForm)" id="confirm_btn">Confirm</button>
+            </div>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

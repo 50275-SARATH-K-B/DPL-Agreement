@@ -1,0 +1,24 @@
+.a_custom {
+    cursor: pointer !important;
+  }
+  
+  .mat-cell {
+    flex: 0 0 15%;
+    min-width: 130px;
+    justify-content: start;
+    background-color: inherit !important;
+  }
+  .mat-header-cell {
+    flex: 0 0 15%;
+    min-width: 130px;
+    justify-content: start;
+    background: #f5dc02 !important; 
+    color: black !important;
+    height: 55px ;
+  }
+  .mat-row.hovered {
+    background: #eee;
+  }
+  .myt-1{
+    margin-top: 10px;
+  }

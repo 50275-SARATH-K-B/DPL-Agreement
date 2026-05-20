@@ -1,0 +1,109 @@
+<mat-card fxFlex="100%">
+    <!-- <div class="head">
+        <h3>BILLING CHECKER REPORT</h3>
+    </div> -->
+    <!-- <h2 class="h2-head">
+        <mat-icon class="home-icon" routerLink="/home">home</mat-icon>Home/Billing Checker Report
+    </h2> -->
+    <div fxLayoutGap="2%">
+        <mat-form-field fxFlex="30%" fxFlex.xs="90%" appearance="outline">
+            <input matInput autocomplete="off" placeholder="Search here..." type="text"
+                (keydown.Tab)="applyFilter($event)" (keyup)="applyFilter($event)" name="filters">
+        </mat-form-field>
+    </div>
+
+    <div style="overflow: scroll;-ms-overflow-style: scrollbar;max-height: 390px; margin-top: 30px;">
+
+        <table mat-table matSort [dataSource]="dataSource">
+            <ng-container matColumnDef="slno">
+                <th mat-header-cell *matHeaderCellDef>SL. No.</th>
+                <td mat-cell *matCellDef="let element; let i = index;">{{i+1}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="billdate">
+                <th mat-header-cell *matHeaderCellDef>Billed Date</th>
+                <td mat-cell *matCellDef="let element">{{element.Billed_Date}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="cin">
+                <th mat-header-cell *matHeaderCellDef>Verification Date</th>
+                <td mat-cell *matCellDef="let element">{{element.Verification_Date}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="count">
+                <th mat-header-cell *matHeaderCellDef>Total Billed Loan Count in LMS</th>
+                <td mat-cell *matCellDef="let element">{{element.Total_Billed_Loan_Count_in_LMS}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="emiamnt">
+                <th mat-header-cell *matHeaderCellDef>Total Billed EMI Amt in LMS</th>
+                <td mat-cell *matCellDef="let element">{{element.Total_Billed_EMI_Amt_in_LMS}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="intamnt">
+                <th mat-header-cell *matHeaderCellDef>Total Billed Int Amt in LMS</th>
+                <td mat-cell *matCellDef="let element">{{element.Total_Billed_Int_Amt_in_LMS}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="prinamnt">
+                <th mat-header-cell *matHeaderCellDef>Total Billed Prin Amt in LMS</th>
+                <td mat-cell *matCellDef="let element">{{element.Total_Billed_Prin_Amt_in_LMS}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="debtor">
+                <th mat-header-cell *matHeaderCellDef>Account Total Billed Debtors Amt</th>
+                <td mat-cell *matCellDef="let element">{{element.Account_Total_Billed_Debtors_Amt}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="accntamnt">
+                <th mat-header-cell *matHeaderCellDef>Account Total Billed Loan Account Amt</th>
+                <td mat-cell *matCellDef="let element">{{element.Account_Total_Billed_Loan_Account_Amt}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="receiveamnt">
+                <th mat-header-cell *matHeaderCellDef>Account Total Billed Interest Received Amt</th>
+                <td mat-cell *matCellDef="let element">{{element.Account_Total_Billed_Interest_Received_Amt}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="different">
+                <th mat-header-cell *matHeaderCellDef>Different Amount LMS & Account</th>
+                <td mat-cell *matCellDef="let element">{{element.Different_Amount_LMS_AND_Account}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="company">
+                <th mat-header-cell *matHeaderCellDef>Verifier Emp Code</th>
+                <td mat-cell *matCellDef="let element">{{element.Emp_Code}}</td>
+            </ng-container>
+            <ng-container matColumnDef="term">
+                <th mat-header-cell *matHeaderCellDef>Emp Name</th>
+                <td mat-cell *matCellDef="let element">{{element.Emp_Name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Status Details</th>
+                <td mat-cell *matCellDef="let element">{{element.Status}}</td>
+            </ng-container>
+            <ng-container matColumnDef="reason">
+                <th mat-header-cell *matHeaderCellDef>Reason</th>
+                <td mat-cell *matCellDef="let element">{{element.Reason}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Remarks</th>
+                <td mat-cell style="cursor: pointer;text-align: center;" *matCellDef="let element">
+                  <a mat-icon-button type="button" (click)="remarkview(element)" color="primary">
+                    <mat-icon>visibility</mat-icon></a>
+                </td>
+                <!-- [disabled]="apdatas.length==0" -->
+              </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true" style="background-color: #00563B;">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator style="margin-right:10px" [pageSize]="5" showFirstLastButtons></mat-paginator>
+    </div>
+
+    <div style="margin: 10px;" fxLayoutGap="2%" fxLayoutAlign="end">
+        <button mat-raised-button (click)="ExportExcel()" color="warn">Export As Excel</button>
+      </div>
+</mat-card>

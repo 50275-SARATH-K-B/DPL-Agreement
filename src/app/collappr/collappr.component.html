@@ -1,0 +1,107 @@
+<div fxLayout="column" class="flex-p">
+  <mat-card>
+   <div class="head">
+     <h3>INSTALLMENT CANCEL APPROVAL</h3>
+   </div>
+   <!-- <h2 class="h2-head">
+     <mat-icon class="home-icon" routerLink="/home">home</mat-icon>Approval/Installment Cancel Approval
+   </h2> -->
+
+  <!-- </mat-card>
+  <mat-card> -->
+   <div fxLayout="row" fxLayoutGap="1%"  fxLayoutAlign="end" class="myt-1">
+     <mat-form-field fxFlex="30%" fxFlex.xs="90%" appearance="outline">
+       <mat-label>Search here..</mat-label>
+       <input matInput autocomplete="off" placeholder="Search here.." type="text" [(ngModel)]="filter" name="filter" (keyup)="filterSource($event)">
+     </mat-form-field>
+
+    
+   </div>
+   <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%">
+     <mat-form-field appearance="outline" fxFlex="25%">
+         <mat-label>Value Date</mat-label>
+         <input matInput [matDatepicker]="picker" autocomplete="off" [(ngModel)]="date"
+         #DateText="ngModel" name="Date" [max]="datesdata" required>
+         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+         <mat-datepicker #picker></mat-datepicker>
+         <mat-error *ngIf="DateText.errors?.required">Date is required</mat-error>
+         </mat-form-field>
+         <div fxFlex="25%"></div>
+         <div fxFlex="25%"></div>
+         <div fxFlex="25%"></div>
+     </div> -->
+<div fxLayoutGap="2%" fxLayoutAlign="center" style="margin-bottom: 10px;">
+ <!-- <button mat-button color="primary" type="button" (click)="getReversalData()"
+   class="true box-button mat-elevation-z12">Get Request List</button> -->
+</div>
+<div fxLayout="column" class="flex-p" *ngIf="dataSource.data.length>0">
+   <div style="overflow: scroll;-ms-overflow-style: scrollbar;max-height: 450px"> 
+     <table mat-table [dataSource]="dataSource" id="checker">
+       <ng-container matColumnDef="Slno">
+         <th mat-header-cell *matHeaderCellDef> Sl.No. </th>
+         <td mat-cell *matCellDef="let item; let i = index;">{{ i + 1 }}</td>
+       </ng-container>
+       <ng-container matColumnDef="LoanID">
+         <th mat-header-cell *matHeaderCellDef>Loan ID </th>
+         <td mat-cell *matCellDef="let item">{{item.LoanID}}</td>
+       </ng-container>
+       <ng-container matColumnDef="transID">
+         <th mat-header-cell *matHeaderCellDef>Transaction ID</th>
+         <td mat-cell *matCellDef="let item">{{item.transID}}</td>
+       </ng-container>
+       <ng-container matColumnDef="CollectionAmount">
+         <th mat-header-cell *matHeaderCellDef>Amount </th>
+         <td mat-cell *matCellDef="let item" >{{item.Amount}}</td>
+       </ng-container>
+       <ng-container matColumnDef="instrument_reference_no">
+         <th mat-header-cell *matHeaderCellDef>Instrument/Reference Number </th>
+         <td mat-cell *matCellDef="let item" >{{item.instrument_reference_no}}</td>
+       </ng-container>
+       <ng-container matColumnDef="receipt_number">
+         <th mat-header-cell *matHeaderCellDef>Receipt Number </th>
+         <td mat-cell *matCellDef="let item" >{{item.receipt_number}}</td>
+       </ng-container>
+       <!-- <ng-container matColumnDef="account_type">
+         <th mat-header-cell *matHeaderCellDef>Account Type </th>
+         <td mat-cell *matCellDef="let item" >{{item.account_type}}</td>
+       </ng-container> -->
+       <ng-container matColumnDef="payment_mode">
+         <th mat-header-cell *matHeaderCellDef>Payment Mode </th>
+         <td mat-cell *matCellDef="let item" >{{item.payment_mode}}</td>
+       </ng-container>
+  
+       <ng-container matColumnDef="remarks">
+         <th mat-header-cell *matHeaderCellDef>Remarks </th>
+         <td mat-cell *matCellDef="let item" > {{item.Remark_text}}</td>
+       </ng-container>
+       <ng-container matColumnDef="Actions">
+         <th mat-header-cell *matHeaderCellDef  style="text-align: center;"> Actions </th>
+         <td mat-cell *matCellDef="let item">
+           <div fxLayout.xs="row" fxLayout="row" fxLayoutGap="2%" fxLayoutAlign="space-around">
+             <a class="approve-icon" (click)="SaveCollection(item,1)"><mat-icon>check_circle</mat-icon></a>
+             <a class="reject-icon" (click)="SaveCollection(item,0)"><mat-icon>cancel</mat-icon></a>
+             <!-- <button type="button" class="true" mat-button color="primary" (click)="SaveCollection(item,1)">Approve</button> -->
+             <!-- <button type="button" class="false" mat-button color="primary" (click)="SaveCollection(item,0)">Reject</button> -->
+           </div>
+         </td>
+       </ng-container>
+       <tr mat-header-row *matHeaderRowDef="displayedColumns">
+       </tr>
+       <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="a_custom">
+       </tr>
+     </table>
+   </div>
+   <br>
+   <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="center" style="margin-top: 25px;">
+     <mat-form-field fxFlex="30%" appearance="outline">
+       <mat-label>Maker EmpCode</mat-label>
+       <input matInput [(ngModel)]="EmpCode" name="EmpCode" autocomplete="off" readonly>
+     </mat-form-field>
+     <mat-form-field fxFlex="25%" appearance="outline">
+       <mat-label>Maker Name</mat-label>
+       <input matInput [(ngModel)]="Name" name="Name" autocomplete="off" readonly>
+     </mat-form-field>
+   </div> -->
+ </div>
+  </mat-card>
+ 

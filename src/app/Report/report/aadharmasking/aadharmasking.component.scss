@@ -1,0 +1,39 @@
+.identity-display-none{
+    display: none !important;
+  }
+  
+img {
+  width: 100%;
+}
+
+// .preview-image{
+//   border-color: blue;
+//   border-style: solid;
+//   border-width: 1px;
+//   display: inline-block;
+// }
+
+.cropper{
+  max-width:700px;
+}
+
+
+.preview-img{
+  border:1px solid blue;
+}
+
+#aadhar-bottom-buttons-div{
+  padding-top: 4px;
+}
+
+#aadharCanvasDiv{
+  padding: 4px;
+}
+
+#hideAadharButtonsDiv{
+  min-width: 400px;
+}
+
+// #aadhar{
+//   min-width:300px;
+// }

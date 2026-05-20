@@ -1,0 +1,130 @@
+
+<div class="select" fxFlex="100%" fxLayout="column" fxLayout.xs="column">
+  <div class="mt" fxLayout="row" fxLayout.xs="column" fxLayout.sm="row wrap" fxLayoutGap="2%" fxflex="100%"
+      fxLayoutAlign="end" style="margin: 0 20px;">
+      <div class="relative" fxFlex="100" fxLayout="row" style="margin: 30px;
+      margin-bottom: 0;">
+      </div>
+  </div>
+  <div class="wraper"> 
+
+  <div id="approval">
+      <mat-tab-group> 
+
+          <mat-tab label="Home" >
+              <div class="container" >
+                  <div class="icons" *ngFor="let item of home;let i = index">
+                      <button mat-button color="primary" class="tile mat-elevation-z12"
+                       (click)="routeicon(item.pageurl)">
+                      <img src="{{item.icon}}" alt="" width="60px">
+                  </button>
+                      <label>{{item.functioN_NAME}}</label>
+                  </div>
+             
+                 
+              </div>
+    
+          </mat-tab>
+        <mat-tab label="Upload">
+
+      <div class="container">
+        <div class="icons" *ngFor="let item of home3;let i = index">
+            <button   mat-button color="primary" class="tile mat-elevation-z12"
+             (click)="routeicon(item.pageurl)">
+            <img src="{{item.icon}}" alt="" width="60px">
+        </button>
+            <label>{{item.functioN_NAME}}</label>
+        </div>
+       
+    
+      </div>
+       </mat-tab>
+
+
+        <mat-tab label="Request">
+
+            <div class="container">
+          
+                <div class="icons" *ngFor="let item of home4;let i = index">
+                    <button   mat-button color="primary" class="tile mat-elevation-z12"
+                     (click)="routeicon(item.pageurl)">
+                    <img src="{{item.icon}}" alt="" width="60px">
+                </button>
+                    <label>{{item.functioN_NAME}}</label>
+                </div>
+              
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Approval">
+
+            <div class="container">
+                
+                <div class="icons" *ngFor="let item of home5;let i = index">
+                    <button   mat-button color="primary" class="tile mat-elevation-z12"
+                     (click)="routeicon(item.pageurl)">
+                    <img src="{{item.icon}}" alt="" width="60px">
+                </button>
+                    <label>{{item.functioN_NAME}}</label>
+                </div>
+             
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Dashboard">
+
+            <div class="container">
+          
+ 
+                <div class="icons" *ngFor="let item of home6;let i = index">
+                    <button   mat-button color="primary" class="tile mat-elevation-z12"
+                     (click)="routeicon(item.pageurl)">
+                    <img src="{{item.icon}}" alt="" width="60px">
+                </button>
+                    <label>{{item.functioN_NAME}}</label>
+                </div>
+    
+            </div>
+        </mat-tab>
+
+
+      </mat-tab-group>
+  </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+  
+
+
+   
+
+
+
+    

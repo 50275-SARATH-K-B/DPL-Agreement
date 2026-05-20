@@ -1,0 +1,113 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/LMS/pdd-details/add-pdc-details
+UI created by : Hareesh N
+Date : 27/12/2018
+pdc-details :
+add-pdd-details.component.html
+add-pdd-details.component.scss
+add-pdd-details.component.ts
+
+Functionally Coded by : Hareesh N
+Date : 
+
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+
+
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card>
+      <mat-card-content>
+          
+        <div fxLayoutGap="2%" fxLayout="row"   fxLayout.xs="column" fxLayoutAlign="center center">
+          <mat-form-field fxFlex="35">
+            <input matInput placeholder="Customer Name" [(ngModel)]="customerName" readonly name="CustomerName">
+          </mat-form-field>
+          <mat-form-field fxFlex="35">
+            <input matInput placeholder="Loan ID" readonly [(ngModel)]="loanId" name="LoanID">
+          </mat-form-field>
+          <button mat-raised-button class="mat-elevation-z12 box-button swing" color="primary" (click)="onLoad()">Search
+            Loan</button>
+        </div>
+      </mat-card-content>
+
+      <mat-card-content>
+        <form #pddcForm="ngForm" fxLayout="row" fxLayout.xs="row">
+          <div fxFlex="100%" fxLayout="row" *ngIf="pddDetailSource.data.length>0"
+            style="-ms-overflow-style: scrollbar;overflow: scroll;height: 390px">
+
+            <table mat-table [dataSource]="pddDetailSource">
+              <ng-container matColumnDef="slno">
+                <th mat-header-cell *matHeaderCellDef>Sl No</th>
+                <td mat-cell *matCellDef="let element"> {{element.slno}} </td>
+              </ng-container>
+              <ng-container matColumnDef="documentname">
+                <th mat-header-cell *matHeaderCellDef>Document Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.documentname}} </td>
+              </ng-container>
+              <ng-container matColumnDef="originalreceived">
+                <th mat-header-cell *matHeaderCellDef>Original Received
+                </th>
+                <td mat-cell *matCellDef="let row" style="text-align: center">
+                  <mat-checkbox (click)="$event.stopPropagation()" [(ngModel)]="row.originalreceived"
+                    name='originalreceivedchecked' #originalreceivedText='ngModel'>
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="originalreceiveddate">
+                <th mat-header-cell *matHeaderCellDef>Original Received Date</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  <mat-form-field>
+                    <input matInput autocomplete="off" [(ngModel)]="element.originalreceiveddate" readonly
+                      name="originalreceiveddate" [matDatepicker]="picker" required>
+                    <mat-error *ngIf="originalreceiveddate.errors?.required">Original Received Date is required
+                    </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="scannedcopyreceived">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center"> Scanned Copy &nbsp; Received
+                </th>
+                <td mat-cell *matCellDef="let element" style="text-align: center">
+                  <mat-checkbox (click)="$event.stopPropagation()" [checked]="selection.isSelected(element)"
+                    [(ngModel)]="element.scannedcopyreceived" name='scannedcopyreceivedchecked'>
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="scannedcopyreceiveddate">
+                <th mat-header-cell *matHeaderCellDef>Scanned Copy Received Date</th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  <mat-form-field>
+                    <input matInput autocomplete="off" [(ngModel)]="element.scannedcopyreceiveddate" readonly
+                      name="InstrumentDate" [matDatepicker]="picker" required>
+                    <mat-error *ngIf="scannedcopyreceiveddate.errors?.required">Scanned Copy Received Date is required
+                    </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsDocumentDetails;sticky:true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsDocumentDetails;" class="a_custom">
+              </tr>
+            </table>
+          </div>
+        </form>
+      </mat-card-content>
+
+      <mat-card-content fxLayout.xs="column" fxLayoutGap="2%" *ngIf="pddDetailSource.data.length>0">
+        <div class="example-button-row" fxLayoutGap="2%" fxLayoutAlign="end">
+          <button mat-raised-button color="primary" [disabled]='pddcForm.invalid || !isConfirmEnabled'
+            (click)="confirm(pddcForm)">Confirm</button>
+          <button mat-raised-button color="primary" (click)="onLoad()">Clear</button>
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div>

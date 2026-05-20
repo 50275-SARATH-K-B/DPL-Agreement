@@ -1,0 +1,85 @@
+<mat-card>
+  <div style="margin:16px" fxLayout="column" fxLayout.xs="column">
+    <div>
+      <mat-form-field fxFlex="20%">
+        <mat-select [(ngModel)]="report" placeholder="Select Report" (selectionChange)="reportChanged($event)"
+          name="report" #reportText="ngModel" required>
+          <mat-option *ngFor="let item of reportsList" value="{{item.REPORTID}}">{{item.REPORTNAME}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="reportDetails.REPORTPARM1">
+      <form fxLayout="row" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="2%">
+        <mat-form-field fxFlex="20%">
+          <input matInput readonly autocomplete="off" [(ngModel)]="loanId" placeholder="Loan ID" name="loan_ID"
+            #LoanIDText="ngModel">
+        </mat-form-field>
+        <div fxFlex="20%">
+          <button mat-raised-button color="primary" type="button" (click)="displayLoanSearchPopup()"
+            class="mat-elevation-z12 box-button">Search</button>
+        </div>
+      </form>
+    </div>
+   
+    <div fxLayoutGap="2%">
+      <mat-form-field fxFlex="50%" *ngIf="reportDetails.REPORTPARM2">
+        <input matInput [matDatepicker]="picker1" readonly autocomplete="off" [(ngModel)]="fromDate"
+          placeholder="{{reportDetails.REPORTPARM2}}" name="fromDate" #fromDateText="ngModel" required>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+        <mat-error *ngIf="fromDateText.errors?.required">Please enter a valid From date</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="50%" *ngIf="reportDetails.REPORTPARM22">
+        <input matInput [matDatepicker]="picker2" readonly autocomplete="off" [(ngModel)]="toDate"
+          placeholder="{{reportDetails.REPORTPARM22}}" name="toDate" #toDateText="ngModel" required>
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+        <mat-error *ngIf="toDateText.errors?.required">Please enter a valid To date</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxFlex="100%" fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%">
+      <mat-form-field fxFlex="50%" *ngIf="reportDetails.REPORTPARM3">
+        <mat-select [(ngModel)]="option1" placeholder="{{reportDetails.REPORTPARM3}}" name="option1"
+          #option1Text="ngModel" required>
+          <mat-option *ngFor="let item of optionList1" value='{{item.id}}'>
+            {{item.name}} | {{item.id}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="50%" *ngIf="reportDetails.REPORTPARM5">
+        <mat-select [(ngModel)]="option2" placeholder="{{reportDetails.REPORTPARM5}}" name="option2"
+          #option2Text="ngModel" required>
+          <mat-option *ngFor="let item of optionList2" value='{{item.id}}'>
+            {{item.name}} | {{item.id}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxLayoutGap="2%">
+      <mat-form-field fxFlex="50%" *ngIf="reportDetails.REPORTPARM41">
+        <input matInput [matDatepicker]="picker3" readonly autocomplete="off" [(ngModel)]="fromDate2"
+          placeholder="{{reportDetails.REPORTPARM41}}" name="fromDate2" #fromDate2Text="ngModel" required>
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3 disabled="false"></mat-datepicker>
+        <mat-error *ngIf="fromDate2Text.errors?.required">Please enter a valid From date</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="50%" *ngIf="reportDetails.REPORTPARM42">
+        <input matInput [matDatepicker]="picker4" readonly autocomplete="off" [(ngModel)]="toDate2"
+          placeholder="{{reportDetails.REPORTPARM42}}" name="toDate2" #toDate2Text="ngModel" required>
+        <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+        <mat-datepicker #picker4 disabled="false"></mat-datepicker>
+        <mat-error *ngIf="toDate2Text.errors?.required">Please enter a valid To date</mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngIf="!!report">
+      <button mat-raised-button class="mat-elevation-z12 box-button" color="primary" (click)="submit()">Submit</button>
+    </div>
+  </div>
+  <br />
+  <div *ngIf="!!source">
+    <jqxDataTable style="float: left" [width]="getWidth()" [source]="source" [columns]="columnList" [pageable]="true"
+      [rowDetails]="true" [altRows]="true" [initRowDetails]="initRowDetails1">
+    </jqxDataTable>
+  </div>
+
+</mat-card>

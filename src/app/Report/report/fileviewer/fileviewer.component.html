@@ -1,0 +1,25 @@
+<div class="flex-p">
+  <mat-card fxLayout="column" class="view">
+    <div fxLayout="column">
+      <pdf-viewer [src]="'data:application/pdf;base64,'+fileName" *ngIf="IsImagepdf" [original-size]="false"></pdf-viewer>
+      <ngx-image-viewer [src]="['fileArray']" *ngIf="IsImage"></ngx-image-viewer>
+    </div>
+
+    <div *ngIf="Isexecl">
+      <table id="tableWithHeader">
+        <tbody>
+            <tr *ngFor="let row of datavalue" style="position: inherit;">
+                <td *ngFor="let val of row">
+                    {{val}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <div style="margin-top: 1rem;" class="example-button-row center" fxLayoutGap="2%" fxLayout.xs="column">
+      <button mat-raised-button class="false mat-elevation-z12"(click)="close()" id="clear_btn">Close</button>
+      <button mat-raised-button class="true mat-elevation-z12" (click)="download()">Download</button>
+    </div>
+  </mat-card>
+</div>

@@ -1,0 +1,33 @@
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.mat-header-cell {
+  background: #f5dc02 !important; 
+    color: black !important;
+}
+
+.form-block {
+  
+  border-radius: 5px !important;
+  padding: 10px !important;
+  margin-bottom: 5px !important;
+  box-shadow: -1px 0 4px 0 #888;
+}
+
+.search-container {
+  padding-left: 30px !important;
+}
+
+.display-block {
+  display: block !important;
+}
+// .mat-header-cell {
+//   background-color: #00695c !important;
+// }
+
+.confirm-container{
+  padding-right: 12px !important;
+}

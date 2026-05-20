@@ -1,0 +1,56 @@
+<div class="flex-p" fxLayout="column">
+  <mat-card>
+    <mat-card-content fxLayout="column">
+      <h2>RBI Report</h2>
+      <div fxLayoutGap="2%" fxLayout="row" fxLayout.xs="column" fxFlex="90%">
+        <mat-form-field fxFlex="20%" fxFlex.xs="90%">
+          <input matInput [matDatepicker]="picker1" [max]="max" readonly autocomplete="off" [(ngModel)]="from_date"
+            placeholder="From Date" name="fromDate" (ngModelChange)="onFromDateChange()" #FromDateText="ngModel"
+            required>
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+          <mat-error *ngIf="FromDateText.errors?.required">Please enter a valid date</mat-error>
+        </mat-form-field>
+        <button matTooltip="Search" class="mat-elevation-z12 box-button" type="button"
+          [disabled]="!FromDateText.valid" color="primary" (click)="getRbiReportList()"
+          mat-mini-fab>
+          <mat-icon>search</mat-icon>
+        </button>
+        <div fxLayoutGap="2%" class="display-block" fxLayout="row" fxLayout.xs="column" fxFlex="10%"  *ngIf="showTable">
+          <a type="button" mat-raised-button  class="mat-elevation-z12 box-button" color="primary" (click)="print()">
+            <mat-icon>print</mat-icon> Print
+          </a>
+        </div>
+        
+      </div>
+    </mat-card-content>
+    <mat-card-content >
+      <table class="mat-table" *ngIf="showTable" >
+        <tr class="mat-header-row">
+          <th class="mat-header-cell">Data Items</th>
+          <th class="mat-header-cell">Balance at the beginning of the week (₹ in lakh)</th>
+          <th class="mat-header-cell">During the week(₹ in lakh)</th>
+          <th class="mat-header-cell">Expected next week(₹ in lakh)</th>
+        </tr>
+        <tr class="mat-row">
+          <td class="mat-cell">Collections from Loans & Advances</td>
+          <td class="mat-cell">{{rbiData['OutStanding'] }}</td>
+          <td class="mat-cell">{{rbiData['COLLECTION_AMOUNT']}}</td>
+          <td class="mat-cell">{{rbiData['billingamount']}}</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="mat-cell">Interest Received on Loans & Advances</td>
+          <td class="mat-cell"></td>
+          <td class="mat-cell">{{rbiData['InterestRecvd']}}</td>
+          <td class="mat-cell">{{rbiData['InterestAmount']}}</td>
+        </tr>
+        <tr class="mat-row">
+          <td class="mat-cell">Loan Disbursements</td>
+          <td class="mat-cell"></td>
+          <td class="mat-cell">{{rbiData['DisbursedAmount']}}</td>
+          <td class="mat-cell"></td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

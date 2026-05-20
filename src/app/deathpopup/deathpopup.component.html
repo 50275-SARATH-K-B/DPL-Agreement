@@ -1,0 +1,169 @@
+<div >
+  <mat-card>
+<div fxLayout="column" fxFlex="100%">
+
+      <div  fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+
+      <section class="example-section">
+        <mat-checkbox class="example-margin"
+        [checked]="intimationrcvd"
+        (change)="setAll($event.checked)" [disabled]="intimatboo"
+        >Intimation received from Field ({{intimrcvd}})</mat-checkbox>
+      </section>
+      
+      </div>
+      <div  fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+        <mat-form-field fxFlex="40%" appearance="outline" *ngIf="intimationrcvd==true" style="margin-top: 30px;">
+          <mat-label>Intimation Date</mat-label>
+          <input matInput [matDatepicker]="picker11" autocomplete="off" readonly [(ngModel)]="Transaction"
+            name="Transaction1" #TransactionText1="ngModel" required>
+          <mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>
+          <mat-datepicker #picker11></mat-datepicker>
+          <mat-error *ngIf="TransactionText1.errors?.required">Transaction Date is required</mat-error>
+        </mat-form-field>
+        <div fxFlex="70%" fxLayoutAlign="end" >
+          <button mat-raised-button class="mat-elevation-z12 box-button" color="primary" *ngIf="intimationrcvd==true"
+            (click)='confirm(1)'  >Confirm</button>
+        </div>
+      </div>
+      <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+        <section class="example-section">
+          <mat-checkbox class="example-margin"
+          [checked]="docrcvd"
+          (change)="setAll2($event.checked)" [disabled]="docrsvd"
+          >Document Received ({{docrcveed}}) </mat-checkbox>
+        </section>
+       
+      
+      </div>
+      <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+        <mat-form-field fxFlex="40%" appearance="outline" *ngIf="docrcvd==true">
+          <mat-label>Document Recieved Date</mat-label>
+          <input matInput [matDatepicker]="picker12" autocomplete="off" readonly [(ngModel)]="Transaction"
+            name="Transaction2" #TransactionText2="ngModel" required>
+          <mat-datepicker-toggle matSuffix [for]="picker12"></mat-datepicker-toggle>
+          <mat-datepicker #picker12></mat-datepicker>
+          <mat-error *ngIf="TransactionText2.errors?.required">Transaction Date is required</mat-error>
+        </mat-form-field>
+     
+        <div fxFlex="70%" fxLayoutAlign="end" >
+          <button mat-raised-button class="mat-elevation-z12 box-button" color="primary" *ngIf="docrcvd==true"
+            (click)='confirm(2)'  >Confirm</button>
+        </div>
+       
+      </div>
+      <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+        <section class="example-section">
+          <mat-checkbox class="example-margin"
+          [checked]="appsubmit"
+          (change)="setAll3($event.checked)" [disabled]="appsub"
+          >Application Submitted ({{appsubbb}})  </mat-checkbox>
+
+        </section>
+        
+      
+     
+      </div>
+      <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%" >
+        <mat-form-field fxFlex="40%" appearance="outline" *ngIf="appsubmit==true">
+          <mat-label>Application Submitted Date</mat-label>
+          <input matInput [matDatepicker]="picker13" autocomplete="off" readonly [(ngModel)]="Transaction"
+            name="Transaction3" #TransactionText3="ngModel" required>
+          <mat-datepicker-toggle matSuffix [for]="picker13"></mat-datepicker-toggle>
+          <mat-datepicker #picker13></mat-datepicker>
+          <mat-error *ngIf="TransactionText3.errors?.required">Transaction Date is required</mat-error>
+        </mat-form-field>
+    
+        <div fxFlex="70%" fxLayoutAlign="end" >
+          <button mat-raised-button class="mat-elevation-z12 box-button" color="primary" *ngIf="appsubmit==true"
+            (click)='confirm(3)'  >Confirm</button>
+        </div>
+      </div>
+      <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+        <section class="example-section">
+          <mat-checkbox class="example-margin"
+          [checked]="appresubmit"
+          (change)="setAll4($event.checked)" [disabled]="appresub"
+          >Application Resubmitted ({{resubmittted}}) </mat-checkbox>
+        </section>
+      </div>
+      <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+        <mat-form-field fxFlex="40%" appearance="outline" *ngIf="appresubmit==true">
+          <mat-label>Application Resubmitted Date</mat-label>
+          <input matInput [matDatepicker]="picker14" autocomplete="off" readonly [(ngModel)]="Transaction"
+            name="Transaction4" #TransactionText4="ngModel" required>
+          <mat-datepicker-toggle matSuffix [for]="picker14"></mat-datepicker-toggle>
+          <mat-datepicker #picker14></mat-datepicker>
+          <mat-error *ngIf="TransactionText4.errors?.required">Transaction Date is required</mat-error>
+        </mat-form-field>
+ 
+        <div fxFlex="70%" fxLayoutAlign="end" >
+          <button mat-raised-button class="mat-elevation-z12 box-button" color="primary" *ngIf="appresubmit==true"
+            (click)='confirm(4)'  >Confirm</button>
+        </div>
+      </div>
+      <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+
+      <section class="example-section">
+        <mat-checkbox class="example-margin"
+        [checked]="claimrcvd"
+        (change)="setAll5($event.checked)" [disabled]="clamrsd"
+        >Claim Received ({{climmrecvs}}) </mat-checkbox>
+      </section>
+
+      </div>
+      <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+        <mat-form-field fxFlex="40%" appearance="outline" *ngIf="claimrcvd==true">
+          <mat-label>Claim Recieved Date</mat-label>
+          <input matInput [matDatepicker]="picker15" autocomplete="off" readonly [(ngModel)]="Transaction"
+            name="Transaction5" #TransactionText5="ngModel" required>
+          <mat-datepicker-toggle matSuffix [for]="picker15"></mat-datepicker-toggle>
+          <mat-datepicker #picker15></mat-datepicker>
+          <mat-error *ngIf="TransactionText5.errors?.required">Transaction Date is required</mat-error>
+        </mat-form-field>
+   
+        <div fxFlex="70%" fxLayoutAlign="end" >
+          <button mat-raised-button class="mat-elevation-z12 box-button" color="primary" *ngIf="claimrcvd==true"
+            (click)='confirm(5)'  >Confirm</button>
+        </div>
+      </div>
+      <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+        <mat-form-field fxFlex="30%" *ngIf="claimrcvd==true">
+          <input matInput placeholder="Claim Amount" [(ngModel)]="clamamt" name="clainamt" #claimamts="ngModel"  required>
+          <mat-error *ngIf="claimamts.errors?.required">Loan ID is required</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="30%" *ngIf="claimrcvd==true">
+          <input matInput placeholder="Insurance Amount" [(ngModel)]="insuramt" name="insuranamt" #insurncamt="ngModel"  required>
+          <mat-error *ngIf="insurncamt.errors?.required">Loan ID is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+
+      <section class="example-section">
+        <mat-checkbox class="example-margin"
+        [checked]="accclsd"
+        (change)="setAll6($event.checked)" [disabled]="accclsdbool"
+        >Account Closed ({{accntclosdd}}) </mat-checkbox>
+      </section>
+    
+
+    </div>
+    <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+      <mat-form-field fxFlex="40%" appearance="outline" *ngIf="accclsd==true">
+        <mat-label>Account Closed Date</mat-label>
+        <input matInput [matDatepicker]="picker16" autocomplete="off" readonly [(ngModel)]="Transaction"
+          name="Transaction6" #TransactionText6="ngModel" required>
+        <mat-datepicker-toggle matSuffix [for]="picker16"></mat-datepicker-toggle>
+        <mat-datepicker #picker16></mat-datepicker>
+        <mat-error *ngIf="TransactionText6.errors?.required">Transaction Date is required</mat-error>
+      </mat-form-field>
+  
+      <div fxFlex="70%" fxLayoutAlign="end" >
+        <button mat-raised-button class="mat-elevation-z12 box-button" color="primary" *ngIf="accclsd==true"
+          (click)='confirm(6)'  >Confirm</button>
+      </div>
+    </div>
+    </div>
+
+</mat-card>
+</div>

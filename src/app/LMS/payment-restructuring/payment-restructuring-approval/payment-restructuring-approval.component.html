@@ -1,0 +1,72 @@
+<div fxLayout="column" class="flex-p">
+  <mat-card>
+    <mat-card-content>
+      <h3>Restructuring  Approval</h3>
+      <div class="flex-p">
+      <div fxLayoutGap="3%"     fxLayout.xs="column">
+        <mat-form-field fxFlex="50%">
+          <input matInput placeholder="Loan ID">
+        </mat-form-field>
+        <mat-form-field fxFlex="50%">
+          <input matInput placeholder="Customer Name">
+        </mat-form-field>
+      </div>
+      
+      <div fxLayoutGap="3%" fxLayout.xs="column">
+        <mat-form-field fxFlex="50%">
+          <input matInput placeholder="Loan Amount">
+        </mat-form-field>
+        <mat-form-field fxFlex="50%">
+          <input matInput placeholder="Loan Date">
+        </mat-form-field>
+      </div>
+
+      <div fxLayoutGap="3%" fxLayout.xs="column">
+        <mat-form-field fxFlex="50%">
+          <input matInput placeholder="Tenure">
+        </mat-form-field>
+        <mat-form-field fxFlex="50%">
+          <input matInput placeholder="Interest Rate">
+        </mat-form-field>
+      </div>
+
+      
+      <div fxLayoutGap="3%" fxLayout.xs="column">
+        <mat-form-field fxFlex="50%">
+          <input matInput placeholder="Net OutStanding">
+        </mat-form-field>
+        <mat-form-field fxFlex="50%">
+          <input matInput placeholder="Maturity Date">
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field fxFlex="48.5%"  fxFlex.xs="100%">
+          <mat-select placeholder="Rescheduling Mode">
+            <mat-option value="option">Option</mat-option>
+          </mat-select>
+        </mat-form-field>  
+      </div>
+
+      <div fxLayoutGap="3%" fxLayout.xs="column">
+        <mat-form-field fxFlex="33%">
+          <input matInput placeholder="New Tenure">
+        </mat-form-field>
+        <mat-form-field fxFlex="33%">
+          <input matInput placeholder="New ROI">
+        </mat-form-field>
+        <mat-form-field fxFlex="33%">
+          <input matInput placeholder="New EMI">
+        </mat-form-field>
+      </div>
+    </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content> 
+      <div fxLayoutAlign="center" >
+        <button type="button" mat-raised-button color="primary" class="mat-elevation-z12 box-button" >Approve</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

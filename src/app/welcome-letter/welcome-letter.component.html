@@ -1,0 +1,162 @@
+<div fxFlex="100%" fxLayout="column" fxLayout.xs="column" fxLayout.gt-sm="row wrap"> 
+  <div fxLayout="column" class="form-block"  >
+    <div style="margin-left: 50px;margin-top:30px;" fxFlex="100%" fxLayoutGap="2%">
+      <mat-form-field fxFlex="100">
+        <input matInput placeholder="Loan ID" pattern="^[0-9]+$" [(ngModel)]="LoanId"  #LoanNumber="ngModel"  required>
+        <mat-error *ngIf="LoanNumber.errors?.required">Loan ID is required</mat-error>
+      </mat-form-field>
+      <div  fxFlex="70%" >
+      <button mat-raised-button color="primary" type="button" [disabled]="!LoanId" (click)="loandetailssearch()"
+        class="mat-elevation-z12 box-button">Search</button></div>
+    </div>
+  </div>
+  <br>
+  
+  <div style="display:flex;justify-content: flex-end;margin-top:30px;" fxFlex="100%" fxLayoutGap="2%">
+  
+  
+      <button  mat-stroked-button color="primary"  type="button" (click)="printLetter('letter')"
+      class="mat-elevation-z12 box-button">download</button><br><br>
+      <div *ngIf="!data['funid']">
+        <button  mat-stroked-button color="primary" class="false mat-elevation-z12" fxLayoutGap="2%"  (click)="clear()"
+        id="clear_btn" *ngIf="Active">Clear</button>
+  
+      </div>
+      
+        
+    </div> 
+    
+   <div fxFlex="68%" fxLayout="column" fxLayout.xs="column"  style="margin-top: 60px;margin-left: 260px;"  fxLayoutAlign="center center">
+    <mat-card >
+      <br>
+      <br>
+      <br>
+      <br>
+    <br>
+    <br>
+    <br>
+    <br>
+   
+  
+     <div #pdfTemplate id="letter" style=" margin-top:40px ;  line-height: 80px;
+     font-family: sans-serif;
+     font-size: 14px;
+     font-family: sans-serif !important">
+     <!-- <div fxLayout="column" fxLayoutAlign="center center" class="head">
+       <img src="assets/img/letterhead=manappuram.png">
+     </div> -->
+       <div class="page" style="text-align: justify;line-height: 20px;
+     font-family: sans-serif;
+     font-size: 14px;margin-left: 10px;margin-right: 10px;">
+     
+         <div >
+           <h3 style="text-align: center;margin-top: 30px;">Welcome Letter</h3>
+         </div>
+           
+             <h5  style="text-align: right">
+               Date:{{today|date:'dd/MM/yyyy'}}</h5>
+  
+  
+  
+         <div class="wraper1" style="padding-left: 0;margin-top: 30px;">
+           <ul style="padding-left: 0;margin-top: 20px;">
+  
+             <h3 style="padding-bottom: 15px;text-decoration: none;">To,</h3>
+             <li style="list-style-type: none;">{{name}}</li>
+             <li style="list-style-type: none;">S/O {{father}}</li>
+             <!-- <li style="list-style-type: none;">{{HouseName}}</li> -->
+             <li style="list-style-type: none;">{{AddressLine2}}</li>
+             <li style="list-style-type: none;">{{loandmark}}</li>
+
+             <li style="list-style-type: none;">{{post}}</li>
+             <li style="list-style-type: none;">{{AddressLine3}},{{state}}-{{pin}}</li>
+
+             <li style="list-style-type: none;"> PH-{{phone}}</li>
+
+  
+  
+  
+  
+           </ul>
+           <h5 style=" margin-top: 20px;">Dear Sir/Madam,</h5>
+  
+           <h3 style=" margin-top: 10px;">Loan ID: {{LoanId}} We take this opportunity to welcome you to the MANAPPURAM family.</h3>
+  
+           <br><br>
+           <p style=" line-height: 15px;
+           font-family: sans-serif;">
+            We are pleased to confirm that your loan has been disbursed on {{loandate3}}. The broad terms and conditions of the loan are given here under,
+           </p>
+           <table style="width:100%">
+            <tr>
+              <th style="border: 1px solid #000; width: 1%;">Loan scheme</th>
+              <th style="border: 1px solid #000; width: 1%;">DPL-LTL</th>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; width: 1%;">Loan Amount (Rs)</td>
+              <td style="border: 1px solid #000; width: 1%;">{{loanamount}}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; width: 1%;">Rate of Interest (Pa.)</td>
+              <td style="border: 1px solid #000; width: 1%;">{{interest}}%</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; width: 1%;">Loan Tenure (Months)</td>
+              <td style="border: 1px solid #000; width: 1%;">{{tenure}}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; width: 1%;">EMI Amount (Rs)</td>
+              <td style="border: 1px solid #000; width: 1%;">{{emiamt}}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; width: 1%;">EMI Due Date</td>
+              <td style="border: 1px solid #000; width: 1%;">{{emidate}}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; width: 1%;">First EMI Due on</td>
+              <td style="border: 1px solid #000; width: 1%;">{{firstemidate}}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; width: 1%;">Processing fee deducted from disbursement +GST</td>
+              <td style="border: 1px solid #000; width: 1%;">{{prcosfee}}</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #000; width: 1%;"></td>
+              <td style="border: 1px solid #000; width: 1%;">Bounce charges payable shall be Rs. 500/- for 1st instance, Rs.750/- for 2nd instance and Rs.1000/- from third instance onwards, in case of any instalment / other dues bounce</td>
+            </tr>
+          </table>
+           <p style=" line-height: 30px;
+       font-family: sans-serif;"> Please pay all the EMI on or before due date which will help you improve your bureau score. If you default your bureau score will go down which will adversely affect eligibility to get new loan in future.
+           </p>
+           <p style=" line-height: 30px;
+           font-family: sans-serif;">
+For any assistance related to your loan, mail us to the following email IDs quoting your loan ID number: dplcrm@manappuram.com & digitaloperation@manappuram.com
+           </p>
+           <br>
+           <div class="list3">
+     <p style=" line-height: 30px;
+     font-family: sans-serif;">
+      We sincerely Thank You for giving us an opportunity to serve you.
+     </p>
+       
+           </div>
+         </div>
+         
+       </div>
+       <!-- <div fxLayout="column" fxLayoutAlign="center center">
+         <img src="assets/img/manappuram-letterhead2.png" width="100%">
+       </div> -->
+     </div>
+     <br>
+     <br>
+   <br>
+   <br>
+   <br>
+   <br>
+
+   </mat-card>
+   </div>
+    
+    <br>
+    <br>
+  </div>

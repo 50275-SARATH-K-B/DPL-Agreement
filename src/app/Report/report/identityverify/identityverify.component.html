@@ -1,0 +1,152 @@
+<div class="flex-p">
+  <mat-card>
+    <div class="head">
+      <h3>Identity </h3>
+    </div>
+   
+
+    <!-- <div fxLayout="row" fxLayoutGap="5%" fxflex="50%" fxLayoutAlign="center" style="margin-top:30px ;">
+
+      <mat-form-field fxFlex="33.33%" appearance="outline">
+        <mat-label>Ecs Date</mat-label>
+        <input matInput [matDatepicker]="picker1" autocomplete="off"  [(ngModel)]="fromdate"
+          name="Transaction" #TransactionText="ngModel" required>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-error *ngIf="TransactionText.errors?.required">Ecs Date is required</mat-error>
+      </mat-form-field>
+
+      </div> -->
+      <div fxLayout.xs="column" fxLayout="column" class="flex-p" style="margin-top: 50px;">
+        <div fxFlex="100" fxLayoutGap="3%" fxLayout.xs="column" id="mg">
+          <div fxFlex="50" fxLayoutGap="3%" style="margin-left:20px">
+            <mat-form-field fxFlex="45">
+              <input matInput #moroToText="ngModel" readonly [matDatepicker]="pickerMT" placeholder="From Date"
+                required name="moroto" [(ngModel)]="field['dueDate']" >
+              <mat-datepicker-toggle matSuffix [for]="pickerMT"></mat-datepicker-toggle>
+              <mat-datepicker #pickerMT></mat-datepicker>
+              <mat-error *ngIf="moroToText.errors?.required">To-Date is required</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="45">
+              <input matInput #moroToText1="ngModel" readonly [matDatepicker]="pickerMT1" placeholder="To Date"
+                required name="moroto2" [(ngModel)]="field['presentationDate']" >
+              <mat-datepicker-toggle matSuffix [for]="pickerMT1"></mat-datepicker-toggle>
+              <mat-datepicker #pickerMT1></mat-datepicker>
+              <mat-error *ngIf="moroToText1.errors?.required">To Date is required</mat-error>
+            </mat-form-field>
+            <div fxFlex="10" fxLayoutAlign="center center">
+              <button mat-mini-fab color="primary"
+                [disabled]="field['dueDate']==''||field['dueDate']==null||!field['dueDate'] ||field['presentationDate']==''||field['presentationDate']==null||!field['presentationDate']"
+                class="mat-elevation-z12 box-button" matTooltip="Search" type="button" color="primary"
+                (click)="getcustdaetails()">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    <div>
+      <div fxLayout="row" fxLayoutGap="1%" fxLayoutAlign="end" class="myt-1">
+        <mat-form-field fxFlex="30%" fxFlex.xs="90%" appearance="outline">
+          <mat-label>Search here..with CustomerID</mat-label>
+          <input matInput autocomplete="off" placeholder="Search here.." type="text" [(ngModel)]="filter" name="filter"
+            (keyup)="filterSource($event.target.value)">
+        </mat-form-field>
+       
+       
+      </div>
+
+       <div style="overflow: scroll;-ms-overflow-style: scrollbar;max-height: 390px">
+      <table mat-table [dataSource]="dataSource" width="100%">
+          <ng-container matColumnDef="slno" >
+              <th mat-header-cell *matHeaderCellDef style="width: 120px !important;"> SL. No.</th>
+              <td mat-cell *matCellDef="let element; let i = index;" style="width: 120px !important;">{{i+1}} </td>
+            </ng-container>
+        <ng-container matColumnDef="custid">
+          <th mat-header-cell *matHeaderCellDef>customer ID</th>
+          <td mat-cell *matCellDef="let element;">{{element.CustomerID}} </td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="custimg">
+          <th mat-header-cell *matHeaderCellDef>Customer Photo</th>
+          <td mat-cell *matCellDef="let element;">
+          </td> -->
+        <!-- </ng-container> -->
+        <ng-container matColumnDef="adharid">
+          <th mat-header-cell *matHeaderCellDef> Aadhar Id </th>
+          <td mat-cell *matCellDef="let element;">{{element.AadharNo}}</td>
+        </ng-container>
+        <!-- <ng-container matColumnDef="adharimg">
+          <th mat-header-cell *matHeaderCellDef>Aadhar Image</th>
+          <td mat-cell *matCellDef="let element;">aadhar.img
+          </td>
+        </ng-container> -->
+        <ng-container matColumnDef="panId">
+          <th mat-header-cell *matHeaderCellDef> Pan Id </th>
+          <td mat-cell *matCellDef="let element;">{{element.PANNo}} </td>
+        </ng-container>
+        
+        <!-- <ng-container matColumnDef="panimg">
+          <th mat-header-cell *matHeaderCellDef>Pan Image</th>
+          <td mat-cell *matCellDef="let element;">pan.img </td>
+        </ng-container> -->
+        <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td style="cursor:pointer;" mat-cell  *matCellDef="let element">
+              <mat-icon>check_circle</mat-icon>
+              <mat-icon>highlight_off</mat-icon>
+              <mat-icon>open_in_new</mat-icon>
+            </td>
+
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+        <tr mat-row *matRowDef="let element;let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered}" class="a_custom"
+        (click)="viewDocumentImage(element)">
+        </tr>
+      </table>
+      <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+    </div> 
+
+    <!-- <div fxFlex="100%" fxLayout="column"
+    style="overflow:scroll;-ms-overflow-style:scrollbar">
+    <table mat-table [dataSource]="dataSource" width="100%">
+        <ng-container matColumnDef="slno" >
+            <th mat-header-cell *matHeaderCellDef style="width: 120px !important;"> SL. No.</th>
+            <td mat-cell *matCellDef="let element; let i = index;" style="width: 120px !important;">{{i+1}} </td>
+          </ng-container>
+      <ng-container matColumnDef="loanid">
+        <th mat-header-cell *matHeaderCellDef>customer ID</th>
+        <td mat-cell *matCellDef="let element;"></td>
+      </ng-container>
+      <ng-container matColumnDef="img">
+        <th mat-header-cell *matHeaderCellDef>Customer Photo</th>
+        <td mat-cell *matCellDef="let element;"> </td>
+      </ng-container>
+      <ng-container matColumnDef="verified">
+        <th mat-header-cell *matHeaderCellDef> Adhar Id </th>
+        <td mat-cell *matCellDef="let element;"></td>
+      </ng-container>
+      <ng-container matColumnDef="regno">
+        <th mat-header-cell *matHeaderCellDef>Adhar Image</th>
+        <td mat-cell *matCellDef="let element;"> </td>
+     
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered}" class="a_custom"
+        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
+      </tr>
+    </table>
+    <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+  </div> -->
+
+
+
+
+
+
+  </div>
+
+</mat-card>
+</div>

@@ -1,0 +1,199 @@
+<div class="flex-p" fxLayout="column">
+  <!-- <mat-card>
+    <mat-card-content fxLayout="column"> -->
+
+<mat-toolbar style="background-color: red;" class="toolbar" *ngIf="status==0">
+  <h2>Already Rejected</h2>
+</mat-toolbar>
+
+<mat-toolbar style="background-color: green;" class="toolbar" *ngIf="status==2">
+  <h2>Already Approved</h2>
+</mat-toolbar>
+
+<mat-toolbar style="background-color: #ffd740;" class="toolbar" *ngIf="status==1">
+  <h2>Already Requested</h2>
+</mat-toolbar>
+
+<form [formGroup]="schemeCreation"  fxLayout="column" fxLayoutGap="1%">
+        
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+          
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Scheme Id" autocomplete="off"
+            name="schemeId" formControlName="schemeId" readonly>
+        </mat-form-field>
+
+      <div fxFlex="30"></div>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Product" autocomplete="off"
+            name="product" formControlName="product" readonly>
+        </mat-form-field>
+
+        <!-- <button mat-raised-button fxFlex="20" *ngIf="status==2" style="background-color:rgb(1, 180, 43);color:white;width:100px;">Approved</button>
+        <button mat-raised-button fxFlex="20" *ngIf="status==0" style="background-color:rgb(223, 2, 2);color:white;width:100px;">Rejected</button>
+        <button mat-raised-button fxFlex="20" *ngIf="status==1" style="background-color:#ffd740;color:white;width:100px;">Requested</button>   -->
+
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+        
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Scheme Name" autocomplete="off"
+            name="schemeName" formControlName="schemeName" readonly>
+        </mat-form-field>
+
+
+
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Loan Amount From" autocomplete="off"
+            name="loanAmount1" formControlName="loanAmount1" readonly>
+            <mat-hint>5000 - 500000/-</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Loan Amount To" autocomplete="off"
+            name="loanAmount2" formControlName="loanAmount2" readonly>
+            <mat-hint>5000 - 500000/-</mat-hint>
+        </mat-form-field>
+
+
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Select Scheme Type" autocomplete="off"
+            name="schemetype" formControlName="schemetype" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder={{placeholderval1}} autocomplete="off" readonly
+            name="val1" formControlName="val1">
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder={{placeholderval2}} autocomplete="off" readonly
+            name="val2" formControlName="val2">
+        </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+        
+
+          <mat-form-field fxFlex="30">
+            <input matInput placeholder="Select Score Range" autocomplete="off" readonly
+              name="cibilScore" formControlName="cibilScore">
+          </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Interest Rate" autocomplete="off"
+            name="interestRate" formControlName="interestRate" readonly>
+            <mat-hint>10 - 36 %</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Processing Fees" autocomplete="off" 
+            name="processingFee" formControlName="processingFee" readonly>
+            <mat-hint>1 - 10 %</mat-hint>
+        </mat-form-field>
+
+      </div>
+
+      
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Select Tenure From" autocomplete="off" 
+            name="tenure1" formControlName="tenure1" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Select Tenure To" autocomplete="off" 
+            name="tenure2" formControlName="tenure2" readonly>
+        </mat-form-field>
+
+        <div fxFlex="30"></div>
+
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Select Scheme Start Date" autocomplete="off" 
+            name="FromDate" formControlName="FromDate" readonly>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Select Scheme End Date" autocomplete="off" 
+            name="ToDate" formControlName="ToDate" readonly>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+        </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Requester Name" autocomplete="off"
+            name="requesterName" formControlName="requesterName" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Requester Id" autocomplete="off"
+            name="requesterId" formControlName="requesterId" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Requested Date" autocomplete="off"
+            name="requestedDate" formControlName="requestedDate" readonly>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+        </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center" *ngIf="status!=1">
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="{{EmpName}}" autocomplete="off"
+            name="approverRejectorName" formControlName="approverRejectorName" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="{{EmpId}}" autocomplete="off"
+            name="approverRejectorId" formControlName="approverRejectorId" readonly>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="{{AppRejDate}}" autocomplete="off"
+            name="approvedRejectorDate" formControlName="approvedRejectorDate" readonly>
+            <mat-hint>MM/DD/YYYY</mat-hint>
+        </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center" *ngIf="status!=1">
+
+      <mat-form-field fxFlex="80">
+        <mat-label>Remarks</mat-label>
+        <textarea matInput name="remarks" readonly formControlName="remarks"></textarea>
+      </mat-form-field>
+      
+    </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+        <!-- <button mat-raised-button color="primary" [disabled]="!schemeCreation.valid" (click)="confirm(0)">Reject</button> -->
+        <button mat-raised-button style="color: red;" (click)="close()">Close</button>
+        <!-- <button mat-raised-button  color="warn" [disabled]="!schemeCreation.valid" (click)="confirm(2)">Approve</button> -->
+
+      </div>
+
+
+      </form>
+
+    <!-- </mat-card-content>
+  </mat-card> -->
+</div>

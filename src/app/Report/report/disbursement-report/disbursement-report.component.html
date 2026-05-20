@@ -1,0 +1,129 @@
+
+<div class="flex-p" fxLayout="column">
+  <mat-card>
+    <mat-card-content fxLayout="column">
+      <h2>Disbursement</h2>
+      <div fxLayout="row" fxLayoutGap="2%" fxLayout="row" fxLayout.xs="column" fxFlex="100%" class="form-block search-container">
+      <div fxLayoutGap="2%" fxLayout="row" fxLayout.xs="column" fxFlex="90%">
+        <mat-form-field fxFlex="20%" fxFlex.xs="90%">
+          <input matInput [matDatepicker]="picker1" readonly autocomplete="off" [(ngModel)]="from_date"
+            placeholder="From Date" name="fromDate" (ngModelChange)="onFromDateChange()" #FromDateText="ngModel"
+            required>
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1 disabled="false"></mat-datepicker>
+          <mat-error *ngIf="FromDateText.errors?.required">Please enter a valid date</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="20%" fxFlex.xs="90%" [class.disabled]="!from_date||from_date==null||from_date==''">
+          <input matInput [matDatepicker]="picker2" readonly autocomplete="off" [(ngModel)]="to_date" (ngModelChange)="onToDateChange()" 
+            placeholder="To Date" name="toDate" [min]="minDate" #ToDateText="ngModel" required>
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+          <mat-error *ngIf="ToDateText.errors?.required">Please enter a valid date</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field fxFlex="20%" fxFlex.xs="90%" >
+          <mat-select  [(ngModel)]="typeId"  (ngModelChange)="onTypeIdChange()">
+            <mat-option value="1">Month Wise</mat-option>
+            <mat-option value="2">Tenure Wise</mat-option>
+            <mat-option value="3">State Wise</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button matTooltip="Search" class="mat-elevation-z12 box-button" type="button"
+          [disabled]="!ToDateText.valid||!FromDateText.valid" color="primary" (click)="getDisbursementList()"
+          mat-mini-fab>
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+      <div fxLayoutGap="2%" class="display-block" fxLayout="row" fxLayout.xs="column" fxFlex="10%"  *ngIf="dataSource.data.length>0">
+        <a type="button" mat-raised-button  class="mat-elevation-z12 box-button" color="primary" (click)="print()">
+          <mat-icon>print</mat-icon> Print
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="form-block" *ngIf="dataSource.data.length>0">
+        <div style="overflow: scroll;-ms-overflow-style: scrollbar;" fxLayout="column">
+          <table mat-table  [dataSource]="dataSource">
+            <ng-container matColumnDef="CustomerID">
+              <th mat-header-cell *matHeaderCellDef  >Customer ID</th>
+              <td mat-cell *matCellDef="let element">{{element.CustomerID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="CustomerName"  >
+              <th mat-header-cell *matHeaderCellDef>Customer Name</th>
+              <td mat-cell *matCellDef="let element"> {{element.CustomerName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="LoanID"  >
+              <th mat-header-cell *matHeaderCellDef>Loan ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.LoanID}}</td>
+            </ng-container>
+            <ng-container matColumnDef="Tenure"  >
+              <th mat-header-cell *matHeaderCellDef>Tenure</th>
+              <td mat-cell *matCellDef="let element">{{element.Tenure}} </td>
+            </ng-container>
+            <ng-container matColumnDef="LoanAmount">
+              <th mat-header-cell *matHeaderCellDef>Loan Amount</th>
+              <td mat-cell *matCellDef="let element">{{element.LoanAmount}} </td>
+            </ng-container>
+            <ng-container matColumnDef="LoanDate">
+              <th mat-header-cell *matHeaderCellDef>Loan Date</th>
+              <td mat-cell *matCellDef="let element"> {{element.LoanDate | date: 'dd/MM/yyyy' }}</td>
+            </ng-container>
+            <ng-container matColumnDef="OutStanding">
+              <th mat-header-cell *matHeaderCellDef>OutStanding</th>
+              <td mat-cell *matCellDef="let element">{{element.OutStanding}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator #paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+        </div>
+      </div>
+    </div>
+
+
+    </mat-card-content>
+  </mat-card>
+
+  <!-- <table class="table" id="disbursement-details" class="display-hide" >
+    <tr>
+      <th style="font-weight: bold;">Customer ID</th>
+      <th style="font-weight: bold;">Customer Name</th>
+      <th style="font-weight: bold;">Loan ID</th>
+      <th style="font-weight: bold;">Tenure</th>
+      <th style="font-weight: bold;">Loan Amount</th>
+      <th style="font-weight: bold;">Loan Date</th>
+      <th style="font-weight: bold;">OutStanding</th>
+    </tr>
+    <ng-container *ngFor="let items of splitDataList();let index = index;">
+      <ng-container *ngIf="index === 0">
+        <tr *ngFor="let item of items;let i2 = index;">
+          <td style="text-align: center;">{{item.CustomerID}}</td>
+          <td style="text-align: center;">{{item.CustomerName}}</td>
+          <td style="text-align: center;">{{item.LoanID}}</td>
+          <td style="text-align: right;">{{item.Tenure}}</td>
+          <td style="text-align: right;"> {{item.LoanAmount}}</td>
+          <td style="text-align: right;"> {{item.LoanDate | date: 'dd/MM/yyyy'}}</td>
+          <td style="text-align: right;"> {{item.OutStanding}}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </table>
+  <div class="display-hide">
+    <ng-container *ngFor="let items of splitDataList();let index = index;">
+      <ng-container *ngIf="index !== 0">
+        <table  id="disbursement-details-{{index}}" >
+        <tr *ngFor="let item of items;let i2 = index;">
+          <td style="text-align: center;">{{item.CustomerID}}</td>
+          <td style="text-align: center;">{{item.CustomerName}}</td>
+          <td style="text-align: center;">{{item.LoanID}}</td>
+          <td style="text-align: right;">{{item.Tenure}}</td>
+          <td style="text-align: right;"> {{item.LoanAmount}}</td>
+          <td style="text-align: right;"> {{item.LoanDate | date: 'dd/MM/yyyy'}}</td>
+          <td style="text-align: right;"> {{item.OutStanding}}</td>
+        </tr>
+      </table>
+      </ng-container>
+    </ng-container>
+  </div> -->
+</div>

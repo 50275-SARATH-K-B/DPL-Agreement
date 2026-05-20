@@ -1,0 +1,71 @@
+<div fxLayout="column" class="flex-p">
+  <mat-card>
+    <mat-card-content>
+      <div fxLayoutGap="3%" fxLayout.xs="column">
+        <div fxFlex="50%">
+          <h3 class="flex-p py-1"> Charge Entry</h3>
+        </div>
+        <div fxFlex="50%" fxLayoutAlign="end">
+          <button mat-raised-button color="primary" type="button" (click)="displayLoanSearchPopup()"
+            class="mat-elevation-z12 box-button">Search</button>
+        </div>
+      </div>
+      <div class="flex-p" *ngIf="!!loanId&&loanId!==null&&loanId!==''">
+        <form #chargeForm="ngForm">
+          <div fxLayoutGap="3%" fxLayout.xs="column">
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Loan Number" name="loadid" [(ngModel)]="loanId" required readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Customer Name" name="custname" [(ngModel)]="customerName" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Loan Amount" name="amount" [(ngModel)]="loanAmount" readonly>
+            </mat-form-field>
+          </div>
+          <div fxLayoutGap="3%" fxLayout.xs="column">
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Loan Date" name="loandate" [(ngModel)]="loanDate" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Loan Balance" name="loanbal" [(ngModel)]="loanbalance" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Charges Pending" name="chargepending" [(ngModel)]="ChargesPending" readonly>
+            </mat-form-field>
+          </div>
+          <form #chargeGridForm="ngForm" fxLayout.xs="column">
+            <div fxLayoutGap="3%" fxLayout.xs="column">
+              <mat-form-field fxFlex="30%">
+                <mat-select placeholder="Select Charge" [(ngModel)]="ChargeID" name="charge" #chargeText="ngModel"
+                  required>
+                  <mat-option *ngFor="let item of chargeList" value={{item.ChargeID}}>
+                    {{item.ChargeName}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="chargeText.errors?.required">Charge is required</mat-error>
+              </mat-form-field>
+              <mat-form-field fxFlex="30%">
+                <input matInput placeholder="Amount" autocomplete="off" pattern="^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$"
+                  name="amount" #amountText="ngModel" maxlength="8" [(ngModel)]="Amount" required>
+                <mat-error *ngIf="amountText.errors?.pattern">Upto 2 decimal points are allowed</mat-error>
+                <mat-error *ngIf="amountText.errors?.required">Amount is required</mat-error>
+              </mat-form-field>
+              <div fxLayoutGap="2%" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+                <button mat-raised-button color="primary" [disabled]="!chargeGridForm.valid" type="button" class="mat-elevation-z12 box-button"
+                  (click)="addChargesToGrid(chargeForm)" [ngStyle]="{'height':'40px'}">Add</button>
+              </div>
+            </div>
+          </form>
+        </form>
+        <div fxLayoutGap="2%" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+          <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" [disabled]="chargeForm.invalid"
+            (click)="confirm(chargeForm)" [ngStyle]="{'height':'40px'}">Confirm</button>
+          <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" (click)="clear(chargeForm)"
+            [ngStyle]="{'height':'40px'}">Clear</button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>

@@ -1,0 +1,127 @@
+.form-block {
+  display: block !important;
+  /* border: 2px solid #1d6c88; */
+  box-shadow: -1px 0px 4px 0px #888888;
+  /* margin-bottom: 0px; */
+  border-radius: 5px;
+  background: white;
+  margin: 45px;
+  padding: 50px;
+}
+.mat-content-margin {
+  margin-bottom: 0px !important;
+}
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: black;
+}
+
+.add-customer-button {
+  padding-right: 12px !important;
+}
+
+.mat-action {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+.search-button {
+  margin: 0px !important;
+}
+
+.search-button-card {
+  margin-bottom: 0px !important;
+}
+.heading {
+  text-align: center;
+}
+.page-heading {
+  font-weight: bold;
+  box-shadow: -1px 0px 4px 0px #888888;
+  border-radius: 5px;
+  padding: 2px;
+  background: #1d6c88;
+  padding-left: 9px;
+  color: white;
+}
+.tables {
+  width: 100%;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.border-table {
+  border-collapse: collapse;
+}
+
+.border-table,
+td,
+th {
+  border: 1px solid black;
+}
+
+.display-block {
+  display: block !important;
+}
+
+.table-container {
+  margin: 20px 0px !important;
+}
+
+.statement-container {
+  // border: 2px solid #1d6c88;
+  box-shadow: -1px 0px 4px 0px #888888;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 17px;
+}
+h2 {
+  color: white !important;
+  font-size: 15px;
+  padding-bottom: 0px !important;
+  background: #1d6c88 !important;
+  border-radius: 5px !important;
+  padding: 2px;
+}
+
+.mat-mini-fab {
+  width: 27px !important;
+  height: 25px !important;
+}
+.mat-icon {
+  height: 30px !important;
+  width: 25px !important;
+  margin-top: 5px !important;
+}
+
+.mat-mini-fab .mat-button-wrapper {
+  padding: 0px 0 !important;
+}
+
+.line-heading {
+  background: #1d6c88;
+}
+
+.mat-icon-container {
+  padding-top: 3px !important;
+  margin-bottom: -2px !important;
+}
+.heading-content {
+  text-align: left;
+  padding-top: 5px;
+  color: white;
+  padding-left: 10px;
+}
+
+.print-container {
+  max-height: min-content !important;
+}
+
+.overflow {
+  overflow: scroll;
+  -ms-overflow-style: scrollbar;
+}

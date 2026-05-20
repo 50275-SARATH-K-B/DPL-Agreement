@@ -1,0 +1,53 @@
+<div fxFlex="100%" fxLayout="column" fxLayout.xs="column" fxLayout.gt-sm="row wrap"> 
+  <div>
+   <button mat-raised-button color="primary" type="button" (click)="search()"
+   class="mat-elevation-z12 box-button">Search</button>
+  </div>
+  <br><br>
+  
+
+<mat-card fxFlex="100%" fxLayout="column" fxLayout.xs="column" *ngIf="Active;" class="custom">
+
+   <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxflex="100%"> 
+    <div fxFlex="25%"></div>
+    <div fxFlex="25%"></div>
+    <div fxFlex="25%"></div> 
+    <!-- <div fxFlex="25%" style="text-align: right">
+      <button mat-button class="true mat-elevation-z12" fxLayoutGap="2%" *ngIf="Active;" color="primary"
+        (click)="printLetter('letter')" id="clear_btn" style="margin-right: 14px;">PRINT</button><br><br> --> -->
+
+        <!-- <div fxFlex="25%" style="text-align: right"> -->
+      <!-- <button mat-button class="true mat-elevation-z12" fxLayoutGap="2%" *ngIf="LosLettterActive;" color="primary"
+      (click)="printLetter('LOSletter')" id="clear_btn" style="margin-right: 14px;">PRINT</button> -->
+<!-- 
+      <button mat-button class="false mat-elevation-z12" fxLayoutGap="2%" color="primary" (click)="clear()"
+        id="clear_btn" *ngIf="Active;">Clear</button>
+    </div>
+  </div> -->
+  <!-- <button mat-raised-button color="primary"  fxLayoutGap="2%" (click)="clear()" type="button"
+ >Clear</button> -->
+   </div>
+
+ 
+<div class="wraper1">
+  <ul style="padding-left: 0;">
+    <h3 style="padding-bottom: 15px;text-decoration: none;">To,</h3>
+            <li style="list-style-type: none;">{{name}}</li>
+            <li style="list-style-type: none;">S/O {{father}}</li>
+            <li style="list-style-type: none;">{{HouseName}}</li>
+            <li style="list-style-type: none;">{{AddressLine2}},S.O - {{Pincode}}</li>
+
+          </ul>
+          <h5 style=" margin-top: 20px;">Dear {{name}},</h5>
+          <h3 style=" margin-top: 20px;">PERSONAL LOAN NO: {{LoanId}}</h3>
+          <br><br>
+          <p style=" line-height: 30px;
+      font-family: sans-serif;"> We are pleased to inform you that your captioned loan stands fully repaid as per our
+            Books of account on {{loandate2}}. Thank you for giving us an opportunity to serve you. We will be delighted to
+            assist you in case you are interested in availing any other LOAN PRODUCT, request you to get in touch with
+            our Helpline or visit company website www.manappuram.com.
+          </p>
+ </div>
+</mat-card>
+
+

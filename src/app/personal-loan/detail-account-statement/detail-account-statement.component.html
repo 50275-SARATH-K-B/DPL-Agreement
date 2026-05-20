@@ -1,0 +1,356 @@
+<div fxLayout="column" class="statement-container">
+  <div class="page-heading">
+    <span>Loan Account Details</span>
+  </div>
+  <div fxFlex="100%" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" style="margin-top: 10px;"
+    fxLayoutGap="2%">
+    <mat-form-field fxFlex="20%" fxFlex.xs="100%">
+      <input matInput pattern="[0-9]+" (ngModelChange)="resetValues()" numbersOnly placeholder="Loan ID" maxlength="5"
+        [(ngModel)]="loanID" #loan_IDText="ngModel" name="loan_ID" required>
+      <mat-error *ngIf="loan_IDText.errors?.required">Loan ID is required </mat-error>
+      <mat-error *ngIf="loan_IDText.errors?.pattern">Enter valid loan ID </mat-error>
+    </mat-form-field>
+    <div fxFlex="20%" fxFlex.xs="100%" fxLayoutGap="2%">
+      <button type="button" fxFlex.xs="100%" mat-raised-button class="mat-elevation-z12 box-button" color="primary"
+        [disabled]="!loan_IDText.valid" (click)="getLoanDetails(loanID)">Search</button>
+      <button type="button" mat-raised-button fxFlex.xs="100%" class="mat-elevation-z12 box-button" color="primary"
+        (click)="onClear()">Clear</button>
+
+    </div>
+  </div>
+  
+  <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxFlex="100%" fxLayoutGap="2%" fxLayoutAlign="center center"
+    style="margin-bottom: 10px;" *ngIf="!!customerDetals.CustName">
+    <button type="button" mat-raised-button [disabled]="displayFlag==1" class="mat-elevation-z12 box-button"
+      color="primary" (click)="onDisplay(1)">Loan Details</button>
+    <button type="button" mat-raised-button [disabled]="displayFlag==2" class="mat-elevation-z12 box-button"
+      color="primary" (click)="onDisplay(2)">Loan Installment</button>
+    <button type="button" mat-raised-button [disabled]="displayFlag==3" class="mat-elevation-z12 box-button"
+      color="primary" (click)="onDisplay(3)">Collateral</button>
+    <button type="button" mat-raised-button [disabled]="displayFlag==4" class="mat-elevation-z12 box-button"
+      color="primary" (click)="onDisplay(4)">Disbursement</button>
+    <button type="button" mat-raised-button [disabled]="displayFlag==5" class="mat-elevation-z12 box-button"
+      color="primary" (click)="onDisplay(5)">Transaction Summary</button>
+    <button type="button" mat-raised-button [disabled]="displayFlag==6" class="mat-elevation-z12 box-button"
+      color="primary" (click)="onDisplay(6)">Loan Transaction</button>
+    <button type="button" mat-raised-button [disabled]="displayFlag==7" class="mat-elevation-z12 box-button"
+      color="primary" (click)="onDisplay(7)">Unrealized Receipts</button>
+    <!-- <button type="button" mat-raised-button [disabled]="displayFlag==8" class="mat-elevation-z12 box-button"
+      color="primary" (click)="onDisplay(8)">More..</button> -->
+    <button type="button" mat-raised-button [disabled]="displayFlag==0" class="mat-elevation-z12 box-button"
+      color="primary" (click)="onDisplay(0)">All</button>
+  </div>
+ 
+  
+  <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxFlex="100%" *ngIf="!!customerDetals.CustName">
+    <div fxFlex.xs="100%" fxFlex="90%">
+
+      <table id="customer-details">
+        <tr>
+          <td style="text-align: left;"><b>Loan ID: {{loanID}}</b></td>
+        </tr>
+        <tr>
+          <td style="text-align: left;"> {{customerDetals.CustName}}</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">{{customerDetals.house_name}}</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">{{customerDetals.address_line_2}}</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">{{customerDetals.address_line_3}}</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">{{customerDetals.Address_Line_4}}</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">
+            <span *ngIf="!!customerDetals.Pincode"> PIN Code - </span>{{customerDetals.Pincode}}</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">
+            <span *ngIf="!!customerDetals.MobilePhone">Mob:</span>
+            {{customerDetals.MobilePhone}}</td>
+        </tr>
+        <tr>
+          <td style="text-align: left;">
+            <span *ngIf="!!customerDetals.PrimaryEmail"> Email:</span>
+            {{customerDetals.PrimaryEmail}}</td>
+        </tr>
+
+      </table>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxFlex.xs="100%" fxFlex="10%" fxLayoutAlign="End"
+      class="print-container display-block">
+      <a type="button" mat-raised-button class="mat-elevation-z12 box-button" color="primary" *ngIf="displayFlag!=8"
+        (click)="print(displayFlag)">
+        <mat-icon>print</mat-icon> Print
+      </a>
+    </div>
+  </div>
+  <div *ngIf="displayFlag==0||displayFlag==1">
+    <div>
+      <h2 class="heading">Loan Details</h2>
+    </div>
+    <div class="table-container overflow">
+      <table class="table" id="loan-details">
+        <tr>
+          <th>Loan Sanction Date</th>
+          <th>Loan Sanction Amount (Rs.)</th>
+          <th>Disbursed Amount (Rs.)</th>
+          <th>PLR / Base Rate (%)</th>
+          <th>Current Rate of Interest (%) (Interest Rate Type)</th>
+          <th>Installment Paid No. / Amount (Rs.)</th>
+          <th>Installment Pending No. / Amount (Rs.)</th>
+          <th>Future Installment No. / Amount (Rs.)</th>
+        </tr>
+        <tr *ngFor="let item of loanDtlList;let i = index">
+          <td style="text-align: center;"></td>
+          <td style="text-align: center;">{{item.ApprovedAmount| number:'.2-2'}}</td>
+          <td style="text-align: center;"></td>
+          <td style="text-align: center;">{{item.PLRate}}</td>
+          <td style="text-align: center;">{{item.IntRate}}</td>
+          <td style="text-align: center;">{{item.InstPaidAmt| number:'.2-2'}}</td>
+          <td style="text-align: center;">{{item.PendingInstAmt| number:'.2-2'}}</td>
+          <td style="text-align: center;"></td>
+        </tr>
+      </table>
+      <div style="text-align: right;">
+        Total Loan Sanction Amount:{{totalLoanSctionAmount| number:'.2-2'}} <br>
+        Total Disbursed Amount. / Amount:0.00 <br>
+        Total Installment Paid No. / Amount:{{totalInstPaidAmt| number:'.2-2'}} <br>
+        Total Installment Pending No. / Amount:{{totalPendingInstAmt| number:'.2-2'}} <br>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container overflow" *ngIf="displayFlag==0||displayFlag==8">
+    <table class='tables'>
+      <tr>
+        <td> Co-Applicant Name: </td>
+        <td> Loan Status: </td>
+      </tr>
+      <tr>
+        <td> Product: </td>
+        <td> Branch:</td>
+        <td> Currency: </td>
+      </tr>
+      <tr>
+        <td> Repayment Frequency: </td>
+        <td> Agreement ID: </td>
+      </tr>
+      <tr>
+        <td> Installment Plan: </td>
+        <td> Customer Relationship ID: </td>
+      </tr>
+      <tr>
+        <td> No. of Adv. Inst. / Amount: </td>
+        <td> Installment Amount: </td>
+      </tr>
+      <tr>
+        <td> Repayment Mode: </td>
+        <td> Tenure: </td>
+        <td> Customer Segment: </td>
+      </tr>
+      <tr>
+        <td> Instl. Start Date: </td>
+        <td> Collateral Linked Loan(s): </td>
+      </tr>
+      <tr>
+        <td> Instl. End Date: </td>
+        <td> Disbursal Status: </td>
+      </tr>
+      <tr>
+        <td> Priority Sector Lending: </td>
+        <td> Disbursal Payment Status: </td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="displayFlag==0||displayFlag==2">
+    <div>
+      <h2 class="heading">Installment Details</h2>
+    </div>
+    <div class="table-container overflow">
+      <table class="table" id="installment-details">
+        <tr>
+          <th>Current Overdue (Rs.)</th>
+          <th>Current Late Payment Interest (Rs.)</th>
+          <th>Current LPF Receivable (Rs.)</th>
+          <th>Interest Accrued At Termination (Rs.)</th>
+          <th>Balance Principal (Rs.)</th>
+          <th>Total Outstanding (Rs.)</th>
+        </tr>
+        <tr *ngFor="let item of loanInstDtlList;let i = index">
+          <td style="text-align: center;">{{item.CurrentOverDue}}</td>
+          <td style="text-align: center;">{{item.LateFee}}</td>
+          <td style="text-align: center;">{{item.CurrentLPFReceivable}}</td>
+          <td style="text-align: center;">{{item.IntAccured}}</td>
+          <td style="text-align: center;">{{item.BalancePrincipal}}</td>
+          <td style="text-align: center;">{{item.TotalOutstanding}}</td>
+        </tr>
+      </table>
+      <div style="text-align: right;width: 100%;">
+        <!-- 
+      Total Late Fee:{{totalLateFee}} <br>
+      Total Disbursed Amount. / Amount:0 <br>
+      Total Installment Paid No. / Amount:{{totalInstPaidAmt}} <br>
+      Total Installment Pending No. / Amount:{{totalPendingInstAmt}} <br> -->
+
+      </div>
+    </div>
+  </div>
+  <div *ngIf="displayFlag==0||displayFlag==3">
+    <div>
+      <h2 class="heading">Collateral Details</h2>
+    </div>
+    <div class="table-container overflow">
+      <table class="table" id="colateral-details">
+        <tr>
+          <th>S. No.</th>
+          <th>Collateral Type </th>
+          <th>Collateral Subtype </th>
+          <th>Collateral Number</th>
+          <th>Collateral Details</th>
+        </tr>
+        <tr *ngFor="let item of collateralList;let i = index">
+          <td style="text-align: right;padding-right: 10px;">{{i+1}}</td>
+          <td style="text-align: center;">{{item.CollateralType}}</td>
+          <td style="text-align: center;">{{item.CollateralSubType}}</td>
+          <td style="text-align: center;">{{item.AssetReferenceNo}}</td>
+          <td style="text-align: center;">{{item.CollateralDetails}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="displayFlag==0||displayFlag==4">
+    <div>
+      <h2 class="heading">Disbursement Details </h2>
+    </div>
+    <div class="table-container overflow">
+      <table class="table" id="disbursement-details">
+        <tr>
+          <th>S. No.</th>
+          <th>Date </th>
+          <th>Amount (Rs.)</th>
+          <th>Payment Details</th>
+        </tr>
+        <tr *ngFor="let item of disbursementList;let i = index">
+          <td style="text-align: right;padding-right: 10px;">{{i+1}}</td>
+          <td style="text-align: center;">{{item.DisbursedDate | date: 'dd/MMM/yyyy'}}</td>
+          <td style="text-align: right;padding-right: 10px;">{{item.DisbursedAmount| number:'.2-2'}}</td>
+          <td style="text-align: center;">{{item.PaymentDetails}}</td>
+        </tr>
+      </table>
+      <div style="text-align: right;width: 100%;">
+        Total amount: {{disbursementTotal| number:'.2-2'}}
+      </div>
+    </div>
+  </div>
+  <!-- <div>
+    <h2 class="heading">Part Pre-payment / Conversion Details</h2>
+  </div>
+  <div class="table-container">
+    <table class="table">
+      <tr>
+        <th>S. No.</th>
+        <th>Date</th>
+        <th>Effective Date</th>
+        <th>Transaction</th>
+        <th>Transaction Narration</th>
+      </tr>
+    </table>
+  </div> -->
+  <div *ngIf="displayFlag==0||displayFlag==5">
+    <div>
+      <h2 class="heading">Transaction Summary</h2>
+    </div>
+    <div class="table-container overflow">
+      <table class="table" id="transaction-summary">
+        <tr>
+          <th>Particulars</th>
+          <th> Debits (Rs.) </th>
+          <th>Credits (Rs.)</th>
+          <th>Closing Balance (Rs.)</th>
+        </tr>
+        <tr *ngFor="let item of accountStmtList;let i = index">
+          <td style="text-align: center;">{{item.AccountName}}</td>
+          <td style="text-align: right;padding-right: 10px;">{{item.Debit| number:'.2-2'}}</td>
+          <td style="text-align: right;padding-right: 10px;">{{item.Credit| number:'.2-2'}}</td>
+          <td style="text-align: right;padding-right: 10px;">{{item.Balance| number:'.2-2'}}</td>
+        </tr>
+      </table>
+      <div style="text-align: right;width: 100%;">
+        Total Debits: {{transactionDebitTotal | number:'.2-2'}} <br>
+        Total Credit: {{transactionCreditTotal | number:'.2-2'}}<br>
+        Total Balance: {{transactionTotalBalance | number:'.2-2'}}<br>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="displayFlag==0||displayFlag==6">
+    <div *ngIf="!!customerDetals.CustName">
+      <h2 class="heading">Loan Transaction Details</h2>
+    </div>
+    <div class="table-container overflow" *ngIf="!!customerDetals.CustName">
+      <table class="table" id="loan-transaction">
+        <tr>
+          <th>Transaction Date</th>
+          <th>Value Date </th>
+          <th>Transaction Type </th>
+          <th>Particulars </th>
+          <th> Debit (Rs.) </th>
+          <th>Credit (Rs.)</th>
+          <th>Net Dues (Rs.)</th>
+        </tr>
+        <tr *ngFor="let item of accountStmtDtlList">
+          <td style="text-align: center;">{{item.Tradt | date: 'dd/MMM/yyyy'}}</td>
+          <td style="text-align: right;padding-right: 10px;">{{item.Valuedt | date: 'dd/MMM/yyyy'}}</td>
+          <td style="text-align: right;padding-right: 10px;">{{item.Transid}}</td>
+          <td style="text-align: right;padding-right: 10px;"></td>
+          <td style="text-align: right;padding-right: 10px;">{{item.Debit | number:'.2-2'}}</td>
+          <td style="text-align: right;padding-right: 10px;">{{item.Credit | number:'.2-2'}}</td>
+          <td style="text-align: right;padding-right: 10px;">{{item.Balance | number:'.2-2'}}</td>
+        </tr>
+      </table>
+      <div class="table-container overflow">
+        <table class="table">
+          <tr>
+            <th>Document name</th>
+            <th>Original Recived Date</th>
+            <th>Copy Received Date</th>
+          </tr>
+          <tr *ngFor="let item of documentStsList">
+            <td>{{item.Doc_Name}}</td>
+            <td>{{item.originalrcvddt}}</td>
+            <td>{{item.CopyRcvddt}}</td>
+          </tr>
+        </table>
+      </div>
+      <div style="text-align: right;width: 100%;">
+        Total Debits: {{loanTransactionDebitTotal | number:'.2-2'}} <br>
+        Total Credit: {{loanTransactionCreditTotal | number:'.2-2'}}<br>
+        Total Balance: {{loanTransactionTotalBalance | number:'.2-2'}}<br>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="displayFlag==0||displayFlag==7">
+    <div *ngIf="!!customerDetals.CustName">
+      <h2 class="heading">Unrealized Receipts Details</h2>
+    </div>
+    <div class="table-container overflow" *ngIf="!!customerDetals.CustName">
+      <table class="table" id="unrealized-details">
+        <tr>
+          <th>Transaction Ref No.</th>
+          <th>Payment Mode</th>
+          <th>Instrument</th>
+          <th>Receipt Date</th>
+          <th>Instrument Date</th>
+          <th>Receipt Amount</th>
+          <th>Status</th>
+        </tr>
+
+      </table>
+    </div>
+  </div>
+</div>

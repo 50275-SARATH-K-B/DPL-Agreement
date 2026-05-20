@@ -1,0 +1,97 @@
+<div class="flex-p">
+  <mat-card>
+    <div class="head">
+      <h3>Loan Account Dashboard</h3>
+    </div>
+
+    <div fxLayout.xs="column" fxLayout="row" class="flex-p" style="margin-top: 50px;" fxLayoutAlign="center" fxLayoutGap="5%">
+      <div fxFlex="100" fxLayoutGap="3%" fxLayout.xs="column" id="mg">
+        <div fxFlex="70" fxLayoutGap="3%" style="margin-left:20px">
+
+          <mat-form-field fxFlex="60">
+            <input matInput #moroToText="ngModel" readonly [matDatepicker]="pickerMT" placeholder="From Date"
+              required name="moroto" [(ngModel)]="fromDate" >
+            <mat-datepicker-toggle matSuffix [for]="pickerMT"></mat-datepicker-toggle>
+            <mat-datepicker #pickerMT></mat-datepicker>
+            <mat-error *ngIf="moroToText.errors?.required">To-Date is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field fxFlex="60">
+            <input matInput #moroToText1="ngModel" readonly [matDatepicker]="pickerMT1" placeholder="To Date"
+              required name="moroto2" [(ngModel)]="toDate" >
+            <mat-datepicker-toggle matSuffix [for]="pickerMT1"></mat-datepicker-toggle>
+            <mat-datepicker #pickerMT1></mat-datepicker>
+            <mat-error *ngIf="moroToText1.errors?.required">To Date is required</mat-error>
+          </mat-form-field>
+
+        </div>
+        <!-- <div fxFlex="100" fxLayoutGap="3%">
+          <div fxLayout="column" fxLayoutGap="3%" style="text-align: center;">
+          <mat-radio-group name="radioOpt2"  [(ngModel)]="selected2" (change)="radioChange2($event)" aria-required="true">
+            <mat-radio-button value="1" class="p-r">Requested</mat-radio-button> &nbsp;
+            <mat-radio-button value="2" class="p-r">Approved</mat-radio-button> &nbsp;
+            <mat-radio-button value="0" class="p-r">Rejected</mat-radio-button>&nbsp;
+          </mat-radio-group>
+        </div>
+      </div> -->
+
+        <div fxFlex="10" fxLayoutAlign="center center">
+          <button mat-mini-fab color="primary" [disabled]="!fromDate || !toDate"
+            class="mat-elevation-z12 box-button" matTooltip="Search" type="button" color="primary"
+            (click)="getDashboardDetails()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout.xs="column" fxLayout="row" class="flex-p" style="margin-top: 50px;" fxLayoutAlign="center"
+      fxLayoutGap="5%">
+      <div fxFlex="100" fxLayoutGap="3%" fxLayout.xs="column" id="mg">
+        <div style="overflow: scroll;-ms-overflow-style: scrollbar;max-height: 390px;text-align: center;">
+          <table mat-table [dataSource]="dashboardsource" width="100%">
+            <ng-container matColumnDef="slno">
+              <th mat-header-cell *matHeaderCellDef style="width: 120px !important;text-align: center;"> SL. No.</th>
+              <td mat-cell *matCellDef="let element; let i = index;" style="width: 120px !important;">{{i+1}} </td>
+            </ng-container>
+            <ng-container matColumnDef="custid">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">Customer ID</th>
+              <td mat-cell *matCellDef="let element;">{{element.customerId}}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="custname">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">Customer Name</th>
+              <td mat-cell *matCellDef="let element;">{{element.customer_name}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="loanId">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">Loan Id</th>
+              <td mat-cell *matCellDef="let element;">{{element.loanId}}</td>
+            </ng-container>
+    
+            <ng-container matColumnDef="deathdate">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">Death Date </th>
+              <td mat-cell *matCellDef="let element;">{{element.deathDate | date : 'dd/MM/yyyy'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef style="text-align: center;">Status</th>
+              <td mat-cell *matCellDef="let element;">
+                <button class="btn" mat-raised-button style="color: white;" [ngStyle]="element.status == 1 ? { 'background-color': '#2E52F3' } : (element.status == 2 ? { 'background-color': '#0DCD24' } : { 'background-color': '#F8041A' })">{{element.status == 1 ? 'Requested' : 
+                element.status == 2 ? 'Approved' : 'Rejected'}}</button></td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+            <tr mat-row *matRowDef="let element;let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered}"green
+              class="a_custom">
+            </tr>
+          </table>
+
+          <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+
+        </div>
+      </div>
+    </div>
+
+  </mat-card>
+</div>

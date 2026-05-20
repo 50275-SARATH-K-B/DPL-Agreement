@@ -1,0 +1,80 @@
+.heading {
+    text-align: center;
+  }
+  .page-heading {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .tables {
+    width: 100%;
+  }
+  
+  .table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table td,
+  .table th {
+    border: 1.5px solid black;
+  }
+  .table th {
+    background: #9c9c9c3d;
+  }
+  .table-container {
+    margin: 20px 0px !important;
+  }
+  
+  .statement-container {
+    box-shadow: -1px 0px 4px 0px #888888;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 17px;
+  }
+  h2 {
+    color: rgb(0, 0, 0) !important;
+    font-size: 15px;
+    padding-bottom: 0px !important;
+    background: #f5dc02 !important; 
+    border-radius: 5px !important;
+    padding: 2px;
+  }
+  
+  .mat-mini-fab {
+    width: 27px !important;
+    height: 25px !important;
+  }
+  .mat-icon {
+    height: 30px !important;
+    width: 25px !important;
+    margin-top: 5px !important;
+  }
+  
+  .mat-mini-fab .mat-button-wrapper {
+    padding: 0px 0 !important;
+  }
+  
+  .line-heading {
+    background: #f5dc02 !important; 
+  }
+  
+  .mat-icon-container{
+    padding-top: 3px !important;
+    margin-bottom: -2px !important;
+  }
+  .heading-content{
+    text-align: left;
+    padding-top: 5px;
+    color: white;
+    padding-left: 10px;
+  }
+  
+  .print-container{
+    max-height: min-content !important;
+  }
+
+
+  .print-button{
+         display: block !important;
+  }

@@ -1,0 +1,188 @@
+<div fxLayout="column" class="flex-p">
+  <mat-card>
+    <mat-card-content>
+  
+  <div class="flex-p">
+  <form #InstallmentForm="ngForm" fxLayout="column" novalidate>
+    <div fxLayout="column" class="form-block">
+      <div fxFlex="100%" fxLayoutGap="2%">
+  
+      <mat-form-field fxFlex="30%">
+        <input matInput placeholder="Loan ID" [(ngModel)]="loanID" name="loan_ID" #loanIDTxt="ngModel" readonly required>
+        <mat-error *ngIf="loanIDTxt.errors?.required">Loan ID is required</mat-error>
+      </mat-form-field>
+      <div  fxFlex="70%" fxLayoutAlign="end">
+      <button mat-raised-button color="primary" type="button" (click)="loanSearch()"
+        class="mat-elevation-z12 box-button">Search</button></div>
+    </div>
+    </div>
+    <div class="form-block">
+
+    <div fxLayoutGap="1%">
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Customer ID" [(ngModel)]="customerID" name="Customer_ID" #Customer_IDTxt="ngModel"
+          readonly required>
+        <mat-error *ngIf="Customer_IDTxt.errors?.required">Customer ID is required</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Customer Name" [(ngModel)]="customerName" name="Customer_Name"
+          #Customer_NameText="ngModel" readonly required>
+        <mat-error *ngIf="Customer_NameText.errors?.required">Customer Name is required</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Loan Date" [(ngModel)]="LoanDate" name="Loan_Date" #Loan_DateTxt="ngModel" readonly
+          required>
+        <mat-error *ngIf="Loan_DateTxt.errors?.required">Loan Date is required</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Loan Amount" [(ngModel)]="LoanAmount" name="Loan_Amount" #Loan_AmountTxt="ngModel"
+          readonly required>
+        <mat-error *ngIf="Loan_AmountTxt.errors?.required">Loan Amount is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout.xs="column"  fxLayoutGap="1%">
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Installment Paid" [(ngModel)]="InstallmentPaid" name="Installment_Paid"
+          #Installment_PaidTxt="ngModel" readonly>
+        <mat-error *ngIf="Installment_PaidTxt.errors?.required">Installment Paid is required</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Total Installment" [(ngModel)]="TotalInstallment" name="Total_Installment"
+          #Total_InstallmentTxt="ngModel" readonly >
+        <mat-error *ngIf="Total_InstallmentTxt.errors?.required">Total Installment is required</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Unpaid Installment" [(ngModel)]="UnpaidInstallment" name="Unpaid_Installment"
+          #UnpaidInstallmentTxt="ngModel" readonly>
+        <mat-error *ngIf="UnpaidInstallmentTxt.errors?.required">Unpaid Installment is required</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Current Due" [(ngModel)]="CurrentDue" name="Current_Due" #Current_DueTxt="ngModel"
+          readonly>
+        <mat-error *ngIf="Current_DueTxt.errors?.required">Current Due is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout.xs="column"  fxLayoutGap="1%">
+      <!-- <mat-form-field fxFlex="33.3%">
+        <input matInput readonly [matDatepicker]="picker1" placeholder="Due Date" [(ngModel)]="DueDte" name="DueDateVal" #DueDateText="ngModel">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker style="width:150px;" #picker1></mat-datepicker>
+        <mat-error *ngIf="DueDateText.errors?.required">Due Date is required
+        </mat-error>
+      </mat-form-field> -->
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Next Due Date" [(ngModel)]="DueDte" name="DueDateVal"
+          #Total_InterestTxt="ngModel" readonly >
+        <mat-error *ngIf="Total_InterestTxt.errors?.required">Due Date is required</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Total interest" [(ngModel)]="TotalInterest" name="Total_Interest"
+          #Total_InterestTxt="ngModel" readonly >
+        <mat-error *ngIf="Total_InterestTxt.errors?.required">Total Interest is required</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Next Installment" [(ngModel)]="NextInstallment" name="Next_Installment"
+          #Next_InstallmentTxt="ngModel" readonly>
+        <mat-error *ngIf="Next_InstallmentTxt.errors?.required">Total Interest is required</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Late Fee" [(ngModel)]="LateFee" name="Late_Fee" #Late_FeeTxt="ngModel" readonly>
+        <mat-error *ngIf="Late_FeeTxt.errors?.required">Late Fee is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout.xs="column"  fxLayoutGap="1%">
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Other Charge" [(ngModel)]="OtherCharge" name="Other_Charge"
+          #Other_ChargeTxt="ngModel" readonly>
+        <mat-error *ngIf="Other_ChargeTxt.errors?.required">Other Charge is required</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Amount to be Paid" [(ngModel)]="AmountToBePaid" name="Amount_to_be_Paid"
+          #Amount_to_be_PaidTxt="ngModel" readonly>
+        <mat-error *ngIf="Amount_to_be_PaidTxt.errors?.required">Amount is required</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput placeholder="Amount Received" [(ngModel)]="AmountRcvd" name="AmountRcvd" numbersOnly pattern="[0-9]+(.[0-9]{1,2})?$" 
+          #AmountRcvdTxt="ngModel" required (blur)="check(AmountRcvd)" maxlength="12">
+        <mat-error *ngIf="AmountRcvdTxt.errors?.required">Amount is required</mat-error>
+        <mat-error *ngIf="AmountRcvdTxt.errors?.pattern">Enter valid Amount</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <mat-select [(ngModel)]="paymentModeSearchType" placeholder="Payment Mode" (ngModelChange)="onChange($event)"
+          name="paymentModeSearchText" #paymentModeSearchText="ngModel" required>
+          <mat-option *ngFor="let item of paymentModeList"
+            value="{{item.LedgerID}}^{{item.PaymentModeID}}^{{item.PaymentMode}}">
+            {{item.PaymentMode}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="paymentModeSearchText.errors?.required">Payment Mode is required</mat-error>
+      </mat-form-field>
+      
+    </div>
+
+    <div *ngIf="showPaymentMethodExtras" fxLayout="row" fxLayout.xs="column" fxLayoutGap="1%">
+      <mat-form-field fxFlex="24%">
+        <mat-select [(ngModel)]="accountListType" placeholder="Account Types" (ngModelChange)="onChangeAction($event)"
+          name="accountListTypeText" #accountListTypeText="ngModel" required>
+          <mat-option *ngFor="let item of accountList" value={{item.AccountNo}}>
+            {{item.AccountName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%">
+        <input matInput maxlength="20" placeholder="{{paymentMode}} Reference Number" [(ngModel)]="instrumentReference"
+          name="instrumentReferenceText" #instrumentReferenceText="ngModel" required>
+      </mat-form-field>
+      <!-- <mat-form-field fxFlex="24%">
+        <input matInput readonly [matDatepicker]="picker3" [min]="minDate" [max]="maxDate" placeholder="Loan Date"
+          [(ngModel)]="instrumentDate" name="instrumentDateVal">
+        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field fxFlex="25%">
+        <input matInput myNumberOnly maxlength="10" placeholder="Total Amount" [(ngModel)]="totalAmount"
+          name="totalAmountText" #totalAmountText="ngModel" readonly>
+      </mat-form-field> -->
+    </div>
+    <!-- <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+      <mat-form-field fxFlex="23.5%" *ngIf="!showPaymentMethodExtras">
+        <input matInput myNumberOnly maxlength="10" placeholder="Total Amount" [(ngModel)]="totalAmount"
+          name="total_AmountText" #totalAmountText="ngModel" readonly required>
+        <mat-error *ngIf="totalAmountText.errors?.required">Amount is required</mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="23.5%">
+        <input matInput myNumberOnly maxlength="10" placeholder="Cheque Bounce Charge" [(ngModel)]="ChequeBounce"
+          name="Cheque_Bounce" #Cheque_BounceTxt="ngModel" readonly>
+      </mat-form-field>
+      <mat-form-field fxFlex="23.5%">
+        <input matInput myNumberOnly maxlength="10" placeholder="Future Principal" [(ngModel)]="futurePrinciple"
+          name="future_Principle" #future_PrincipleTxt="ngModel" readonly>
+      </mat-form-field>
+    </div> -->
+
+    <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+      <mat-form-field fxFlex="24%" >
+        <input matInput [matDatepicker]="picker2" placeholder="Collection Date" name="picker2" [min]="today" [max]="today"
+          readonly  [(ngModel)]="collectionDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field fxFlex="24%" *ngIf="ledgerId==31035" >
+        <input matInput  #value2date [matDatepicker]="picker21" placeholder="Value Date" name="picker21"  [min]="minfindate" [max]="today"
+            [(ngModel)]="collectionvalueDate" required>
+        <mat-datepicker-toggle matSuffix [for]="picker21"></mat-datepicker-toggle>
+        <mat-datepicker #picker21></mat-datepicker>
+        <mat-error *ngIf="value2date.errors?.required">To Date is required</mat-error>
+
+      </mat-form-field>
+    </div>
+    </div>
+  </form>
+  </div>
+  <div fxLayoutGap="2%" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+    <button type="button" mat-raised-button color="primary"  (click)="SaveCollection(InstallmentForm)" [disabled]="!InstallmentForm.valid || !paymentModeSearchType">Pay</button>
+    <button type="button" mat-raised-button color="primary" (click)="clear(InstallmentForm)">Clear</button>
+  </div>
+</mat-card-content>
+</mat-card>
+</div>

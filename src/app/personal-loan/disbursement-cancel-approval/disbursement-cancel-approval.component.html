@@ -1,0 +1,105 @@
+<div fxLayout="column" class="form-block flex-p" style="padding-top: 25px !important;">
+  <div fxLayoutGap="2%">
+      <mat-form-field fxFlex="33.3%" style="padding-left: 25px !important;">
+          <input matInput placeholder="Loan ID" name="loan_ID" [(ngModel)]="loanID" required readonly>
+          <mat-error>Loan ID ID is required</mat-error>
+      </mat-form-field>
+      <div fxFlex="70%" fxLayoutAlign="end">
+        <button mat-raised-button color="primary" type="button"  (click)="loanSearch()"
+            class="mat-elevation-z12 box-button search-btn">Search</button>
+        </div>
+  </div>
+</div>
+<div fxLayout="column" class="form-block mat flex-p" style="padding-top: 0px !important;">
+  <mat-card  fxLayoutGap="2%">
+    <form #disbursementForm="ngForm" fxLayout="column" novalidate>
+      <div fxLayout="column">
+          <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="1%">
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Customer ID" name="Customer_ID"  [(ngModel)]="customerID"  readonly required>
+                  <!-- <mat-error >Customer ID is required</mat-error> -->
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Customer Name" name="Customer_Name"  [(ngModel)]="customerName"  readonly required>
+                  <!-- <mat-error >Customer Name is required</mat-error> -->
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Loan Date" name="Loan_Date" [(ngModel)]="LoanDate"  readonly  required>
+                  <!-- <mat-error >Loan Date is required</mat-error> -->
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Loan Amount" name="Loan_Amount"  [(ngModel)]="LoanAmount"  readonly required>
+                  <!-- <mat-error >Loan Amount is required</mat-error> -->
+              </mat-form-field>
+          </div>
+          <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="1%">
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Installment Paid" name="Installment_Paid" [(ngModel)]="InstallmentPaid"  readonly>
+                  <!-- <mat-error >Installment Paid is required</mat-error> -->
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Total Installment" name="Total_Installment"  [(ngModel)]="TotalInstallment"  readonly>
+                  <!-- <mat-error >Total Installment is required</mat-error> -->
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Unpaid Installment" name="Unpaid_Installment" [(ngModel)]="UnpaidInstallment"  readonly>
+                  <!-- <mat-error >Unpaid Installment is required</mat-error> -->
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Current Due" name="Current_Due" [(ngModel)]="CurrentDue"  readonly>
+                  <!-- <mat-error >Current Due is required</mat-error> -->
+              </mat-form-field>
+          </div>
+          <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="1%">
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Due Date" name="DueDate" [(ngModel)]="DueDte"  readonly>
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Total interest" name="Total_Interest"  [(ngModel)]="TotalInterest"  readonly>
+                  <!-- <mat-error >Total Interest is required</mat-error> -->
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Next Installment" name="Next_Installment" [(ngModel)]="NextInstallment"  readonly>
+                  <!-- <mat-error >Total Interest is required</mat-error> -->
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Late Fee" name="Late_Fee" [(ngModel)]="LateFee"  readonly>
+                  <!-- <mat-error >Late Fee is required</mat-error> -->
+              </mat-form-field>
+          </div>
+          <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="1%">
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Other Charge" name="Other_Charge" [(ngModel)]="OtherCharge"  readonly>
+                  <!-- <mat-error >Other Charge is required</mat-error> -->
+              </mat-form-field>
+              <mat-form-field fxFlex="24%">
+                  <input matInput placeholder="Amount to be Paid" name="Amount_to_be_Paid"  [(ngModel)]="AmountToBePaid"  readonly>
+                  <!-- <mat-error >Amount is required</mat-error> -->
+              </mat-form-field>
+              <!-- <mat-form-field fxFlex="33.3%">
+                  <textarea matInput placeholder="Amount to be Paid" readonly></textarea>
+              </mat-form-field> -->
+          </div>
+          <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="1%">
+            <mat-form-field fxFlex="80%">
+                <textarea matInput placeholder="Reason Given For Disbursement Cancel" name="reason" [(ngModel)]="reason"  readonly></textarea>
+            </mat-form-field>
+          </div>
+
+      </div>
+    </form>
+    <form #reasonForm="ngForm" fxLayout="column" novalidate >
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="1%">
+            <mat-form-field fxFlex="80%">
+                <textarea matInput placeholder="Comment" name="comment" [(ngModel)]="comment"  maxlength="90" required></textarea>
+            </mat-form-field>
+          </div>
+
+          <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxLayoutAlign="end">
+              <button type="button" mat-raised-button color="primary" [disabled]="!((loanID!=undefined) && reasonForm.valid)" (click)="approved()">Approved</button>
+              <button type="button" mat-raised-button color="primary" [disabled]="!((loanID!=undefined) && reasonForm.valid)" (click)="reject()">Reject</button>
+          </div>
+    </form>
+  </mat-card>
+
+</div>

@@ -1,0 +1,29 @@
+.mat-column-select {
+    overflow: initial;
+  }
+
+.mat-cell, .mat-header-cell { min-width: 89px !important;} 
+
+.overflow{
+  overflow: scroll;
+  -ms-overflow-style: scrollbar; 
+  
+}
+
+// .mat-cell {
+//   flex: 0 0 15%;
+//   min-width: 130px;
+//   justify-content: start;
+//   background-color: inherit !important;
+// }
+// .mat-header-cell {
+//   flex: 0 0 15%;
+//   min-width: 130px;
+//   justify-content: start;
+//   background-color: #00695c !important;
+//   color: aliceblue !important;
+//   height: 55px ;
+// }
+td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
+    padding-left: 25px !important;
+}

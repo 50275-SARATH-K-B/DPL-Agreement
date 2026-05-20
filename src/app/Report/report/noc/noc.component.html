@@ -1,0 +1,110 @@
+<div fxFlex="100%" fxLayout="column" fxLayout.xs="column" fxLayout.gt-sm="row wrap"> 
+<div fxLayout="column" class="form-block"  *ngIf="!data['funid']">
+  <div style="margin-left: 50px;margin-top:30px;" fxFlex="100%" fxLayoutGap="2%">
+    <mat-form-field fxFlex="100">
+      <input matInput placeholder="Loan ID" pattern="^[0-9]+$" [(ngModel)]="LoanId"  #LoanNumber="ngModel"  required>
+      <mat-error *ngIf="LoanNumber.errors?.required">Loan ID is required</mat-error>
+    </mat-form-field>
+    <div  fxFlex="70%" >
+    <button mat-raised-button color="primary" type="button" [disabled]="!LoanId" (click)="loandetailssearch()"
+      class="mat-elevation-z12 box-button">Search</button></div>
+  </div>
+</div>
+<br>
+
+<div style="display:flex;justify-content: flex-end;margin-top:30px;" fxFlex="100%" fxLayoutGap="2%">
+
+
+    <button  mat-stroked-button color="primary"  type="button" (click)="printLetter('letter')"
+    class="mat-elevation-z12 box-button">download PDF</button><br><br>
+    <button  mat-stroked-button color="primary"  type="button" (click)="printword('letter2')"
+    class="mat-elevation-z12 box-button">download Word</button><br><br>
+    <div *ngIf="!data['funid']">
+      <button  mat-stroked-button color="primary" class="false mat-elevation-z12" fxLayoutGap="2%"  (click)="clear()"
+      id="clear_btn" *ngIf="Active">Clear</button>
+
+    </div>
+    
+      
+  </div> 
+  
+ <div  fxFlex="68%" fxLayout="column" fxLayout.xs="column"  style="margin-top: 100px;margin-left: 230px;"  fxLayoutAlign="center center">
+  <mat-card >
+    <br><br>
+ 
+ 
+
+   <div #pdfTemplate id="letter" style=" margin-top:10px ;  line-height: 80px;
+   font-family: sans-serif;
+   font-size: 14px;
+   font-family: sans-serif !important">
+   <div fxLayout="column" fxLayoutAlign="center center" class="head">
+     <img src="assets/img/letterhead=manappuram.png">
+   </div>
+     <div id="letter2" class="page" style="text-align: justify;line-height: 20px;
+   font-family: sans-serif;
+   font-size: 14px;">
+   
+       <div >
+         <h3 style="text-align: center;margin-top: 10px;">Loan Closure Certificate</h3>
+       </div>
+         
+           <h5  style="text-align: right">
+             Date:{{today|date:'dd/MM/yyyy'}}</h5>
+
+
+
+       <div class="wraper1">
+         <ul style="padding-left: 0;">
+
+           <h3 style="padding-bottom: 15px;text-decoration: none;">To,</h3>
+           <li style="list-style-type: none;">{{name}}</li>
+           <li style="list-style-type: none;">S/O {{father}}</li>
+           <li style="list-style-type: none;">{{HouseName}}</li>
+           <li style="list-style-type: none;">{{AddressLine2}},S.O - {{Pincode}}</li>
+
+
+
+
+
+         </ul>
+         <h5 style=" margin-top: 20px;">Dear {{name}},</h5>
+
+         <h3 style=" margin-top: 20px;">Digital PERSONAL LOAN NO: {{LoanId}}</h3>
+         <h3 style=" margin-top: 1px;">Loan Amount: {{loanamount}}</h3>
+
+         <br><br>
+         <p style=" line-height: 30px;
+     font-family: sans-serif;"> We are pleased to inform you that your captioned loan stands fully repaid as per our
+           Books of account on {{loandate2}}. Thank you for giving us an opportunity to serve you. We will be delighted to
+           assist you in case you are interested in availing any other LOAN PRODUCT, request you to get in touch with
+           our Helpline or visit company website www.manappuram.com.
+         </p>
+         <br>
+         <div class="list3">
+           <ul style=" line-height: 20px;
+       font-family: sans-serif; padding-left: 0;">
+             <li style="list-style-type: none;">Yours sincerely ,</li>
+           </ul>
+           <h3 style=" margin-top: 10px;">Digital Personal Loan,</h3>
+
+           <h3 style=" margin-top: 10px;">Manappuram Finance Limited.</h3>
+           <br>
+           <h3 style=" margin-top: 130px;text-align: center;">**This is a Computer-generated letter. No Signature is required.</h3>
+         </div>
+       </div>
+       
+     </div>
+     <div fxLayout="column" fxLayoutAlign="center center">
+       <img src="assets/img/manappuram-letterhead2.png" width="100%">
+     </div>
+   </div>
+   <br>
+   <br>
+ 
+ </mat-card>
+ </div>
+  
+  <br>
+  <br>
+</div>

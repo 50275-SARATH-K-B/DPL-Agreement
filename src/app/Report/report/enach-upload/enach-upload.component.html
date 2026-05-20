@@ -1,0 +1,129 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <form #enachDataUploadForm="ngForm">
+    <mat-card>
+      <div class="head">
+        <h3>ENACH UPLOAD</h3>
+      </div>
+    
+      <div fxLayout="column" fxLayoutGap="2%">
+        <div fxFlex="100%" fxLayoutGap="2%">
+          <div fxFlex="30%">
+            <button mat-raised-button class="mat-elevation-z12" (click)="exportexcel('tableWithHeader')"
+              color="primary">Download Format</button>
+          </div>
+          <div fxFlex="60%" fxLayoutAlign="end">
+            <div fxLayout.xs="column" fxLayoutGap=2% fxLayoutAlign="end">
+              <input style="visibility: hidden;" type='file'
+                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" (change)="addfile($event)"
+                #document>
+              <button mat-raised-button color="primary" (click)="document.click()"
+                class="mat-elevation-z12 box-button swing">
+                Upload EXCEL </button>
+              <!-- <label>
+              <input  type='file' accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" (change)="onSelectFile($event)"
+              #document
+              (change)="addfile($event)" accept=".xls, .xlsx" placeholder="Upload Excel"
+             #document>
+            </label> -->
+            </div>
+          </div>
+        </div>
+        <div style="overflow:scroll;-ms-overflow-style: scrollbar; max-height:410px;">
+          <table mat-table [dataSource]="enachSource">
+
+            <ng-container matColumnDef="SlNo">
+              <th mat-header-cell *matHeaderCellDef> SlNo </th>
+              <td mat-cell *matCellDef="let element ;  let i= index"> {{i+1}} </td>
+            </ng-container>
+            <ng-container matColumnDef="MandateID">
+              <th mat-header-cell *matHeaderCellDef>MandateID</th>
+              <td mat-cell *matCellDef="let element"> {{element.mandateid}} </td>
+            </ng-container>
+            <ng-container matColumnDef="CustomerName">
+              <th mat-header-cell *matHeaderCellDef>CustomerName</th>
+              <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="LoanID">
+              <th mat-header-cell *matHeaderCellDef>LoanID</th>
+              <td mat-cell *matCellDef="let element"> {{element.loanid}} </td>
+            </ng-container>
+            <ng-container matColumnDef="Customerid">
+              <th mat-header-cell *matHeaderCellDef>CustomerId</th>
+              <td mat-cell *matCellDef="let element"> {{element.Customerid}} </td>
+            </ng-container>
+            <ng-container matColumnDef="InstallmentAmount">
+              <th mat-header-cell *matHeaderCellDef>InstallmentAmount</th>
+              <td mat-cell *matCellDef="let element"> {{element.installmentamount}} </td>
+            </ng-container>
+            <ng-container matColumnDef="TransactionType">
+              <th mat-header-cell *matHeaderCellDef>TransactionType</th>
+              <td mat-cell *matCellDef="let element"> {{element.transactiontype}} </td>
+            </ng-container>
+            <ng-container matColumnDef="DueDate">
+              <th mat-header-cell *matHeaderCellDef>DueDate</th>
+              <td mat-cell *matCellDef="let element"> {{element.duedate}} </td>
+            </ng-container>
+            <ng-container matColumnDef="PresentationDate">
+              <th mat-header-cell *matHeaderCellDef>PresentationDate</th>
+              <td mat-cell *matCellDef="let element"> {{element.PresentationDate}} </td>
+            </ng-container>
+            <!-- income_particulars: any;
+        income_Amount: any; -->
+            <!-- <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element;  let i= index">
+            <div fxLayoutGap="2%" fxFlex="15% auto" fxLayout="row">             
+              <button mat-icon-button (click)="deleteTableItem({element:element,index:i},1)"color="warn">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container> -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+        <div fxLayoutGap="2%" fxLayoutAlign="end">
+          <button type="submit" class="button-box box" mat-raised-button color="primary"
+            [disabled]="enachSource== undefined || enachSource.data.length== 0 ||disabled"
+            (click)="checkdatasave()" id="confirm_btn">Confirm</button>
+          <button mat-raised-button class="button-box box" color="primary" (click)="clear(enachDataUploadForm)"
+            id="clear_btn">Clear</button>
+        </div>
+        <div fxFlex="100%" style="visibility: hidden;">
+      <table class="table table-bordered" id="tableWithHeader">
+        <thead>
+          <tr>
+            <th>MandateID</th>
+            <th>CustomerName</th>
+            <th>LoanID</th>
+            <th>InstallmentAmount</th>
+            <th>CustomerId</th>
+            <th>TransactionType</th>
+            <th>DueDate</th>
+            <th>PresentationDate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
+    </mat-card>
+    </form>
+  </div>
+</div>

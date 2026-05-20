@@ -1,0 +1,24 @@
+
+.mat-checkbox-inner-container-no-side-margin { margin-bottom: 11px !important;}
+.a_custom{
+    cursor: pointer;
+    color: blue;
+}
+.a_custom:hover{
+    color:red;
+}
+
+.mat-cell {
+    flex: 0 0 15%;
+    min-width: 130px;
+    justify-content: start;
+    background-color: inherit !important;
+}
+.mat-header-cell {
+    flex: 0 0 15%;
+    min-width: 130px;
+    justify-content: start;
+    background: #f5dc02 !important; 
+    color: black !important;
+    height: 55px ;
+}

@@ -1,0 +1,220 @@
+<div fxFlex="100%" fxLayout="column" fxLayout.xs="column" fxLayout.gt-sm="row wrap">
+  <mat-card fxFlex="100%">
+    <div fxLayout="column" class="form-block flex-p">
+      <!-- <div class="head">
+        <h3> {{name}}</h3>
+      </div> -->
+      <!-- <h2 class="h2-head">
+        <mat-icon class="home-icon" routerLink="/home">home</mat-icon>Request/Due Date Change{{name}}
+      </h2> -->
+      <article>
+        
+      </article>
+
+      <div fxLayout="row" fxLayout.xs="row" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="center">
+        <mat-form-field fxFlex="35.3%" fxFlex.xs="70.3%" appearance="outline">
+          <mat-label>Loan ID</mat-label>
+          <input matInput placeholder="Loan ID" [(ngModel)]="loanID" (click)="loanSearch()" name="loan_ID"
+            #loanIDTxt="ngModel" readonly required>
+        </mat-form-field>
+      </div>
+    </div>
+  <!-- </mat-card> -->
+  <!-- <mat-card fxFlex="100%"> -->
+    <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%">
+      <div fxLayoutAlign="end" fxFlex='85.5%'>
+        <button mat-button color="primary" type="button" class="true mat-elevation-z12" style="height: fit-content;"
+          *ngIf=InstallmentForm.valid (click)="SOA(loanID)">Account Statement
+        </button>
+      </div>
+      <div fxLayoutAlign="end" fxFlex='12.5%' fxFlex.sm='23.5%'>
+        <button mat-button color="primary" type="button" class="true mat-elevation-z12" style="height: fit-content;"
+          *ngIf=InstallmentForm.valid (click)="OnRepaymentSchedule()">Repayment schedule
+        </button>
+      </div>
+    </div> -->
+    <div fxLayout="column" class="form-block flex-p">
+      <form #InstallmentForm="ngForm" fxLayout="column" fxFlex="100%" novalidate>
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+          <mat-form-field appearance="outline" fxFlex="25%">
+            <mat-label>Customer ID</mat-label>
+            <input matInput [(ngModel)]="customerID" name="Customer_ID" #Customer_IDTxt="ngModel" readonly required>
+            <mat-error *ngIf="Customer_IDTxt.errors?.required">Customer ID is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="25%">
+            <mat-label>Customer Name</mat-label>
+            <input matInput [(ngModel)]="customerName" name="Customer_Name" #Customer_NameText="ngModel" readonly
+              required>
+            <mat-error *ngIf="Customer_NameText.errors?.required">Customer Name is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="25%">
+            <mat-label>Loan Date</mat-label>
+            <input matInput [(ngModel)]="LoanDate" name="Loan_Date" #Loan_DateTxt="ngModel" readonly required>
+            <mat-error *ngIf="Loan_DateTxt.errors?.required">Loan Date is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="25%">
+            <mat-label>Loan Amount</mat-label>
+            <input matInput [(ngModel)]="LoanAmount" name="Loan_Amount" #Loan_AmountTxt="ngModel" readonly required>
+            <mat-error *ngIf="Loan_AmountTxt.errors?.required">Loan Amount is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+          <mat-form-field appearance="outline" fxFlex="25%">
+            <mat-label>Installment Paid</mat-label>
+            <input matInput [(ngModel)]="InstallmentPaid" name="Installment_Paid" #Installment_PaidTxt="ngModel"
+              readonly required>
+            <mat-error *ngIf="Installment_PaidTxt.errors?.required">Installment Paid is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="25%">
+            <mat-label>Current Due</mat-label>
+            <input matInput [(ngModel)]="CurrentDue" name="Current_Due" #Current_DueTxt="ngModel" readonly required>
+            <mat-error *ngIf="Current_DueTxt.errors?.required">Current Due is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="25%">
+            <mat-label>Due Date</mat-label>
+            <input matInput [(ngModel)]="DueDate" name="DueDate" #DueDateText="ngModel" readonly required>
+            <mat-error *ngIf="DueDateText.errors?.required">Due date is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="25%">
+            <mat-label>Select Due Day</mat-label> 
+            <mat-select  [(ngModel)]="DueDayID" name="DueDay" #DueDayText="ngModel" required
+              (selectionChange)="duedate()" readonly>
+              <mat-option *ngFor="let item of DueDayList" [value]="item.CommonDataName">
+                {{item.Description}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="DueDayText.errors?.required">Due Day is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+          <mat-form-field appearance="outline" fxFlex="25%">
+            <mat-label>Next Due Date</mat-label>
+            <mat-select  [(ngModel)]="Nextdue" name="Nextdue" #NextdueText="ngModel" required
+            (selectionChange)="duedateinterest()">
+            <mat-option *ngFor="let item of GapDate" [value]="item.duedate">
+              {{item.duedate}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="NextdueText.errors?.required">Next Due Date is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="25%">
+            <mat-label>Gap interest days</mat-label>
+            <input matInput [(ngModel)]="Gap" name="Gap" readonly>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="25">
+            <mat-label>Gap days interest Amount</mat-label>
+            <input matInput name="GapAmount" readonly [(ngModel)]="GapAmount" autocomplete="off"
+              (keypress)="keyPress($event)">
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="25">
+            <mat-label>Additional Charge</mat-label>
+            <input matInput name="Additional" [(ngModel)]="Additional" #Additionall="ngModel" autocomplete="off" [readonly]="readonly"
+              (keypress)="keyPress($event)" maxlength="10" (focusout)="additionalchargecharacter()" required>
+              <mat-error *ngIf="Additionall.errors?.required">Additional charge is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+          <mat-form-field fxFlex="25%" appearance="outline">
+            <mat-label>Transaction Date</mat-label>
+            <input matInput [matDatepicker]="picker1" autocomplete="off" readonly [(ngModel)]="Transaction"
+              name="Transaction" #TransactionText="ngModel" required>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="TransactionText.errors?.required">Transaction Date is required</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="25%" appearance="outline">
+            <mat-label>Effective date</mat-label>
+            <input matInput [matDatepicker]="picker2" autocomplete="off"  readonly [(ngModel)]="Effective"
+              name="Effective" #EffectiveText="ngModel"  required [max]="maxeffectivedate" readonly>
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+            <mat-error *ngIf="EffectiveText.errors?.required">Rescheduling Effective date is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex="25%">
+            <mat-label>Gap days Interest Treatment</mat-label>
+            <mat-select [(ngModel)]="TreatmentDetails" name="TreatmentDetails" 
+              #TreatmentDetailsText="ngModel" required readonly>
+              <mat-option *ngFor="let TreatmentDeatlsListvalue of TreatmentDeatlsList"
+                [value]="TreatmentDeatlsListvalue.Description">
+                {{TreatmentDeatlsListvalue.Description}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="TreatmentDetailsText.errors?.required">Gap days Interest Treatment is required</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="25%" appearance="outline">
+            <mat-label>Installment Amount</mat-label>
+            <input matInput [(ngModel)]="InstallmentAmt" name="InstallmentAmt" autocomplete="off" readonly
+              (keypress)="keyPress($event)">
+          </mat-form-field>
+        </div>
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+          <mat-form-field appearance="outline" fxFlex="25%">
+            <mat-label>Treatment Details</mat-label>
+            <mat-select [(ngModel)]="TreatmentDetail" name="TreatmentDetail" 
+              #TreatmentDetailText="ngModel" >
+              <mat-option *ngFor="let TreatmentDeatlsListvalue of TreatmentDeatlList"
+                [value]="TreatmentDeatlsListvalue.Description">
+                {{TreatmentDeatlsListvalue.Description}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="TreatmentDetailText.errors?.required">Treatment Details is required</mat-error>
+          </mat-form-field>
+          <div fxFlex="25%"></div>
+          <div fxFlex="25%"></div>
+          <div fxFlex="25%"></div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="5%" fxflex="100%" fxLayout.xs="column">
+          <!-- <div fxFlex=50% fxLayout.xs="row" fxLayoutGap="3%">
+            <div fxFlex=100% ngClass.xs="single-search-responsive">
+              <mat-form-field fxFlex="100%" appearance="outline">
+                <mat-label>Approval Attachment</mat-label>
+                <input matInput readonly *ngIf="FileName == 'No File Selected'" style="font-size: 12px;"
+                  value="Approval Attachment(Supports:JPG,PNG,PDF)">
+                <input matInput readonly *ngIf="FileName != 'No File Selected'" [(ngModel)]="FileName" name="FileNAME"
+                #tittleAttachment="ngModel">
+                  <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1%  fxLayoutAlign="end" *ngIf="FileName">
+                    <mat-icon (click)="OpenFile()" class = "visibility">visibility</mat-icon>
+                </div>
+                <mat-hint>(Supports:JPG,PNG,EXCEL,PDF)</mat-hint>
+              </mat-form-field>
+
+            </div>
+            <div fxLayout.xs="column" fxFlex=6% fxLayoutGap=1%>
+              <input hidden="hidden" type='file'
+                accept=".xlsx, application/pdf, image/*"
+                (change)="onChangeFile($event)" #document>
+              <button mat-icon-button color="primary" type="button" (click)="document.click()"
+                class="mat-elevation-z12 box-button swing" id="but" color="primary">
+                <mat-icon>scanner</mat-icon>
+              </button>
+            </div>
+          </div> -->
+          <mat-form-field fxFlex="50%" fxFlex.xs="70.3%" appearance="outline">
+            <mat-label>Reason</mat-label>
+            <input matInput [(ngModel)]="Reason" name="Reason" #tittleReasont="ngModel" autocomplete="off" readonly
+              (click)="resonSearch()" required>
+            <mat-error *ngIf="tittleReasont.errors?.required">Reason is required</mat-error>
+          </mat-form-field> 
+          <button mat-fab color="primary" type="button" class="mat-elevation-z12"
+            aria-label="Example icon button with a delete icon" (click)="resonSearch()">
+              <i class="fa fa-search"></i>
+          </button>
+        </div>
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%" style="margin-top: 10px;">
+          <mat-form-field appearance="outline" fxFlex="100%">
+            <mat-label>Comments</mat-label>
+            <textarea matInput [(ngModel)]="Comments" maxlength="200" name="Comments"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div fxLayoutAlign="center" fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+          <button mat-button class="false mat-elevation-z12" color="primary"
+            (click)='clear(InstallmentForm)'>Clear</button>
+          <button mat-button class="true mat-elevation-z12" color="primary"
+            (click)='esigndoc(InstallmentForm)'  >Confirm</button>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+</div>

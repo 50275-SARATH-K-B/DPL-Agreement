@@ -1,0 +1,63 @@
+#customerDetails1 {
+  
+  border-radius: 5px !important;
+}
+#customerDetails1 th {
+  padding: 5px;
+  text-align: left;
+}
+.form-report {
+  padding: 10px !important;
+}
+
+#customerDetails1 th {
+  padding: 5px;
+  text-align: left;
+}
+
+#accountStatement {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  white-space: nowrap;
+}
+#accountStatement td,
+#accountStatement th {
+  border: 1px solid black;
+  padding: 8px;
+}
+#accountStatement th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  border: 1px solid black;
+  background-color: #f2f2f2;
+}
+#installmentSchedule {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  white-space: nowrap;
+}
+
+#installmentSchedule td,
+#installmentSchedule th {
+  border: 1px solid black;
+  padding: 8px;
+}
+#installmentSchedule th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  border: 1px solid black;
+  background-color: #f2f2f2;
+}
+
+#tab_header {
+  background-color: #f2f2f2;
+}
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: rgba(0, 0, 0, 0.38);
+} 

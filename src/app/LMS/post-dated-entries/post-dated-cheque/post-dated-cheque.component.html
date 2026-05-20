@@ -1,0 +1,94 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/LMS/pdc-details/add-pdc-details
+UI created by : Hareesh N
+Date : 24/12/2018
+pdc-details :
+add-pdc-details.component.html
+add-pdc-details.component.scss
+add-pdc-details.component.ts
+
+Functionally Coded by : Hareesh N
+Date : 
+
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+
+
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card>
+      <mat-card-content>
+        <mat-card-content fxLayout.xs="column" fxLayoutGap="2%">
+          <mat-form-field fxFlex="50">
+            <input matInput placeholder="Customer Name" [(ngModel)]="customerName" readonly name="CustomerName">
+          </mat-form-field>
+          <mat-form-field fxFlex="35">
+            <input matInput placeholder="Loan ID" readonly [(ngModel)]="loanId" name="LoanID">
+          </mat-form-field>
+          <mat-card-actions fxLayout="row" fxFlex="15">
+            <div fxLayoutGap="2%" fxLayout="row" fxFlex="100%" fxLayout.xs="column" fxLayoutAlign="center center">
+              <a mat-raised-button class="mat-elevation-z12 box-button swing" color="primary" (click)="onLoad()">Search
+                Loan</a>
+            </div>
+          </mat-card-actions>
+        </mat-card-content>
+
+        <form #pdcForm="ngForm">
+            <div class="mat-elevation-z8" *ngIf="documentDetailsSource.data.length>0" style="overflow: scroll;-ms-overflow-style: scrollbar">
+              <table mat-table #table [dataSource]="documentDetailsSource" w-100>
+                <ng-container matColumnDef="Level">
+                  <th mat-header-cell *matHeaderCellDef> Installment No </th>
+                  <td mat-cell *matCellDef="let element"> {{element.Level}} </td>
+                </ng-container>
+                <ng-container matColumnDef="InstrumentNo">
+                  <th mat-header-cell *matHeaderCellDef> Instrument No </th>
+                  <td mat-cell *matCellDef="let element">
+                    <mat-form-field>
+                      <input myNumberOnly maxlength="10" autocomplete="off" matInput name="element.InstrumentNo"
+                        [(ngModel)]="element.InstrumentNo" #instrumentNo='ngModel' required>
+                      <mat-error *ngIf="instrumentNo.errors?.required">Instrument No is required</mat-error>
+                    </mat-form-field>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="InstrumentDate">
+                  <th mat-header-cell *matHeaderCellDef>Instrument Date</th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    <mat-form-field>
+                      <input matInput autocomplete="off" [(ngModel)]="element.InstrumentDate" readonly
+                        name="InstrumentDate" [matDatepicker]="picker" required>
+                      <mat-error *ngIf="InstrumentDate.errors?.required">Instrument Date is required</mat-error>
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="notapplicable">
+                  <th mat-header-cell mat-header-cell *matHeaderCellDef>Not Applicable
+                  </th>
+                  <td mat-cell mat-cell *matCellDef="let row" style="text-align: start">
+                    <mat-checkbox (click)="$event.stopPropagation()" [checked]="selection.isSelected(row)"
+                      [(ngModel)]="row.checked" name='rowchecked'>
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsDocumentDetails;sticky:true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsDocumentDetails;"></tr>
+              </table>
+            </div>      
+        </form>
+      </mat-card-content>
+
+      <mat-card-content fxLayout.xs="column" fxLayoutGap="2%">
+        <div class="example-button-row" fxLayoutGap="2%" fxLayoutAlign="end">
+          <button mat-raised-button color="primary" [disabled]='pdcForm.invalid || !isConfirmEnabled'
+            (click)="confirm(pdcForm)">Confirm</button>
+          <button mat-raised-button color="primary" (click)="clear()">Clear</button>
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+  </div>
+</div>

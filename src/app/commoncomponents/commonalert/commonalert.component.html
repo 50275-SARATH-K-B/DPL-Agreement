@@ -1,0 +1,32 @@
+<div class="flex-p" ngStyle.xs="max-width:160px !important" fxFlex="100%">
+  <div fxLayout="column" fxFlex="100%">
+      <div class="flex-p" style="margin-top: 10px" fxLayoutGap="2%">
+<h1 mat-dialog-title>
+  Confirm Action
+</h1>
+
+<div mat-dialog-content *ngIf = "normalmess">
+  <p>Are you sure you want to Confirm?</p>
+</div>
+<div mat-dialog-content *ngIf = "mess">
+  <p>It is  Refund case ,when waived the principal amount it goes to loss on sale, Are you sure you want to Confirm?</p>
+</div>
+<div fxLayout.xs="column" fxLayout="column" mat-dialog-content *ngIf = "concurrent">
+  <p>{{datamsg}}</p>
+</div>
+
+<div mat-dialog-content *ngIf = "reasonconfirmation">
+  <p>Asset sales price is {{value}},but reason selected as not reposale</p>
+</div>
+<div mat-dialog-content *ngIf = "baddebit">
+  <p>Are you sure for Final Settlement</p>
+</div>
+
+<div mat-dialog-actions fxLayoutGap ="2%" fxLayoutAlign = "end">
+  <button mat-button class="false mat-elevation-z12" (click)="onDismiss()">No</button>
+  <button mat-button class="true mat-elevation-z12" (click)="onConfirm()">Yes</button>
+</div>
+
+</div>
+</div>
+</div>

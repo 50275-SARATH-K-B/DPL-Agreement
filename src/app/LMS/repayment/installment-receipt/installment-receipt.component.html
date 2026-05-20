@@ -1,0 +1,121 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/Allocation Priority
+UI created by : Niphy Anto
+Date : 30/11/2018
+Assets :
+view-allocation-priority.component.html
+view-allocation-priority.component.scss
+view-allocation-priority.component.ts
+
+Functionally Coded by : 
+Date : 
+
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+
+<div fxLayout="row" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100%" class="flex-p">
+    <mat-card fxFlex="100%" fxLayout="column">
+      <div fxFlex="100%" fxLayout="row" fxLayout.xs="column" class="confirm-container" ngClass.xs="display-block">
+        <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="5%" fxFlex="80%">
+          <h2>Installment Receipt</h2>
+        </mat-card-content>
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="20%" fxLayoutAlign="end">
+          <div fxLayoutGap="2%" fxLayout="row" class="display-block" fxLayoutAlign="end">
+            <button mat-raised-button ngStyle.xs="width: 100%;" color="primary" (click)="loanSearch()"
+              type="button">Search
+              Loan</button>
+          </div>
+        </div>
+      </div>
+      <div fxLayout.xs="column" fxLayout="column" fxFlex="100%" class="form-block display-block">
+        <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+          <mat-form-field fxFlex="33.3%">
+            <input matInput placeholder="Customer ID" readonly (click)="oncustIDClick()" name="custID"
+              [(ngModel)]="custData['customerID']">
+          </mat-form-field>
+          <mat-form-field fxFlex="33.3%" class="disabled">
+            <input matInput placeholder="Customer name" name="custName" [(ngModel)]="custData['customerName']">
+          </mat-form-field>
+          <mat-form-field fxFlex="33.3%" class="disabled">
+            <input matInput placeholder="Loan ID" name="loanid" [(ngModel)]="custData['loanID']">
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-content fxLayout.xs="column" fxLayout="row" class="disabled" fxLayoutGap="2%" fxFlex="100%">
+          <mat-form-field fxFlex="33.3%">
+            <input matInput placeholder="Loan amount" name="loanAmount" [(ngModel)]="custData['loanAmount']">
+          </mat-form-field>
+          <mat-form-field fxFlex="33.3%">
+            <input matInput placeholder="Loan date" name="loandate"
+              value="{{custData['loanDate']| date: 'dd-MMM-yyyy'}}">
+          </mat-form-field>
+          <mat-form-field fxFlex="33.3%">
+            <input matInput placeholder="Next due date" name="dueDate"
+              value="{{custData['nextDueDate']| date: 'dd-MMM-yyyy'}}">
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-content fxLayout.xs="column" fxLayout="row" class="disabled" fxLayoutGap="2%" fxFlex="100%">
+          <mat-form-field fxFlex="32%">
+            <input matInput placeholder="Settlement balance" name="loanBalance" [(ngModel)]="custData['loanBalance']">
+          </mat-form-field>
+          <mat-form-field fxFlex="32%">
+            <input matInput placeholder="Debtors balance" name="debtorsBalance"
+              [(ngModel)]="custData['debtorsBalance']">
+          </mat-form-field>
+        </mat-card-content>
+      </div>
+      <div fxLayout.xs="column" fxLayout="column" fxLayoutGap="2%" fxFlex="100%" class="form-block display-block">
+        <form #installmentForm="ngForm" fxFlex="100%" fxLayout="column">
+          <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+            <mat-form-field fxFlex="25" [class.disabled]="true">
+              <input matInput placeholder="Late fee" pattern="^[0-9]*$" autocomplete="off"
+                [(ngModel)]="custData['lateFee']" #lateFeeText="ngModel" name="lateFee">
+            </mat-form-field>
+            <mat-form-field fxFlex="25" [class.disabled]="true">
+              <input matInput placeholder="Other charges" [(ngModel)]="custData['otherCharges']" #decText="ngModel"
+                name="dec">
+            </mat-form-field>
+            <mat-form-field fxFlex="25%">
+              <input matInput placeholder="Received amount" pattern="^[0-9]*$" maxlength="10" numbersOnly
+                autocomplete="off" #amountText="ngModel" name="amount" [(ngModel)]="accountData['Amount']" required>
+              <mat-error *ngIf="amountText.errors?.required">Amount is required</mat-error>
+              <mat-error *ngIf="amountText.errors?.pattern">Please enter valid amount</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="25%" [class.disabled]="true">
+              <mat-select placeholder="Select payment mode" name="paymentMode" required #paymentModeText="ngModel"
+                [(ngModel)]="accountData['paymenMode']" required>
+                <mat-option value="33000">Cash</mat-option>
+                <mat-option value="31000">Bank</mat-option>
+              </mat-select>
+              <mat-error *ngIf="paymentModeText.errors?.required">Payment Mode is required</mat-error>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%"
+            *ngIf="accountData['paymenMode']=='31000'">
+
+            <mat-form-field fxFlex="23.5%">
+              <mat-select placeholder="Select Sub Account" name="subAccount" required #subAccountText="ngModel"
+                [(ngModel)]="accountData['subAccount']" required>
+                <mat-option value="1">Cheque</mat-option>
+                <mat-option value="2">Bank</mat-option>
+              </mat-select>
+              <mat-error *ngIf="subAccountText.errors?.required">Sub Account is required</mat-error>
+            </mat-form-field>
+          </mat-card-content>
+
+        </form>
+
+      </div>
+      <mat-card-content fxLayout.xs="column" fxLayout="row" class="confirm-container" fxLayoutGap="2%" fxFlex="100%"
+        fxLayoutAlign="end" [class.disabled]="!installmentForm.valid">
+        <div fxLayoutGap="2%" fxLayout="row" style="text-align: center;" fxLayoutAlign="end">
+          <button mat-raised-button [disabled]="!installmentForm.valid" class="mat-elevation-z12 box-button addLoan"
+            (click)="confirm(installmentForm)" color="primary" type="button">Confirm</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

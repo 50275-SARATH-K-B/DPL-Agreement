@@ -1,0 +1,104 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap" fxFlex="100%">
+  <div fxFlex="100%" class="flex-p" fxLayout="column">
+    <mat-card>
+      <mat-card-content fxLayout.xs="row" fxLayout="row">
+        <mat-radio-group fxLayoutGap="5%" [(ngModel)]="customerSearchItem" name="CustomerSearch"
+          fxLayout.gt-sm="row wrap" fxLayout.xs="column" fxFlex="80%">
+          <mat-radio-button value="5">Phone No</mat-radio-button>
+          <mat-radio-button value="2">Customer Name </mat-radio-button>
+          <mat-radio-button value="3">PAN</mat-radio-button>
+          <mat-radio-button value="1" checked>Customer ID</mat-radio-button>
+          <mat-radio-button value="4">KYC ID</mat-radio-button>
+        </mat-radio-group>
+        <div fxFlex="15 auto" class="flex-p" fxFlex="20%">
+          <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" type="button"
+            (click)="gotoCustomer()">Add
+            Customer</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <div fxLayout="row">
+        <div fxFlex="1 1 auto" class="flex-p" fxLayoutAlign="center" fxLayout.xs="column">
+          <form #searchForm="ngForm">
+            <mat-form-field *ngIf="customerSearchItem=='1'">
+              <input matInput [(ngModel)]="customerId" (keydown)="keyDownFunction($event,searchForm)" name="CustID"
+                placeholder="Customer ID" pattern="[0-9]*" FxLayoutAlign="end start" required maxlength="14" numbersOnly
+                minlength="14" #CustIDText="ngModel" autocomplete="off" autofocus>
+              <mat-error *ngIf="CustIDText.errors?.required">Customer ID is required</mat-error>
+              <mat-error *ngIf="CustIDText.errors?.pattern">Enter valid Customer ID</mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="customerSearchItem=='2'">
+              <input matInput placeholder="Customer Name" (keydown)="keyDownFunction($event,searchForm)"
+                [(ngModel)]="customerName" name="CustName" pattern="^(?!\s*$)[-a-zA-Z0-9\s]{1,100}$"
+                FxLayoutAlign="end start" autofocus required maxlength="20" autocomplete="off" #CustNameText="ngModel">
+              <mat-error *ngIf="CustNameText.errors?.required">Customer Name is required</mat-error>
+              <mat-error *ngIf="CustNameText.errors?.pattern">Enter valid Customer Name</mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="customerSearchItem=='3'">
+              <input matInput placeholder="PAN" [(ngModel)]="panNo" name="Pan"
+                pattern="^[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}$" (keydown)="keyDownFunction($event,searchForm)"
+                FxLayoutAlign="end start" required maxlength="10" autofocus autocomplete="off" #PanText="ngModel">
+              <mat-error *ngIf="PanText.errors?.required">PAN Number is required</mat-error>
+              <mat-error *ngIf="PanText.errors?.pattern">Enter valid PAN Number</mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="customerSearchItem=='4'">
+              <input matInput placeholder="KYC" FxLayoutAlign="end start" (keydown)="keyDownFunction($event,searchForm)"
+                name="Kycdoc" [(ngModel)]="kyc" name="KYC" required autofocus maxlength="10" #KycdocText="ngModel">
+              <mat-error *ngIf="KycdocText.errors?.required">KYC is required</mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="customerSearchItem=='5'">
+              <input matInput placeholder="Phone" numbersOnly (keydown)="keyDownFunction($event,searchForm)" autofocus
+                FxLayoutAlign="end start" maxlength="13" [(ngModel)]="phone" name="PHONE" #PHONEText="ngModel" required>
+              <mat-error *ngIf="PHONEText.errors?.required">Phone is required</mat-error>
+            </mat-form-field>
+            <div fxFlex="1 5 auto" class="flex-p">
+              <button mat-raised-button color="primary" [disabled]="!searchForm.valid"
+                class="mat-elevation-z12 box-button" type="button" (click)="getSearchResults(searchForm)"
+                name="Search">Search</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <mat-card-content *ngIf="customerList.length>0" style="overflow:scroll;">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="cust_Id">
+            <th mat-header-cell *matHeaderCellDef> Customer ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.custId}} </td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="guardianName">
+            <th mat-header-cell *matHeaderCellDef> Guardian Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.guardianName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Phone">
+            <th mat-header-cell *matHeaderCellDef> Phone </th>
+            <td mat-cell *matCellDef="let element"> {{element.mobilePhone}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Email">
+            <th mat-header-cell *matHeaderCellDef> Email ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.primaryEmailId}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="a_custom"
+            (click)="onRowClick(element)">
+          </tr>
+        </table>
+      </mat-card-content>
+      <mat-card-content fxLayoutAlign="end">
+        <mat-card-actions fxLayoutAlign="end" fxLayout="column">
+          <div fxLayoutGap="5%" fxFlex="15% auto" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end">
+            <button mat-raised-button type="button" tabindex="19" class="mat-elevation-z12 box-button" color="primary"
+              (click)="clear(searchForm)">Clear</button>
+            <button mat-raised-button tabindex="20" type="button" class="mat-elevation-z12 box-button" color="primary"
+              mat-dialog-close>Close</button>
+          </div>
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>

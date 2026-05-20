@@ -1,0 +1,133 @@
+<div fxLayout="column" class="form-block">
+
+  <div fxFlex="100%" fxLayoutGap="2%">
+    <mat-form-field fxFlex="33.3%">
+      <input matInput placeholder="Loan No" pattern="^[0-9]+$" #LoanNumber="ngModel" required maxlength="10" numbersOnly
+        [(ngModel)]="LoanId" (click)="displayLoanSearchPopup()" name="LoanNumber" readonly>
+      <mat-error *ngIf="LoanNumber.errors?.pattern">Loan No should in numbers only</mat-error>
+      <mat-error *ngIf="LoanNumber.errors?.required">Loan ID is required</mat-error>
+    </mat-form-field>
+    <div fxFlex="70%" fxLayoutAlign="end">
+      <button mat-raised-button color="primary" type="button" (click)="displayLoanSearchPopup()"
+        class="mat-elevation-z12 box-button">Search</button>
+    </div>
+  </div>
+</div>
+<mat-card   style = "margin-top: 20px;" fxLayout="column">
+  <div fxLayout="column" fxFlex="100%" >
+    <h3>Due Detail</h3>
+    <div style="overflow:scroll;-ms-overflow-style: scrollbar; max-height:396px;">
+      <table mat-table [dataSource]="SuccessDataSource">
+        <!-- <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox #ref (change)="$event ? masterToggle(ref) : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(row) : null;isSomeSelected()"
+              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container> -->
+        <ng-container matColumnDef="LoanID">
+          <th mat-header-cell *matHeaderCellDef> Loan ID </th>
+          <!-- <input matInput placeholder="Loan No" pattern="^[0-9]+$" #LoanNumber="ngModel"  maxlength="10" 
+        [(ngModel)]="LoanId" name="LoanNumber"> -->
+          <td mat-cell *matCellDef="let element"> {{element.LoanID}} </td>
+        </ng-container>
+        <ng-container matColumnDef="ReceivableDate">
+          <th mat-header-cell *matHeaderCellDef>Receivable Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.ReceivableDate}} </td>
+        </ng-container>
+        <ng-container matColumnDef="BusinessPartner">
+          <th mat-header-cell *matHeaderCellDef>Business Partner</th>
+          <td mat-cell *matCellDef="let element"> {{element.BusinessPartner}} </td>
+        </ng-container>
+        <ng-container matColumnDef="ChargeDescription">
+          <th mat-header-cell *matHeaderCellDef>Charge Description</th>
+          <td mat-cell *matCellDef="let element"> {{element.ChargeDescription}} </td>
+        </ng-container>
+        <ng-container matColumnDef="DueAmount">
+          <th mat-header-cell *matHeaderCellDef>Due Amount</th>
+          <td mat-cell *matCellDef="let element"> {{element.DueAmount}} </td>
+        </ng-container>
+        <ng-container matColumnDef="TaxAmount">
+          <th mat-header-cell *matHeaderCellDef>Tax Amount</th>
+          <td mat-cell *matCellDef="let element"> {{element.TaxAmount}} </td>
+        </ng-container>
+        <ng-container matColumnDef="OverDueAmout">
+          <th mat-header-cell *matHeaderCellDef>Over DueAmount</th>
+          <td mat-cell *matCellDef="let element"> {{element.OverDueAmout}} </td>
+        </ng-container>
+        <ng-container matColumnDef="WaiveOffAmount">
+          <th mat-header-cell *matHeaderCellDef> Waive-Off Amount</th>
+          <td mat-cell *matCellDef="let element;index as i">
+            <mat-form-field>
+              <input matInput [ngModelOptions]="{standalone: true}" name={{element.WaiveOffAmount}}
+                (keypress)="keyPress($event)" [(ngModel)]="element.WaiveOffAmount" #WaiveOffText="ngModel"
+                (focusout)="Calculation(element,i)" autocomplete="off" required>
+              <mat-error *ngIf="WaiveOffText.errors?.required">Waive-Off Amount is required</mat-error>
+            </mat-form-field>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="WaivedAmount">
+          <th mat-header-cell *matHeaderCellDef> Waived Amount </th>
+          <td mat-cell *matCellDef="let element;index as i">
+            <mat-form-field>
+              <input matInput [ngModelOptions]="{standalone: true}" name={{element.WaivedAmount}}
+                [(ngModel)]="element.WaivedAmount" readonly>
+            </mat-form-field>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsSuccess;sticky:true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsSuccess;"></tr>
+      </table>
+      <mat-paginator [pageSize]="5"></mat-paginator>
+    </div>
+    <div fxLayout="row" style="margin-top: 10px;" fxLayout.xs="column" fxLayoutGap="2%">
+      <div fxFlex=50% fxLayout.xs="row" fxLayoutGap="3%">
+        <div fxFlex=100% ngClass.xs="single-search-responsive">
+          <mat-form-field fxFlex="100%" appearance="outline">
+            <mat-label>Approval Attachment</mat-label>
+            <input matInput readonly *ngIf="FileName == 'No File Selected'" style="font-size: 12px;"
+              value="Approval Attachment(Supports:JPG,PNG,PDF)">
+            <input matInput readonly *ngIf="FileName != 'No File Selected'" [(ngModel)]="FileName" name="FileNAME"
+              #tittleAttachment="ngModel">
+            <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1% fxLayoutAlign="end" *ngIf="FileName">
+              <i (click)="OpenFile()" class="fa fa-eye eye"></i>
+            </div>
+            <mat-hint>(Supports:JPG,PNG,EXCEL,PDF)</mat-hint>
+          </mat-form-field>
+
+        </div>
+        <div fxLayout.xs="column" fxFlex=6% fxLayoutGap=1%>
+          <!-- <mat-form-field fxFlex="100%"></mat-form-field> -->
+          <input hidden="hidden" type='file' accept=".xlsx, application/pdf, image/*" (change)="onChangeFile($event)"
+            #document>
+          <button mat-icon-button color="primary" type="button" (click)="document.click()"
+            class="mat-elevation-z12 box-button swing" id="but" color="primary">
+            <mat-icon>scanner</mat-icon>
+          </button>
+        </div>
+      </div>
+      <mat-form-field fxFlex="50%" appearance="outline">
+        <mat-label>Reason</mat-label>
+        <mat-select placeholder="Select Reason" [(ngModel)]="Reasoncode" name="reason" #reasoncode="ngModel" required>
+          <mat-option *ngFor="let chargetypevalue of reasonArray" [value]="chargetypevalue.reason_code">
+            {{chargetypevalue.reason_name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="reasoncode.errors?.required"> Reason is required</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxLayoutAlign="center" *ngIf="waiverListDetail.length > 0">
+    <button type="button" type="button" mat-raised-button color="primary" 
+      (click)="clearDataSource()">Clear</button>
+    <button type="button" mat-raised-button color="primary" (click)="confirm()">Confirm</button>
+  </div>
+</mat-card>

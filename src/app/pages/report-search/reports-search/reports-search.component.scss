@@ -1,0 +1,72 @@
+#collection-parent{
+    display: none;
+  }
+  
+  .display-none{
+    display: none !important;
+  }
+  
+  #collection {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+      white-space: nowrap;
+      // margin-left: 285px !important;
+      display: none;
+    }
+    
+    #collection td, #collection th {
+      border: 1px solid black;
+      padding: 8px;
+     
+    }
+    #collection th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      // border: 1px solid black;
+      background-color: #f2f2f2;
+      position: sticky;
+    }
+  
+   #collection_ID{
+    margin-left: 150px !important;
+    padding-left: 100px !important;
+    }
+  
+  
+  
+  
+  
+  
+  
+  
+    a {
+      text-decoration: underline;
+      color:blue;
+    }
+    .mat-fab .mat-button-wrapper  {padding: 0px !important;}
+  .mat-fab { width:35px; height:35px !important;}
+  
+  .mat-cell {
+    flex: 0 0 15%;
+    min-width: 130px;
+    justify-content: start;
+    background-color: inherit !important;
+  }
+  .mat-header-cell {
+    flex: 0 0 15%;
+    min-width: 130px;
+    justify-content: start;
+    background: #f5dc02 !important; 
+    color: black !important;
+    height: 55px ;
+  }
+  .mat-paginator{
+    background-color: inherit !important;
+  }
+  
+  .myt-1{
+    margin-top: 10px;
+  }
+    

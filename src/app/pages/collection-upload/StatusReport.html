@@ -1,0 +1,152 @@
+<div fxLayout="column" fxLayout.xs="column" fxLayoutGap="2%"
+  style="padding-left: 5%;padding-right: 5%;padding-top: 2%;">
+
+  <div id="tableSuccess" fxLayout="column" fxLayout.xs="column" fxLayoutGap="2%">
+    <div fxLayout="column" fxFlex="100%" id="tableSuccess">
+      <!-- <h3>Success List</h3> -->
+      <div style="overflow:scroll;-ms-overflow-style: scrollbar; max-height:210px;">
+        <span class="th" style="font-size: 14px;">Success List</span>
+        <table mat-table [dataSource]="SuccessDataSource" class="mat-elevation-z8" id="tableSuccess">
+          <!-- <ng-container matrowDef="LoanId">
+          <th mat-header-cell *matHeaderCellDef> SL. No. </th>
+          <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+        </ng-container> -->
+          <!-- <ng-container matColumnDef="item-description">
+            <th class="th" mat-header-cell *matHeaderCellDef style="font-size: 14px;">Success List</th>
+          </ng-container> -->
+          <!-- <tr mat-header-row *matHeaderRowDef="['item-description']" class="example-second-header-row">
+          </tr> -->
+          <ng-container matColumnDef="CustId">
+            <th mat-header-cell *matHeaderCellDef> Customer ID</th>
+            <td mat-cell *matCellDef="let element"> {{element.CustId}} </td>
+          </ng-container>
+          <ng-container matColumnDef="LoanId">
+            <th mat-header-cell *matHeaderCellDef> Loan ID</th>
+            <td mat-cell *matCellDef="let element"> {{element.LoanId}} </td>
+          </ng-container>
+          <ng-container matColumnDef="CollectionAmt">
+            <th mat-header-cell *matHeaderCellDef> Collection Amount </th>
+            <td mat-cell *matCellDef="let element"> {{element.CollectionAmt}} </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="account_type">
+          <th mat-header-cell *matHeaderCellDef>Entered By</th>
+          <td mat-cell *matCellDef="let element"> {{element.account_type}} </td>
+        </ng-container> -->
+          <ng-container matColumnDef="EnterDate">
+            <th mat-header-cell *matHeaderCellDef>Entered Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.EnterDate | date:'dd-MM-yyyy'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="DepositDate">
+            <th mat-header-cell *matHeaderCellDef>Deposit Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.DepositDate}} </td>
+          </ng-container>
+          <ng-container matColumnDef="TransactionDate">
+            <th mat-header-cell *matHeaderCellDef>Transaction Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.TransactionDate}} </td>
+          </ng-container>
+          <ng-container matColumnDef="RecieptNo">
+            <th mat-header-cell *matHeaderCellDef>Reciept No</th>
+            <td mat-cell *matCellDef="let element"> {{element.RecieptNo}} </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="PaymentMode">
+            <th mat-header-cell *matHeaderCellDef>Payment Mode</th>
+            <td mat-cell *matCellDef="let element"> {{element.PaymentMode}} </td>
+          </ng-container> -->
+    
+          <ng-container matColumnDef="RecieptPurpose">
+            <th mat-header-cell *matHeaderCellDef>Reciept Purpose</th>
+            <td mat-cell *matCellDef="let element"> {{element.RecieptPurpose}} </td>
+          </ng-container>
+          <ng-container matColumnDef="remarks">
+            <th mat-header-cell *matHeaderCellDef>Remarks</th>
+            <td mat-cell *matCellDef="let element"> {{element.Remarks}} </td>
+          </ng-container>
+          <ng-container matColumnDef="CollectionStatus">
+            <th mat-header-cell *matHeaderCellDef>Collection Status</th>
+            <td mat-cell *matCellDef="let element"> {{element.ReasonForFail}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsSuccess;sticky:true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsSuccess;"></tr>
+        </table>
+        <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+    
+
+    <div fxLayout="column" fxFlex="100%" id="tableFailed">
+      <!-- <h3>Failed List</h3> -->
+      <div style="overflow:scroll;-ms-overflow-style: scrollbar; max-height:210px;">
+        <span class="th" style="font-size: 14px;">Failed List</span>
+        <table mat-table [dataSource]="FailedDataSource" class="mat-elevation-z8">
+          <!-- <ng-container matColumnDef="LoanId">
+          <th mat-header-cell *matHeaderCellDef> SL. No. </th>
+          <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+        </ng-container> -->
+        <!-- <ng-container matColumnDef="item-description">
+          <th class="th-red" mat-header-cell *matHeaderCellDef>Failed List</th>
+        </ng-container> -->
+        <!-- <tr mat-header-row *matHeaderRowDef="['item-description']" class="example-second-header-row">
+        </tr> -->
+          <ng-container matColumnDef="CustId">
+            <th mat-header-cell *matHeaderCellDef> Customer ID</th>
+            <td mat-cell *matCellDef="let element"> {{element.CustId}} </td>
+          </ng-container>
+          <ng-container matColumnDef="LoanId">
+            <th mat-header-cell *matHeaderCellDef> Loan ID</th>
+            <td mat-cell *matCellDef="let element"> {{element.LoanId}} </td>
+          </ng-container>
+          <ng-container matColumnDef="CollectionAmt">
+            <th mat-header-cell *matHeaderCellDef> Collection Amount </th>
+            <td mat-cell *matCellDef="let element"> {{element.CollectionAmt}} </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="account_type">
+          <th mat-header-cell *matHeaderCellDef>Entered By</th>
+          <td mat-cell *matCellDef="let element"> {{element.account_type}} </td>
+        </ng-container> -->
+          <ng-container matColumnDef="EnterDate">
+            <th mat-header-cell *matHeaderCellDef>Entered Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.EnterDate| date:'dd-MM-yyyy'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="DepositDate">
+            <th mat-header-cell *matHeaderCellDef>Deposit Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.DepositDate}} </td>
+          </ng-container>
+          <ng-container matColumnDef="TransactionDate">
+            <th mat-header-cell *matHeaderCellDef>Transaction Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.TransactionDate}} </td>
+          </ng-container>
+          <ng-container matColumnDef="RecieptNo">
+            <th mat-header-cell *matHeaderCellDef>Reciept No</th>
+            <td mat-cell *matCellDef="let element"> {{element.RecieptNo}} </td>
+          </ng-container>
+          <!-- <ng-container matColumnDef="PaymentMode">
+            <th mat-header-cell *matHeaderCellDef>Payment Mode</th>
+            <td mat-cell *matCellDef="let element"> {{element.PaymentMode}} </td>
+          </ng-container> -->
+
+          <ng-container matColumnDef="RecieptPurpose">
+            <th mat-header-cell *matHeaderCellDef>Reciept Purpose</th>
+            <td mat-cell *matCellDef="let element"> {{element.RecieptPurpose}} </td>
+          </ng-container>
+          <ng-container matColumnDef="remarks">
+            <th mat-header-cell *matHeaderCellDef>Remarks</th>
+            <td mat-cell *matCellDef="let element"> {{element.Remarks}} </td>
+          </ng-container>
+          <ng-container matColumnDef="CollectionStatus">
+            <th mat-header-cell *matHeaderCellDef>Collection Status</th>
+            <td mat-cell *matCellDef="let element"> {{element.ReasonForFail}} </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsSuccess;sticky:true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsSuccess;"></tr>
+        </table>
+        <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+<div fxLayoutAlign="end" fxLayout.xs="column" fxLayoutGap="2%" class="flex-p">
+  <button mat-raised-button (click)="exportexcelformat('tableSuccess','tableFailed')" color="primary">Download
+    Excel</button>
+  <button mat-raised-button class="mat-elevation-z12 box-button" color="primary" mat-button
+    mat-dialog-close (click) ="close()">Close</button>
+</div>

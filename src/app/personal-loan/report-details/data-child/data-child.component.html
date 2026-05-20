@@ -1,0 +1,41 @@
+
+<div [hidden]="true">
+  <div id='container'>
+  </div>
+</div>
+<div fxFlex="100%" style="margin: 11px;" *ngIf="!!displayedColumns&&displayedColumns.length>0" >
+  <button mat-raised-button class="mat-elevation-z12 box-button" (click)="vieww()" color="primary">View Table
+  </button>
+<!-- <div fxFlex="100%" style="margin: 11px;" *ngIf="!!displayedColumns&&displayedColumns.length>0" [hidden]="levelNo == 0" > -->
+  <!-- *ngIf="levelZeroData['reportId'] != 14 && levelZeroData['reportId'] != 35 && levelZeroData['reportId'] != 50" -->
+  <div class="form-block" style="margin-top: 30px;">
+    <span class="line-heading" *ngIf="!!levelZeroData">{{levelZeroData['params'].reportName + ' ' + ( levelZeroData['params']['param2']?(' From  ' + levelZeroData['params']['param6']):'' ) +  ( levelZeroData['params']['param3']?(' To ' + levelZeroData['params']['param3']):'' ) }}</span>
+      <div  fxFlex="100%" fxLayoutAlign="center center" *ngIf="view ==2">
+        <div class="overflow"  fxFlex="{{tableWidth}}">
+          <table mat-table #table  [dataSource]="testdataSource" class="mat-elevation-z8" id="reportTable">
+            <ng-container *ngFor="let disCol of displayedColumns; let colIndex = index" matColumnDef="{{disCol}}">
+              <th mat-header-cell *matHeaderCellDef class="align-header-{{alignItem[disCol]}}"> {{disCol!="''"&&disCol!="' '"?disCol:' '}}
+              </th>
+              <td mat-cell *matCellDef="let element" class="align-{{alignItem[disCol]}}"> {{element[disCol]}} 
+              </td>
+            </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true">
+              </tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="isLastLevel?'':onNextLevelClick(row)"
+              [class.a_custom]="!isLastLevel">
+              </tr>
+          </table>
+        </div>
+      </div> 
+    <div style="margin: 10px;" fxLayoutGap="2%">
+      <button mat-raised-button class="mat-elevation-z12 box-button" [disabled]="levelNo==0||backFlag"  (click)="onBackClick()" color="primary"> BACK 
+      </button>
+      <button mat-raised-button class="mat-elevation-z12 box-button" (click)="exportPDF()" color="primary">Export As PDF
+      </button>
+      <button mat-raised-button class="mat-elevation-z12 box-button" (click)="ExportExcel()" color="primary">Export As Excel
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- <span class="line-heading">Level {{levelNo+1}}</span> -->

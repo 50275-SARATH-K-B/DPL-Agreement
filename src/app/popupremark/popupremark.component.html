@@ -1,0 +1,27 @@
+
+ <mat-card fxLayoutAlign="center">
+  <div fxLayout="row" fxLayoutGap="7%" fxFlex="50" fxLayoutAlign="center">
+ 
+   <mat-form-field fxFlex="80">
+     <!-- <mat-label>CUSTOMERID</mat-label> -->
+     <textarea [(ngModel)]="remarks" #Customer_IDTxt="ngModel" required matInput placeholder="Remarks {{mandate}}" autocomplete="off"  type="text"></textarea>
+     <mat-error *ngIf="Customer_IDTxt.errors?.required">Remarks Is required</mat-error>
+ 
+   </mat-form-field>
+
+
+   <!-- <div fxLayoutGap="3%" fxFlex="25" fxLayoutAlign="center"> -->
+    <button type="button" mat-raised-button  color="primary"
+       (click)="getSelectedLoanDetails()">Submit</button>
+  <!-- </div> -->
+
+ </div>
+ 
+ 
+ </mat-card>
+    
+ 
+ 
+ 
+ 
+ 

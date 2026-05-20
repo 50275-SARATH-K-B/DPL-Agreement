@@ -1,0 +1,55 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap" fxFlex="100%">
+  <div fxFlex="100%" class="flex-p" fxLayout="column">
+    <mat-card>
+      <mat-card-content fxLayout="column">
+        <h2>{{data['TypeName']}}</h2>
+        <div fxLayout="row" fxLayoutGap="2%" fxFlex="100%" class="myt-1">
+          <mat-form-field fxFlex="50%" fxFlex.xs="90%">
+            <input matInput autocomplete="off" pattern="^[a-zA-Z0-9\s]*$" placeholder="Search here" type="text"
+              [(ngModel)]="filter" name="filter">
+          </mat-form-field>
+          <button matTooltip="Search" class="mat-elevation-z12 box-button" type="button" color="primary"
+            (click)="filterSource()" mat-mini-fab>
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="dataList.length>0" style="overflow:scroll;-ms-overflow-style: scrollbar;max-height: 375px" class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="DisplayField">
+              <th mat-header-cell *matHeaderCellDef>{{ data['TypeName']}}</th>
+              <td mat-cell *matCellDef="let element"> {{element.DisplayField}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered}"
+              (click)="selection.toggle(row)" class="a_custom" (mouseover)="row.hovered = true"
+              (mouseout)="row.hovered = false">
+            </tr>
+          </table>
+        </div>
+      </mat-card-content>
+      <mat-card-content fxLayoutAlign="end">
+        <mat-card-actions fxLayoutAlign="end" fxLayout="column">
+          <div fxLayoutGap="5%" fxFlex="15% auto" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end">
+            <button mat-raised-button *ngIf="dataList.length>0" type="button" (click)="confirm()"
+              class="mat-elevation-z12 box-button" color="primary">Confirm</button>
+              <button mat-raised-button class="mat-elevation-z12 box-button" color="primary"
+              mat-dialog-close>Close</button>
+          </div>
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

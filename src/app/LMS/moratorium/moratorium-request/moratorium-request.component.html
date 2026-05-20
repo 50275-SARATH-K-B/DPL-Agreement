@@ -1,0 +1,90 @@
+<div fxLayout="column" class="flex-p">
+  <mat-card>
+    <mat-card-content>
+      <div fxLayoutGap="3%" fxLayout.xs="column">
+        <div fxFlex="50%">
+          <h3 class="flex-p py-1"> Moratorium Request </h3>
+        </div>
+        <div fxFlex="50%" fxLayoutAlign="end">
+          <button mat-raised-button color="primary" type="button" (click)="displayLoanSearchPopup()"
+            class="mat-elevation-z12 box-button">Search</button>
+        </div>
+      </div>
+      <div class="flex-p" *ngIf="!!loanId&&loanId!==null&&loanId!==''">
+        <form #morotoriumReq="ngForm">
+          <div fxLayoutGap="3%" fxLayout.xs="column">
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Loan Number" name="loadid" [(ngModel)]="loanId" required readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Customer Name" name="custname" [(ngModel)]="customerName" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Loan Amount" name="amount" [(ngModel)]="loanAmount" readonly>
+            </mat-form-field>
+          </div>
+          <div fxLayoutGap="3%" fxLayout.xs="column">
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Loan Date" name="loandate" [(ngModel)]="loanDate" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Loan Balance" name="loanbal" [(ngModel)]="loanbalance" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Debtors Balance" name="debamt" [(ngModel)]="DebtorsBalance" readonly>
+            </mat-form-field>
+          </div>
+          <div fxLayoutGap="3%" fxLayout.xs="column">
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Charges Pending" name="chargepending" [(ngModel)]="ChargesPending" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Advance Amount" name="advamt" [(ngModel)]="AdvanceAmt" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Number of Dues" name="nodue" [(ngModel)]="DueNo" readonly>
+            </mat-form-field>
+          </div>
+          <div fxLayoutGap="3%" fxLayout.xs="column">
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Net Due" name="netdue" [(ngModel)]="netDue" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput #reason="ngModel" placeholder="Reason for Morotorium" required name="reason"
+                [(ngModel)]="moroReason">
+              <mat-error *ngIf="reason.errors?.required">Reason is required</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput readonly [matDatepicker]="pickerMF" placeholder="Morotorium From" required name="morofrom"
+                [(ngModel)]="moroFrom" #moroFromText="ngModel" (ngModelChange)="calDate('moroFrom')">
+              <mat-datepicker-toggle matSuffix [for]="pickerMF"></mat-datepicker-toggle>
+              <mat-datepicker #pickerMF></mat-datepicker>
+              <mat-error *ngIf="moroFromText.errors?.required">From-Date is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayoutGap="3%" fxLayout.xs="column">
+            <mat-form-field fxFlex="30%" [class.disabled]="!moroFrom||moroFrom==null||moroFrom==''">
+              <input matInput #moroToText="ngModel" readonly [matDatepicker]="pickerMT" [min]="minDate"
+                placeholder="Morotorium To" required name="moroto" [(ngModel)]="moroTo"
+                (ngModelChange)="calDate('moroTo')">
+              <mat-datepicker-toggle matSuffix [for]="pickerMT"></mat-datepicker-toggle>
+              <mat-datepicker #pickerMT></mat-datepicker>
+              <mat-error *ngIf="moroToText.errors?.required">To-Date is required</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Morotorium Days" readonly name="morodays" [(ngModel)]="moroDays">
+            </mat-form-field>
+          </div>
+        </form>
+        <div fxLayoutGap="2%" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+          <button mat-raised-button color="primary" class="mat-elevation-z12 box-button"
+            [disabled]="morotoriumReq.invalid" (click)="postMorotoriumReq(morotoriumReq)"
+            [ngStyle]="{'height':'40px'}">Request</button>
+          <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" (click)="clear(morotoriumReq)"
+            [ngStyle]="{'height':'40px'}">Clear</button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+</div>

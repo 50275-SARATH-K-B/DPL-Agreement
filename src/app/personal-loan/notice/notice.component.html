@@ -1,0 +1,1032 @@
+<div fxLayout="column" class="form-block flex-p" style="padding-top: 25px !important;">
+
+  <div fxLayoutGap="2%">
+    <mat-form-field fxFlex="33.3%" style="padding-left: 25px !important;">
+      <input matInput placeholder="Loan ID" name="loan_ID" [(ngModel)]="loanID" required readonly>
+      <mat-error>Loan ID ID is required</mat-error>
+    </mat-form-field>
+    <div fxFlex="70%" fxLayoutAlign="end">
+      <button mat-raised-button color="primary" type="button" (click)="loanSearch()"
+        class="mat-elevation-z12 box-button search-btn">Search</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf='showFlag'>
+  <div fxLayout="row">
+    <div fxLayoutAlign="end" fxLayout="row">
+      <button mat-raised-button class="mat-elevation-z12 box-button" (click)="printPdf()" color="primary">Print
+        PDF</button>
+    </div>
+
+  </div>
+  <div #pdfTemplate>
+    <div fxLayout="column" style="font-size: 150%;">
+      <div fxFlex="160px">
+      </div>
+      <div fxLayout="row">
+        <div fxFlex="6%"></div>
+        <div fxFlex="88%" *ngIf="stateFlag=='default'">
+          <div fxLayout="row" fxLayoutAlign="end">
+            <div><h2>Registered with A/D</h2></div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <div>{{today | date:'dd-MM-yyyy'}}</div>
+          </div>
+          <br>
+          <div>
+            To,
+          </div>
+          <div>
+            {{data['CustomerName']}}
+          </div>
+          <div>
+            <div *ngFor="let addressLine of addressLines" >{{addressLine}}</div>          
+          </div>
+          <br>
+          <div>Sir/Madam,</div>
+          <div>          
+            <b>Sub: Recall of your loan and reference to arbitration.</b>  
+          </div>
+          <div>Ref: Loan No.{{loanID}} </div>
+          <br>
+          <div>
+            You had availed a {{data['loan']}} loan of Rs.{{data['loanamount']}}  /- (Rupees {{data['loanamount'] | numberToWords }}only) on {{data['loandate'] | date: 'dd-MM-yyyy'}} vide loan No.{{loanID}} from our  Branch.
+          </div>
+          <div>
+            <p>
+              As per the stipulations in the agreement executed, you have agreed to repay the said amount with interest in {{data['interestrate']}} equated monthly installments of Rs {{data['emi']}}/- (Rupees {{data['emi'] | numberToWords}} only). But you were irregular in repaying the loan. As on date, an amount of Rs {{data['outstandingdue']}}/- (Rupees {{data['outstandingdue'] | numberToWords }}only) is overdue in the above loan account. 
+            </p>
+          </div>
+          <div>
+            In spite of our repeated requests and demands, you have not repaid the outstanding loan dues along with all its related dues and other charges.
+          </div>
+          <div>
+            In view of the defaults made by you as aforesaid, you are hereby intimated that the aforementioned loan has been recalled by the company and you are hereby called upon to repay the entire loan outstanding amount of Rs.{{data['settlement']}}/- (Rupees {{data['settlement'] | numberToWords}}only) along with interest and default interest and charges till the date of payment, within seven days of receipt of this notice, failing which we shall be constrained to refer the dispute for arbitration to <b> Advocate K. M. SMIJOSH, DYFI CORNER, AYYANTHOLE, Thrissur-
+            680003 </b> as per the mutually agreed arbitration clause in the loan agreement and you shall be liable for all the costs and consequences arising thereof.
+          </div>
+          <br>
+          <div>For Manappuram Finance Limited</div>
+          <div>Authorised Signatory.</div>
+          
+        </div>
+     
+        <div fxFlex="88%" *ngIf="stateFlag=='kerala'">
+
+          <div fxLayout="row" fxLayoutAlign="center">
+            <h2 fxLayout="row" fxLayoutAlign="center">(വായ്‌പാ തിരിച്ചുവിളിക്കൽ നോട്ടീസ്)</h2>
+
+          </div>
+          <h3 fxLayoutAlign="center">RPAD</h3>
+
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>തീയതി</p>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>{{today | date:'dd-MM-yyyy'}}</p>
+          </div>
+
+          <div>
+            ടു,
+          </div>
+          <div>
+            {{data['CustomerName']}}
+          </div>
+          <div>
+            <div *ngFor="let addressLine of addressLines">{{addressLine}}</div>
+          </div>
+          <br>
+          <!-- <div>{{'Sir/Madam' | translate}},</div> -->
+          <div>
+            <b>സബ്: താങ്കളുടെ വായ്‌പാ തിരിച്ചുവിളിക്കലും മദ്ധ്യസ്ഥതയ്ക്കുള്ള പരാമർശവും.</b>
+          </div>
+          <div>റെഫ്: ……വായ്‌പാ അക്കൗണ്ട് നമ്പർ : {{loanID}}……</div>
+          <br>
+          <div style="text-align: justify;">
+
+            <p>
+              നിങ്ങളിൽ നം. 1 ഞങ്ങളുടെ ……{{data['branchname']}}……… ബ്രാഞ്ചിൽ നിന്നും .…………
+              {{data['loandate']  | date:'dd-MM-yyyy'}}…………തീയതിയിൽ
+              പരാമർശിക്കപ്പെട്ട ………{{data['loanamount']}}……രൂപയുടെ ( …………{{data['loanamount'] | numberToWords }}…………രൂപ
+              മാത്രം) വായ്പ
+              എടുത്തിരുന്നു.
+            </p>
+
+            <br>
+
+            <p>
+              നിങ്ങൾ മേൽപ്പറഞ്ഞ തുക പലിശസഹിതം …………{{data['loanamount']}}/-…………
+              രൂപയുടെ(…………{{data['loanamount']  | numberToWords }}………… രൂപ
+              മാത്രം) …………{{data['emi']}}/-………… തുല്യമാക്കിയ മാസത്തവണകളായി തിരിച്ചടയ്ക്കാം എന്ന്
+              സമ്മതിച്ചിരുന്നു. പക്ഷെ നിങ്ങൾ വായ്പാ തിരിച്ചടവിൽ കൃത്യവിലാപം വരുത്തി. നാളിതു
+              വരെ, മേൽപ്പറഞ്ഞ വായ്പാ അക്കൗണ്ടിൽ …………{{data['outstandingdue']}}/-………… രൂപയുടെ
+              (…………{{data['outstandingdue'] | numberToWords}}………… രൂപ
+              മാത്രം) തുക കുടിശ്ശികയാണ്.
+            </p>
+
+            <br>
+
+            <p>
+              ഞങ്ങൾ ആവർത്തിച്ച് അഭ്യർത്ഥനകൾ നടത്തിയിട്ടും, നിങ്ങൾ ഇതുവരെ ബാക്കിയുള്ള
+              വായ്‌പാ കുടിശ്ശികയും ബന്ധപ്പെട്ട കുടിശ്ശികയും മറ്റു ചാർജ്ജുകളും തിരിച്ചടച്ചിട്ടില്ല.
+            </p>
+
+            <br>
+            <p>
+              മേൽപ്പറഞ്ഞ പ്രകാരമുള്ള കുടിശ്ശികകളുടെ വെളിച്ചത്തിൽ, മേൽപ്പറഞ്ഞ വായ്പ തിരിച്ചു
+              വിളിക്കുകയാണെന്ന് അറിയിച്ചുകൊള്ളുന്നു. ഇതോടെ നിങ്ങൾ ബാക്കിയുള്ള മുഴുവൻ വായ്‌പാ
+              തുകയായ …………{{data['outstandingdue']}}…………രൂപ (…………{{data['outstandingdue'] | numberToWords}}…………രൂപ
+              മാത്രം) അടയ്ക്കുന്ന തീയതി വരെയുള്ള
+              പലിശ, കുടിശ്ശികപ്പലിശ, മറ്റു ചാർജ്ജുകൾ എന്നിവയോടുകൂടി ഈ നോട്ടീസ് ലഭിച്ച് എഴ്
+              ദിവസങ്ങൾക്കകം അടയ്ക്കണം എന്ന് ആവശ്യപ്പെടുന്നു. അല്ലാത്തപക്ഷം, വായ്‌പാ കരാറിൽ
+              പരസ്‌പരം സമ്മതിച്ച പ്രകാരം ഈ തർക്കത്തെ മദ്ധ്യസ്ഥതയ്ക്ക് വിടാൻ ഞങ്ങൾ
+              പ്രേരിതരാകും. അതിനു വേണ്ടിവരുന്ന എല്ലാ ചിലവുകൾക്കും ഉണ്ടാകുന്ന
+              പ്രത്യാഘാതങ്ങൾക്കും നിങ്ങൾ ബാധ്യസ്ഥരാകുമായും ചെയ്യും.
+
+            </p>
+
+
+            <br>
+            <br>
+
+            <p> മണപ്പുറം ഫൈനാൻസ് ലിമിറ്റഡിന് വേണ്ടി,</p>
+
+            <p> അധികൃത സിഗ്നേറ്ററി</p>
+
+
+
+
+          </div>
+
+
+        </div>
+        <div fxFlex="88%" *ngIf="stateFlag=='delhi'">
+
+          <div fxLayout="row" fxLayoutAlign="center">
+            <h2 fxLayout="row" fxLayoutAlign="center">((ऋण स्मरण सूचना))</h2>
+
+          </div>
+          <h3 fxLayoutAlign="center">RPAD</h3>
+
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>तारीख</p>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>{{today | date:'dd-MM-yyyy'}}</p>
+          </div>
+
+          <div>
+            सेवा में,
+          </div>
+          <div>
+            {{data['CustomerName']}}
+          </div>
+          <div>
+            <div *ngFor="let addressLine of addressLines">{{addressLine}}</div>
+          </div>
+          <br>
+          <!-- <div>{{'Sir/Madam' | translate}},</div> -->
+          <div>
+            <b>विषय: आपके ऋण के बारे में स्मरण कराने और मध्यस्थता का संदर्भ देने के संबंध में।</b>
+          </div>
+          <div>संदर्भ: …… ऋण खाता संख्या : {{loanID}}……</div>
+          <br>
+          <div style="text-align: justify;">
+
+            <p>
+              आपने ………{{data['loandate']  | date:'dd-MM-yyyy'}}……... को हमारी …{{data['branchname']}}…शाखा से ………{{data['loanamount']}}/-.…
+              रूपये (केवल ………{{data['loanamount'] | numberToWords }}.… रूपए) का संदर्भित ऋण लिया था।
+
+            </p>
+
+            <br>
+
+            <p>
+              आपने ……{{data['loanamount']}}.… /- रुपयों (केवल ……{{data['loanamount']  | numberToWords }}.… रूपए) की
+              .…{{data['emi']}}/-.… समान
+              मासिक किश्तों में ब्याज के साथ उक्त रकम को चुकाने की सहमति दी थी। लेकिन आप ऋण चुकाने में अनियमित थे।
+              तिथि के अनुसार, उपरोक्त ऋण खाते में …{{data['outstandingdue']}} /- रूपए (केवल
+              ……{{data['outstandingdue'] | numberToWords}}.… रूपए) की रकम बकाया है।
+
+
+            </p>
+
+            <br>
+
+            <p>
+
+              हमारे बार बार अनुरोध करने पर भी, आपने सभी सम्बंधित बकाया रकमों और अन्य शुल्कों के साथ बकाया ऋण की रकम को
+              नहीं चुकाया है।
+
+            </p>
+
+            <br>
+            <p>
+              उक्त के तहत आपके द्वारा किये गए अनुचित कार्य को देखते हुए, आपको यहाँ यह सूचना दी जाती है कि कंपनी द्वारा
+              आपको ऊपर कथित ऋण का स्मरण कराया जा रहा है और आपको यहाँ यह सूचित किया जाता है कि
+              …{{data['outstandingdue']}}…/- रुपयों
+              (केवल………{{data['outstandingdue'] | numberToWords}}….…….. रूपए) की पूरी बकाया रकम और साथ ही ब्याज, डिफ़ॉल्ट
+              ब्याज और शुल्कों को इस सूचना
+              की प्राप्ति के सात दिनों के भीतर भुगतान की तारीख तक चुकाएं, ऐसा ना करने से हम ऋण समझौते में आपस में सहमत
+              मध्यस्थता क्लाज़ के
+              अनुसार मध्यस्थता के विवाद का संदर्भ लेंगे और उससे सम्बंधित सभी कीमतों और परिणामों के लिए आप उत्तरदायी
+              होंगे।
+
+            </p>
+
+
+            <br>
+            <br>
+
+            <p> मणप्पुरम फाइनेंस लिमिटेड के लिए</p>
+
+            <p>अधिकृत हस्ताक्षरकर्ता</p>
+
+
+
+
+          </div>
+
+
+        </div>
+        <div fxFlex="88%" *ngIf="stateFlag=='tamilnadu'">
+
+          <div fxLayout="row" fxLayoutAlign="center">
+            <h2 fxLayout="row" fxLayoutAlign="center">(கடன் திருப்பி அழைத்தல் அறிவிப்பு)</h2>
+
+          </div>
+          <h3 fxLayoutAlign="center">RPAD</h3>
+
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>நாள்</p>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>{{today | date:'dd-MM-yyyy'}}</p>
+          </div>
+
+          <div>
+            பெறுநர்,
+          </div>
+          <div>
+            {{data['CustomerName']}}
+          </div>
+          <div>
+            <div *ngFor="let addressLine of addressLines">{{addressLine}}</div>
+          </div>
+          <br>
+          <!-- <div>{{'Sir/Madam' | translate}},</div> -->
+          <div>
+            <b>பொருள்: உங்கள் கடனைத் திருப்பியழைத்து, நடுவர் தீர்ப்பிற்கு அனுப்புதல்.</b>
+          </div>
+          <div>பார்வை: …… கடன் கணக்கு எண் : {{loanID}}……</div>
+          <br>
+          <div style="text-align: justify;">
+
+            <p>
+              மேற்குறிப்பிடப்பட்ட கடன் தொகையான ரூ. ………{{data['loanamount']}}/- ……(ரூபாய்
+              …{{data['loanamount'] | numberToWords }}… மட்டும்)-ஐ ……{{data['loandate']  | date:'dd-MM-yyyy'}}… அன்று
+              எங்கள் ……{{data['branchname']}}…… கிளையிலிருந்து நீங்கள் பெற்றீர்கள்.
+
+            </p>
+
+            <br>
+
+            <p>
+
+              அந்தக் கடன் தொகையை வட்டியுடன் ……{{data['loanamount']}}…… சமமான மாதத் தவணைகளில்,
+              ஒரு தவணைக்கு ரூ. ……{{data['emi']}}/- (ரூபாய் ………{{data['emi'] | numberToWords}}…… மட்டும்) வீதம்
+              திருப்பிச் செலுத்த
+              நீங்கள் ஒப்புக்கொண்டீர்கள். ஆனால், கடனை நீங்கள் சரிவர திருப்பிச் செலுத்தவில்லை.
+              மேற்படி கடன் கணக்கில், இன்றைய தேதியின்படி, ரூ. ……{{data['outstandingdue']}}/-…… (ரூபாய்
+              ……{{data['outstandingdue'] | numberToWords}}…… மட்டும்)
+              நிலுவையில் உள்ளது.
+
+
+
+            </p>
+
+            <br>
+
+            <p>
+
+              நாங்கள் தொடர்ந்து தங்களை வலியுறுத்தி வந்தபோதிலும், நிலுவையில் உள்ள கடன் தொகையை அது
+              தொடர்பான அனைத்து நிலுவைகள் மற்றும் இதர கட்டணங்களுடன் சேர்த்து நீங்கள் திருப்பிச்
+              செலுத்தவில்லை.
+
+            </p>
+
+            <br>
+            <p>
+
+              மேற்கூறியபடியான தங்கள் கொடாநிலையின் காரணமாக, மேற்கூறிய கடனை நிறுவனம் திரும்ப
+              அழைத்துக் கொண்டது என இதன்மூலம் தங்களுக்கு தெரிவித்துக் கொள்ளப்படுகிறது மற்றும்
+              நிலுவையில் கடன் தொகையான ரூ. …{{data['outstandingdue']}}/- …(ரூபாய்
+              ……{{data['outstandingdue'] | numberToWords}}…… மட்டும்)-ஐ, பணம்
+              செலுத்தும் தேதிவரையிலான வட்டி, கொடாநிலை வட்டி மற்றும் கட்டணங்களுடன், இந்த அறிவிப்பு
+              பெற்றுக்கொண்ட நாளிலிருந்து ஏழு நாட்களுக்குள், முழுவதுமாக திருப்பிச் செலுத்துமாறு நீங்கள் கேட்டுக்
+              கொள்ளப்படுகிறீர்கள். அவ்வாறு செலுத்தத் தவறினால், கடன் ஒப்பந்தத்தில் பரஸ்பரம் ஒப்புக்கொள்ளப்பட்ட
+              நடுவர் தீர்ப்பு விதியின்படி, இந்த சச்சரவை நடுவர் தீர்ப்புக்கு கொண்டு செல்லும் நிலைக்கு நாங்கள்
+              தள்ளப்படுவோம் மற்றும்
+              அதனால் ஏற்படும் அனைத்து செலவுகள் மற்றும் விளைவுகளுக்கு தாங்களே பொறுப்பாவீர்கள்.
+
+            </p>
+
+
+            <br>
+            <br>
+
+            <p>மணப்புரம் ஃபைனான்ஸ் லிமிடெட்டுக்காக,</p>
+
+            <p>அங்கீகரிக்கப்பட்ட கையொப்பமிடுபவர்.</p>
+
+
+
+
+          </div>
+
+
+        </div>
+        <div fxFlex="88%"*ngIf="stateFlag=='gujarat'">
+
+          <div fxLayout="row" fxLayoutAlign="center">
+            <h2 fxLayout="row" fxLayoutAlign="center">(લોન પાછી ખેંચી લેતી નોટિસ)</h2>
+
+          </div>
+          <h3 fxLayoutAlign="center">RPAD</h3>
+
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>તારીખ</p>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>{{today | date:'dd-MM-yyyy'}}</p>
+          </div>
+
+          <div>
+            પ્રતિ,
+          </div>
+          <div>
+            {{data['CustomerName']}}
+          </div>
+          <div>
+            <div *ngFor="let addressLine of addressLines">{{addressLine}}</div>
+          </div>
+          <br>
+          <!-- <div>{{'Sir/Madam' | translate}},</div> -->
+          <div>
+            <b>વિષય: તમારી લોન ફરતા ખેંચી લેવી અને લવાદને હવાલે કરવી.</b>
+          </div>
+          <div>રેફ: ……લોન ખાતા નં : ……{{loanID}}……</div>
+          <br>
+          <div style="text-align: justify;">
+
+            <p>
+
+              તમે, ઉલ્લેખ કરેલ લોન, રૂ. ...{{data['loanamount']}}.. /-
+              (અંકે રૂપિયા ...{{data['loanamount'] | numberToWords }}.....) તારીખ
+              ....{{data['loandate']  | date:'dd-MM-yyyy'}}....ના રોજ અમારી
+              ........{{data['branchname'] }}.......... શાખામાંથી લીધેલ છે.
+            </p>
+
+            <br>
+
+            <p>
+              તમે રૂ......{{data['loanamount']}}... /- (અંકે રૂપિયા.....{{data['loanamount']  | numberToWords }}......)
+              ના .માસિક સરખા હપતામાં
+              પરત ચૂકવવા કબૂલ થયા હતા. પરંતુ તમે લોન પરત ચૂકવાવામાં અનિયમિત હતા. તારીખ ...........ના રોજ રૂ...{{data['emi']}}.. /- (અંકે 
+              રૂપિયા ....…{{data['outstandingdue'] | numberToWords}}…...) તમારા લોન ખાતાંમાં ચડી ગયા છે.
+            </p>
+
+            <br>
+
+            <p>અમારી વારંવારની વિનંતી છતાં તમે બાકી રહેતી લોનની લેણી બનેલ રકમો, તેને સબંધિત લેણા અને અન્ય ચાર્જિઝ ચૂકવેલ
+              નથી.
+
+            </p>
+
+            <br>
+            <p>
+
+              ઉક્ત તમારા દ્વારા થયેલ ચૂક જોતાં, આથી તમને જાણ કરવાં આવે છે કે ઉક્ત દર્શાવેલ લોન આ કંપની દ્વારા પાછી ખેંચી
+              લેવામાં આવે છે અને આથી તમને વ્યાજ, ચૂકવણીની તારીખ સુધીનું વ્યાજ, ચૂકને કારણે લેણું બનેલું વ્યાજ અને
+              ચાર્જિઝ સાથેની
+              આખી લોન રૂ.
+              ....{{data['outstandingdue']}}...../-(રૂપિયા.......{{data['outstandingdue'] | numberToWords}}...)
+              આ નોટિસ મળ્યાના સાત દિવસમાં પરત ચૂકવી દેવા જણાવવામાં આવે છે જેમાં નિષ્ફળ ગયે અમને આ તકરાર આ લોન કરારમાં
+              લવાદીકરણ કલમ
+              સાથે અરસ-પરસ કબૂલ થયા મુજબ
+              લવાદીકરણને હવાલે કરવાની ફરજ પડશે અને તમે તેમાંથી ઊભા થતાં ખર્ચ અને તમે કુપરિણામો માટે જવાબદાર રહેશો.
+
+            </p>
+
+
+            <br>
+            <br>
+
+            <p> મન્નાપૂરાં ફાઇનાન્સ લિમિટેડ વતી </p>
+
+            <p> અધિકૃત સહીકર્તા.</p>
+
+
+
+
+          </div>
+
+
+        </div>
+        <div fxFlex="88%" *ngIf="stateFlag=='andhra'">
+
+          <div fxLayout="row" fxLayoutAlign="center">
+            <h2 fxLayout="row" fxLayoutAlign="center">(లోన్ రీకాల్ నోటీసు)</h2>
+
+          </div>
+          <h3 fxLayoutAlign="center">RPAD</h3>
+
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>తేది</p>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>{{today | date:'dd-MM-yyyy'}}</p>
+          </div>
+
+          <div>
+            గారికి,
+          </div>
+          <div>
+            {{data['CustomerName']}}
+          </div>
+          <div>
+            <div *ngFor="let addressLine of addressLines">{{addressLine}}</div>
+          </div>
+          <br>
+          <!-- <div>{{'Sir/Madam' | translate}},</div> -->
+          <div>
+            <b>విషయం: మీ లోన్ మరియు మధ్యవర్తిత్వ సూచనను గుర్తుచేసుకోండి.</b>
+          </div>
+          <div>మూలం: …… లోన్ ఖాతా సంఖ్య. : {{loanID}}……</div>
+          <br>
+          <div style="text-align: justify;">
+
+            <p>
+
+              మీరు మా ………{{data['branchname']}}……………. శాఖ నుండి రూ. ..……{{data['loanamount']}}…. /- (రూపాయలు
+              ……{{data['loanamount'] | numberToWords }}……మాత్రమే) … {{data['loandate']  | date:'dd-MM-yyyy'}}… రోజున
+              సంబధిత
+              లోన్ పొందారు.
+            </p>
+
+            <br>
+
+            <p>
+
+              ……… సమానమైన నెలవారీ వాయిదాలు రూ. ……{{data['emi']}}/-……… (రూపాయిలు ……{{data['emi'] | numberToWords }}….
+              మాత్రమే),
+              మీరు
+              చెప్పిన మొత్తాన్ని వడ్డీతో తిరిగి చెల్లించడానికి అంగీకరించారు. కానీ మీరు రుణం తిరిగి చెల్లించడంలో
+              సక్రమంగా లేరు. తేదీ నాటికి, పై రుణ ఖాతాలో రూ. ……{{data['outstandingdue']}}… / - (రూపాయిలు
+              …{{data['outstandingdue'] | numberToWords}}…… మాత్రమే)
+              మాత్రమే ఈరోజు వరకు చేల్లించాల్సి ఉంది.
+            </p>
+
+            <br>
+
+            <p>
+              మేము పదేపదే అభ్యర్థనలు చేసిన్నప్పటికి, మీరు చెల్లించాల్సిన రుణ బకాయిలతో పాటు దాని సంబంధిత
+              బకాయిలు మరియు ఇతర ఛార్జీలను తిరిగి చెల్లించలేదు.
+            </p>
+
+            <br>
+            <p>
+              పైన పేర్కొన్న విధంగా మీరు చేసిన డిఫాల్ట్ల దృష్ట్యా, పైన పేర్కొన్న లోన్ కంపెనీ రీకాల్ చేసిందని మీకు దీని
+              ద్వారా తెలియజేస్తున్నాము మరియు మొత్తం లోన్ ....{{data['outstandingdue']}}. /-
+              (రూపాయిలు ...{{data['outstandingdue'] | numberToWords}}... మాత్రమే) వడ్డీతో పాటు బకాయి మొత్తాన్ని
+              తిరిగి చెల్లించాలని తెలియజేస్తున్నాము, చెల్లింపు తేదీ వరకు డిఫాల్ట్ వడ్డీ మరియు ఛార్జీలు, ఈ నోటీసు
+              అందిన ఏడు రోజులలోపు చేల్లించడంలో విఫలమైతే రుణ ఒప్పందంలో పరస్పరం అంగీకరించిన మధ్యవర్తిత్వ
+              నిబంధన ప్రకారం మధ్యవర్తిత్వం కోసం మరియు ఖర్చులు మరియు దాని యొక్క పరిణామాలకు మీరు అన్నింటికీ
+              బాధ్యత వహించాలి.
+
+            </p>
+
+
+            <br>
+            <br>
+
+            <p> మణప్పురం పైనాన్స్ లిమిటెడ్ కోసం</p>
+
+            <p> అధీకృత సంతకం.</p>
+
+
+
+
+          </div>
+
+
+        </div>
+        <div fxFlex="88%" *ngIf="stateFlag=='karnataka' || stateFlag=='telangana'">
+
+          <div fxLayout="row" fxLayoutAlign="center">
+            <h2 fxLayout="row" fxLayoutAlign="center">(ಸಾಲ ಜ್ಞಾಪನೆ ಸೂಚನೆ)</h2>
+
+          </div>
+          <h3 fxLayoutAlign="center">RPAD</h3>
+
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>ದಿನಾಂಕ</p>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>{{today | date:'dd-MM-yyyy'}}</p>
+          </div>
+
+          <div>
+            ಇವರಿಗೆ,
+          </div>
+          <div>
+            {{data['CustomerName']}}
+          </div>
+          <div>
+            <div *ngFor="let addressLine of addressLines">{{addressLine}}</div>
+          </div>
+          <br>
+          <!-- <div>{{'Sir/Madam' | translate}},</div> -->
+          <div>
+            <b>ವಿಷಯ: ನಿಮ್ಮ ಸಾಲದ ಜ್ಞಾಪನೆ ಮತ್ತು ಮಧ್ಯಸ್ಥಿಕೆಗೆ ಉಲ್ಲೇಖ.</b>
+          </div>
+          <div>ಉಲ್ಲೇಖ: ……ಸಾಲ ಖಾತೆ ಸಂಖ್ಯೆ : {{loanID}}……</div>
+          <br>
+          <div style="text-align: justify;">
+
+            <p>
+              ನೀವು ಉಲ್ಲೇಖಿತ ಸಾಲ ರೂ. ………{{data['loanamount']}}…/- (ರೂಪಾಯಿಗಳು ……{{data['loanamount'] | numberToWords }}……
+              ಮಾತ್ರ)
+              ಅನ್ನು … {{data['loandate']  | date:'dd-MM-yyyy'}}…… ರಂದು ನಮ್ಮ ………{{data['branchname']}}……… ಶಾಖೆಯಿಂದ ಪಡೆದಿದ್ದೀರಿ.
+
+            </p>
+
+            <br>
+
+            <p>
+
+              ಈ ಮೊತ್ತವನ್ನು ಬಡ್ಡಿಯೊಂದಿಗೆ …{{data['loanamount']}}/-…… ಸಮಾನ ಮಾಸಿಕ ಕಂತುಗಳಲ್ಲಿ ರೂ ………{{data['emi']}}/-
+              (ರೂಪಾಯಿಗಳು ……{{data['emi'] | numberToWords}} ……… ಮಾತ್ರ) ರಂತೆ ಮರುಪಾವತಿಸಲು ನೀವು ಒಪ್ಪಿದ್ದೀರಿ. ಆದರೆ ಸಾಲವನ್ನು
+              ಮರುಪಾವತಿಸುವಲ್ಲಿ ನೀವು ಕ್ರಮತಪ್ಪಿರುವಿರಿ. ದಿನಾಂಕದಂತೆ, ಮೇಲಿನ ಸಾಲ ಖಾತೆಯಲ್ಲಿ ರೂ …………{{data['outstandingdue']}}/-
+              (ರೂಪಾಯಿಗಳು …………{{data['outstandingdue'] | numberToWords}}… ಮಾತ್ರ) ಮಿತಿಮೀರಿದ ಬಾಕಿ ಇದೆ.
+
+            </p>
+
+            <br>
+
+            <p>
+              ನಮ್ಮ ಪುನರಾವರ್ತಿತ ವಿನಂತಿಗಳ ಹೊರತಾಗಿಯೂ, ಬಾಕಿ ಇರುವ ಸಾಲದ ಬಾಕಿಗಳನ್ನು 
+              ಅದರ ಎಲ್ಲಾ ಸಂಬಂಧಿತ ಬಾಕಿ ಮತ್ತು ಇತರ ಶುಲ್ಕಗಳೊಂದಿಗೆ ನೀವು ಮರುಪಾವತಿ ಮಾಡಿಲ್ಲ.
+            </p>
+
+            <br>
+            <p>
+           
+              ಮೇಲಿನಂತೆ ನೀವು ಮಾಡಿದ ಡೀಫಾಲ್ಟ್‌ಗಳನ್ನು ಗಮನದಲ್ಲಿಟ್ಟುಕೊಂಡು, ಮೇಲೆ ತಿಳಿಸಿದ ಸಾಲವನ್ನು ಕಂಪನಿಯು ಜ್ಞಾಪಿಸುತ್ತಿದೆ 
+              ಎಂದು ನಿಮಗೆ ತಿಳಿಸಲಾಗಿದೆ ಮತ್ತು ಈ ಸೂಚನೆ ಸ್ವೀಕರಿಸಿದ ಏಳು ದಿನಗಳಲ್ಲಿ, ಪಾವತಿ ದಿನಾಂಕದವರೆಗೆ ಬಡ್ಡಿ, ಡೀಫಾಲ್ಟ್ ಬಡ್ಡಿ
+               ಮತ್ತು ಶುಲ್ಕಗಳೊಂದಿಗೆ ಸಂಪೂರ್ಣ ಸಾಲದ ಬಾಕಿ ಮೊತ್ತ .....{{data['outstandingdue']}}./- 
+               (ರೂಪಾಯಿ ...{{data['outstandingdue'] | numberToWords}}..... ಮಾತ್ರ) ಅನ್ನು ಮರುಪಾವತಿಸಲು ನಿಮಗೆ ಈ ಮೂಲಕ
+                ಕರೆನೀಡಲಾಗುತ್ತಿದೆ, ವಿಫಲವಾದರೆ ಸಾಲದ ಒಪ್ಪಂದದಲ್ಲಿ ಪರಸ್ಪರ ಒಪ್ಪಿದ ಮಧ್ಯಸ್ಥಿಕೆ ಷರತ್ತಿನ ಪ್ರಕಾರ ಮಧ್ಯಸ್ಥಿಕೆಗಾಗಿ ನಾವು 
+                ವಿವಾದವನ್ನು ಉಲ್ಲೇಖಿಸಲು ನಿರ್ಬಂಧಿಸಲಾಗುವುದು ಮತ್ತು ಅದರಿಂದ ಉಂಟಾಗುವ ಎಲ್ಲಾ ವೆಚ್ಚಗಳು ಮತ್ತು ಪರಿಣಾಮಗಳಿಗೆ 
+                ನೀವು ಜವಾಬ್ದಾರರಾಗಿರುತ್ತೀರಿ.
+
+            </p>
+
+
+            <br>
+            <br>
+
+            <p> ಮಣಪ್ಪುರಂ ಫೈನಾನ್ಸ್ ಲಿಮಿಟೆಡ್‌ಗಾಗಿ</p>
+
+            <p> ಅಧಿಕೃತ ಸಹಿ.</p>
+
+
+
+
+          </div>
+
+
+        </div>
+        <div fxFlex="88%" *ngIf="stateFlag=='punjab'">
+
+          <div fxLayout="row" fxLayoutAlign="center">
+            <h2 fxLayout="row" fxLayoutAlign="center">(ਲੋਨ ਰੀਕਾਲ ਸੂਚਨਾ)</h2>
+
+          </div>
+          <h3 fxLayoutAlign="center">RPAD</h3>
+
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>ਤਾਰੀਖ</p>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>{{today | date:'dd-MM-yyyy'}}</p>
+          </div>
+
+          <div>
+            ਸੇਵਾ ਵਿਖੇ,
+          </div>
+          <div>
+            {{data['CustomerName']}}
+          </div>
+          <div>
+            <div *ngFor="let addressLine of addressLines">{{addressLine}}</div>
+          </div>
+          <br>
+          <!-- <div>{{'Sir/Madam' | translate}},</div> -->
+          <div>
+            <b>ਵਿਸ਼ਾ: ਤੁਹਾਡੇ ਲੋਨ ਦੇ ਬਾਰੇ ਯਾਦ ਕਰਾਉਣ ਅਤੇ ਆਰਬਿਟ੍ਰੇਸ਼ਨ ਦਾ ਸੰਦਰਭ ਦੇਣ ਦੇ ਸੰਬੰਧ ਵਿਚ।</b>
+          </div>
+          <div>ਸੰਦਰਭ: ……ਲੋਨ ਖਾਤਾ ਨੰਬਰ : {{loanID}}……</div>
+          <br>
+          <div style="text-align: justify;">
+
+            <p>
+              ਤੁਸੀਂ ………{{data['branchname']}}………… ਨੂੰ ਸਾਡੀ … {{data['loandate']  | date:'dd-MM-yyyy'}}… ਸ਼ਾਖਾ ਤੋਂ ……{{data['loanamount']}}……/- ਰੁਪਏ (ਕੇਵਲ …{{data['loanamount'] | numberToWords }}…… ਰੁਪਏ) ਦਾ ਸੰਦਰਭਿਤ ਲੋਨ ਲਿਆ ਸੀ।
+            </p>
+
+            <br>
+
+            <p>
+
+              ਤੁਸੀਂ …{{data['loanamount']}}/- ਰੁਪਇਆਂ (ਕੇਵਲ ……{{data['loanamount'] | numberToWords}}… ਰੁਪਏ) ਦੀ ……{{data['emi']}}/… ਸਮਾਨ 
+              ਮਾਸਿਕ ਕਿਸ਼ਤਾਂ ਦੇ ਵਿਚ ਵਿਆਜ ਦੇ ਨਾਲ ਉਕਤ ਰਕਮ
+               ਨੂੰ ਚੁਕਾਉਣ ਦੀ ਸਹਿਮਤੀ ਦਿੱਤੀ ਸੀ। ਪਰ ਤੁਸੀਂ ਲੋਨ ਚੁਕਾਉਣ ਦੇ ਵਿਚ ਅਨਿਯਮਿਤ ਸੀ। ਤਾਰੀਖ ਦੇ ਅਨੁਸਾਰ, ਉੱਪਰ ਕਥਿਤ ਲੋਨ ਖਾਤੇ ਦੇ
+                ਵਿਚ ……{{data['outstandingdue']}}…………/- ਰੁਪਏ (ਕੇਵਲ ………{{data['outstandingdue'] | numberToWords}}………… ਰੁਪਏ) ਦੀ ਰਕਮ
+                ਬਕਾਇਆ ਹੈ।
+            </p>
+
+            <br>
+
+            <p>
+              ਸਾਡੇ ਬਾਰ ਬਾਰ ਬੇਨਤੀ ਕਰਨ ਤੇ ਵੀ, ਤੁਸੀਂ ਸਾਰੀਆਂ ਸੰਬੰਧਿਤ ਬਕਾਇਆ ਰਕਮਾਂ ਅਤੇ ਹੋਰ ਸ਼ੁਲਕਾਂ ਦੇ ਨਾਲ ਬਕਾਇਆ ਲੋਨ ਦੀ ਰਕਮ ਨੂੰ 
+              ਨਹੀਂ ਚੁਕਾਇਆ ਹੈ।
+            </p>
+
+            <br>
+            <p>
+ 
+              ਉਕਤ ਦੇ ਤਹਿਤ ਤੁਹਾਡੇ ਦੁਆਰਾ ਕੀਤੇ ਗਏ ਅਨੁਚਿਤ ਕੰਮ ਨੂੰ ਵੇਖਦੇ ਹੋਏ, ਤੁਹਾਨੂੰ ਇਥੇ ਇਹ ਸੂਚਨਾ ਦਿੱਤੀ ਜਾਂਦੀ ਹੈ ਕਿ ਕੰਪਨੀ ਦੁਆਰਾ 
+              ਤੁਹਾਨੂੰ ਉੱਤੇ ਕਥਿਤ ਲੋਨ ਦਾ ਯਾਦ ਕਰਾਇਆ ਜਾ ਰਿਹਾ ਹੈ ਅਤੇ ਤੁਹਾਨੂੰ ਇਥੇ ਇਹ ਸੂਚਿਤ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਕਿ …{{data['outstandingdue']}}/- ਰੁਪਇਆਂ
+               (ਕੇਵਲ ………{{data['outstandingdue'] | numberToWords}}… ਰੁਪਏ) ਦੀ ਪੂਰੀ ਬਕਾਇਆ ਰਕਮ ਅਤੇ ਨਾਲ ਹੀ ਵਿਆਜ, ਡਿਫਾਲਟ ਵਿਆਜ ਅਤੇ ਸ਼ੁਲਕਾਂ ਨੂੰ ਇਸ ਸੂਚਨਾ ਦੀ 
+               ਪ੍ਰਾਪਤੀ ਦੇ ਸੱਤ ਦਿਨਾਂ ਦੇ ਅੰਦਰ ਭੁਗਤਾਨ ਦੀ ਤਾਰੀਖ ਤੱਕ ਚੁਕਾਓ, ਅਜਿਹਾ ਨਾ ਕਰਨ ਤੇ ਅਸੀਂ ਲੋਨ ਦੇ ਸਮਝੌਤੇ ਵਿਚ ਆਪਸ ਵਿਚ ਸਹਿਮਤ 
+               ਆਰਬਿਟ੍ਰੇਸ਼ਨ ਕਲਾਜ਼ ਦੇ ਅਨੁਸਾਰ ਆਰਬਿਟ੍ਰੇਸ਼ਨ ਦੇ ਵਿਵਾਦ ਦਾ ਸੰਦਰਭ ਲਵਾਂਗੇ ਅਤੇ ਉਸਦੇ ਨਾਲ ਸੰਬੰਧਿਤ ਸਾਰੀਆਂ ਕੀਮਤਾਂ ਅਤੇ ਨਤੀਜਿਆਂ ਦੇ 
+               ਲਈ ਤੁਸੀਂ ਜਿੰਮੇਵਾਰ ਹੋਵੋਗੇ।
+
+            </p>
+
+
+            <br>
+            <br>
+
+            <p> ਮਨੁਪੂਰਮ ਫਾਈਨੈਂਸ ਲਿਮਿਟਿਡ ਦੇ ਲਈ</p>
+
+            <p> ਅਧਿਕ੍ਰਿਤ ਹਸਤਾਖਰ ਕਰਨ ਵਾਲਾ ਵਿਅਕਤੀ।</p>
+
+
+
+
+          </div>
+
+
+        </div>
+        <div fxFlex="88%" *ngIf="stateFlag=='odisha'">
+
+          <div fxLayout="row" fxLayoutAlign="center">
+            <h2 fxLayout="row" fxLayoutAlign="center">(ଋଣ ଫେରସ୍ତ ପାଇଁ ବିଜ୍ଞପ୍ତି)</h2>
+
+          </div>
+          <h3 fxLayoutAlign="center">RPAD</h3>
+
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>ତାରିଖ</p>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>{{today | date:'dd-MM-yyyy'}}</p>
+          </div>
+
+          <div>
+            ପ୍ରାପ୍ତେଷୁ,
+          </div>
+          <div>
+            {{data['CustomerName']}}
+          </div>
+          <div>
+            <div *ngFor="let addressLine of addressLines">{{addressLine}}</div>
+          </div>
+          <br>
+          <!-- <div>{{'Sir/Madam' | translate}},</div> -->
+          <div>
+            <b>ବିଷୟ: ଆପଣଙ୍କ ଋଣ ଫେରସ୍ତ ଏବଂ ମଧ୍ୟସ୍ଥତା ସନ୍ଦର୍ଭରେ।</b>
+          </div>
+          <div>ସନ୍ଦର୍ଭ:  …… ଋଣ ଆକାଉଣ୍ଟ ନଂ.  : {{loanID}}……</div>
+          <br>
+          <div style="text-align: justify;">
+
+            <p>
+
+              ଆପଣ ଦର୍ଶାଯାଇଥିବା ଋଣ ଟ. .……{{data['loanamount']}}.. /- (କେବଳ……{{data['loanamount'] | numberToWords }}.…… ଟଙ୍କା) 
+              ……{{data['loandate']  | date:'dd-MM-yyyy'}}……… ତାରିଖରେ 
+              ଆମର ……{{data['branchname']}}…. ଶାଖାରୁ ପ୍ରାପ୍ତ କରିଥିଲେ ।
+            </p>
+
+            <br>
+
+            <p>
+              ଆପଣ ସୁଧ ସହିତ ଉକ୍ତ ରାଶିକୁ ସମାନ ରୂପେ ବିଭକ୍ତ …{{data['emi']}}/… ମାସିକ କିସ୍ତି ଟ……{{data['loanamount']}}…… /- 
+              (କେବଳ ……{{data['loanamount']  | numberToWords }}…………. ଟଙ୍କା) ପରିଶୋଧ କରିବାକୁ ରାଜି ହୋଇଥିଲେ । କିନ୍ତୁ ଏହି ଋଣ ପରିଶୋଧ 
+              କରିବାରେ ଆପଣ ଅନିୟମିତତା କରିଛନ୍ତି । ଆଜି ତାରିଖ ପର୍ଯ୍ୟନ୍ତ, ଉପରୋକ୍ତ ଋଣ ଆକାଉଣ୍ଟରେ ଟ. …………{{data['outstandingdue']}}/-……
+               (କେବଳ …{{data['outstandingdue'] | numberToWords}}……ଟଙ୍କା) ର ଅର୍ଥରାଶି ବକେୟା ରହିଛି ।
+
+
+            </p>
+
+            <br>
+
+            <p>
+              ଆମର ବାରମ୍ବାର ଅନୁରୋଧ ସତ୍ତ୍ୱେ, ଆପଣ ଏହାର ସମସ୍ତ ବକେୟା ଦେୟ ଓ ଅନ୍ୟ ଶୁଳ୍କଗୁଡ଼ିକ ସହିତ ବକେୟା ଋଣ ପରିଶୋଧ କରିନାହାଁନ୍ତି ।
+            </p>
+
+            <br>
+            <p>
+
+              ଉପରୋକ୍ତ ପରି ଆପଣଙ୍କ ଦ୍ୱାରା କରାଯାଇଥିବା ଖିଲାପ ବା ଡିଫଲ୍ଟକୁ ଦୃଷ୍ଟିରେ ରଖି, ଆପଣଙ୍କୁ ଏତଦ୍ୱାରା ଜଣାଇ ଦିଆଯାଉଛି ଯେ
+               ଯେ ଉପରୋକ୍ତ ଋଣକୁ କମ୍ପାନୀ ଦ୍ୱାରା ପ୍ରତ୍ୟାହାର କରାଯାଇଛି ଏବଂ ଆପଣଙ୍କୁ ଏତଦ୍ୱାରା ସମ୍ପୂର୍ଣ୍ଣ ଋଣ ବକେୟା 
+               ରାଶି ଟ. .....{{data['outstandingdue']}}../- (କେବଳ ...{{data['outstandingdue'] | numberToWords}}... ଟଙ୍କା) 
+               ସୁଧ ସହିତ ଏହି ବିଜ୍ଞପ୍ତି ପାଇବାର ସାତ ଦିନ ମଧ୍ୟ ପରିଶୋଧ କରିବାକୁ ଆହ୍ୱାନ କରାଯାଉଛି, ଖିଲାପ ସୁଧ ଓ ଶୁଳ୍କଗୁଡ଼ିକ ଦେୟ ପ୍ରଦାନ ତାରିଖ
+                ପର୍ଯ୍ୟନ୍ତ ଲାଗୁ ହୋଇଥାଏ, ଏଥିରେ ବିଫଳ ହେବା କ୍ଷେତ୍ରରେ ଆମେ ଋଣ ଚୁକ୍ତିରେ ପାରସ୍ପରିକ ଭାବେ ରାଜି ହୋଇଥିବା ମଧ୍ୟସ୍ଥତା ଧାରା ଅନୁଯାୟୀ 
+                ମଧ୍ୟସ୍ଥତା ପାଇଁ ବିବାଦକୁ ପଠାଇବା ପାଇଁ ବାଧ୍ୟ ହେବୁ ଏବଂ ଆପଣ ସେଥିଯୋଗୁଁ ସୃଷ୍ଟି ହେଉଥିବା ଖର୍ଚ୍ଚ ଓ ପରିଣତି ପାଇଁ ଦାୟୀ ରହିବେ ।
+
+            </p>
+
+
+            <br>
+            <br>
+
+            <p> ମନପ୍ପୁରମ ଫାଇନାଂସ ଲିମିଟେଡ୍‍ ନିମନ୍ତେ</p>
+
+            <p> ପ୍ରାଧିକୃତ ସ୍ୱାକ୍ଷରକାରୀ।</p>
+
+
+
+
+          </div>
+
+
+        </div>
+        <div fxFlex="88%"*ngIf="stateFlag=='maharashtra'">
+
+          <div fxLayout="row" fxLayoutAlign="center">
+            <h2 fxLayout="row" fxLayoutAlign="center">(कर्ज परत मागून घेण्यासाठीची सूचना)</h2>
+
+          </div>
+          <h3 fxLayoutAlign="center">RPAD</h3>
+
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>दिनांक </p>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>{{today | date:'dd-MM-yyyy'}}</p>
+          </div>
+
+          <div>
+            प्रति,
+          </div>
+          <div>
+            {{data['CustomerName']}}
+          </div>
+          <div>
+            <div *ngFor="let addressLine of addressLines">{{addressLine}}</div>
+          </div>
+          <br>
+          <!-- <div>{{'Sir/Madam' | translate}},</div> -->
+          <div>
+            <b>विषय: आपले कर्ज परत घेण्यासाठी आणि लवादासाठी संदर्भ.</b>
+          </div>
+          <div>संदर्भ: ……कर्ज खाते क्रमांक  : {{loanID}}……</div>
+          <br>
+          <div style="text-align: justify;">
+
+            <p>
+              आपण आमच्या ……{{data['branchname']}}…… शाखेकडून रु. ……{{data['loanamount']}}.. /- (रुपये …{{data['loanamount'] | numberToWords }}…… फक्त) च्या संदर्भित कर्जाचा लाभ घेतला होता. 
+
+            </p>
+
+            <br>
+
+            <p>
+           
+              आपण ही रक्कम रु. ………{{data['loanamount']}}/- (रुपये ………{{data['loanamount']  | numberToWords }}…. फक्त) 
+              च्या ……{{data['emi']}}/-…… समान 
+              मासिक हप्त्यांमध्ये व्याजासह परतफेड करण्यास सहमती दर्शविली होती. परंतु आपण कर्ज परतफेड करण्यात 
+              अनियमित आहात. आजपर्यंत, वरील कर्ज खात्यात रु. …..…{{data['outstandingdue']}}/- (रुपये …..{{data['outstandingdue'] | numberToWords}}……. फक्त) 
+              ची थकबाकी बाकी आहे.
+            </p>
+
+            <br>
+
+            <p>
+              आम्ही वारंवार विनंत्या करुनही आपण सर्व संबंधित देय रक्कम व इतर शुल्कासह थकीत कर्जाची थकबाकी परत केली नाही.
+            </p>
+
+            <br>
+            <p>
+  
+
+              पूर्वी सांगितल्यानुसार तुम्ही न भरलेल्या थकबाकीच्या पार्श्वभूमीवर, तुम्हाला ही माहिती देण्यात येत आहे की
+               कंपनीने उपरोक्त कर्ज परत मागितले आहे आणि तुम्हाला ही सूचना प्राप्त झाल्याच्या सात दिवसांच्या आत,
+                संपूर्ण कर्ज थकबाकीची रक्कम रु. ………{{data['outstandingdue']}}/- (रुपये …..…{{data['outstandingdue'] | numberToWords}}……… फक्त) 
+                व्याज, डिफॉल्ट व्याज आणि देय तारखेपर्यंत शुल्कासह, परत करण्याचे आवाहन केले जात आहे, आणि हे 
+                भरण्यात अपयशी ठरल्यास आम्हाला लोन कराराच्या परस्पर मान्य लवादाच्या कलमानुसार, हा वाद लावादासाठी
+                 संदर्भित करावा लागेल, आणि त्यापासून होणाऱ्या सर्व खर्च व परिणामासाठी आपण जबाबदार असाल.
+
+            </p>
+
+
+            <br>
+            <br>
+
+            <p> मनप्पुरम फायनान्स लिमिटेडसाठी,</p>
+
+            <p> अधिकृत सही.</p>
+
+
+
+
+          </div>
+
+
+        </div>
+        <div fxFlex="88%" *ngIf="stateFlag=='westbengal'">
+
+          <div fxLayout="row" fxLayoutAlign="center">
+            <h2 fxLayout="row" fxLayoutAlign="center">(লোন প্রত্যাহারের বিজ্ঞপ্তি)</h2>
+
+          </div>
+          <h3 fxLayoutAlign="center">RPAD</h3>
+
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>তারিখ</p>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>{{today | date:'dd-MM-yyyy'}}</p>
+          </div>
+
+          <div>
+            প্রতি,
+          </div>
+          <div>
+            {{data['CustomerName']}}
+          </div>
+          <div>
+            <div *ngFor="let addressLine of addressLines">{{addressLine}}</div>
+          </div>
+          <br>
+          <!-- <div>{{'Sir/Madam' | translate}},</div> -->
+          <div>
+            <b>বিষয়: আপনার লোন প্রত্যাহার এবং আইনি ব্যবস্থার জন্য রেফারেন্স।</b>
+          </div>
+          <div>রেফারেন্স:  ……লোন অ্যাকাউন্ট নং  : {{loanID}}……</div>
+          <br>
+          <div style="text-align: justify;">
+
+            <p>
+              আপনি আমাদের ...{{data['branchname']}}... শাখা থেকে ... {{data['loandate']  | date:'dd-MM-yyyy'}}...
+               তারিখে টা. ....{{data['loanamount']}} /- (টাকা ..{{data['loanamount'] | numberToWords }}.. মাত্র)-এর রেফার করা লোন নিয়েছেন।
+            </p>
+
+            <br>
+
+            <p>
+              আপনি টা. .....{{data['loanamount']}}/- (টাকা ....{{data['loanamount']  | numberToWords }}. মাত্র)-এর সমীকরণ করা 
+              মাসিক কিস্তিতিতে ..{{data['emi']}}/-.. সুদে উক্ত পরিমাণ পরিশোধ করার জন্য সম্মত হয়েছেন। কিন্তু 
+              আপনি নিয়মিতভাবে লোন পরিশোধ করেননি। আজকের তারিখে উপরোক্ত লোন অ্যাকাউন্টের 
+              জন্য টা. ..{{data['outstandingdue']}} /- (টাকা ...{{data['outstandingdue'] | numberToWords}}..... মাত্র)-এর পরিমাণ বকেয়া আছে।
+            </p>
+
+            <br>
+
+            <p>
+              আমাদের দ্বারা বার-বার অনুরোধ করার পরও আপনি বকেয়া লোন 
+              পরিশোধ করেননি এবং এর সাথে সম্পর্কিত বকেয়া ও অন্যান্য চার্জও পরিশোধ করেননি। 
+            </p>
+
+            <br>
+            <p>
+
+
+              উপরোক্ত যে কিস্তিগুলি আপনি পরিশোধ করেননি তার কথা বিবেচনা করে আপনাকে এতদ্বারা জানানো 
+              হচ্ছে যে কোম্পানি দ্বারা উপরোক্ত লোন প্রত্যাহার করা হচ্ছে এবং এতদ্বারা আপনাকে এই বিজ্ঞপ্তিটি 
+              পাওয়ার সাত দিনের মধ্যে সুদ, ডিফল্ট সুদ এবং পেমেন্ট করার তারিখ পর্যন্ত চার্জ 
+              সহ টা. .....{{data['outstandingdue']}}........ /- (টাকা ...{{data['outstandingdue'] | numberToWords}}... মাত্র)-এর সম্পূর্ণ
+               লোন বকেয়া পরিমাণ পরিশোধ করার জন্য অনুরোধ করা হচ্ছে। আপনার দ্বারা পরিশোধ করা না হলে লোন চুক্তিতে উল্লেখিত 
+               যৌথভাবে সম্মতি দেওয়া শর্তাবলী অনুযায়ী বিবাদটির জন্য আইনি ব্যবস্থা নেওয়া হবে। এর থেকে
+                উদ্ভূত সমস্ত খরচ এবং পরিণামের জন্য আপনিই দায়বদ্ধ থাকবেন। 
+
+            </p>
+
+
+            <br>
+            <br>
+
+            <p> মাণাপুরার ফাইন্যান্স লিমমিটেড</p>
+
+            <p> অনুমোদিত স্বাক্ষরকারী</p>
+
+
+
+
+          </div>
+
+
+        </div>
+        <div fxFlex="88%" *ngIf="stateFlag=='assam'">
+
+          <div fxLayout="row" fxLayoutAlign="center">
+            <h2 fxLayout="row" fxLayoutAlign="center">(লোন বাতিলকৰণৰ জাননী)</h2>
+
+          </div>
+          <h3 fxLayoutAlign="center">RPAD</h3>
+
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>তাৰিখ</p>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <p>{{today | date:'dd-MM-yyyy'}}</p>
+          </div>
+
+          <div>
+            প্ৰতি,
+          </div>
+          <div>
+            {{data['CustomerName']}}
+          </div>
+          <div>
+            <div *ngFor="let addressLine of addressLines">{{addressLine}}</div>
+          </div>
+          <br>
+          <!-- <div>{{'Sir/Madam' | translate}},</div> -->
+          <div>
+            <b>বিষয়: আপোনাৰ ঋণ বাতিলকৰণ আৰু মোকদ্দমাৰ প্ৰসংগ।</b>
+          </div>
+          <div>সন্দৰ্ভ:  ……লোন একাউন্ট নম্বৰ : {{loanID}}……</div>
+          <br>
+          <div style="text-align: justify;">
+
+            <p>
+
+              আপুনি আমাৰ ......{{data['branchname']}}...... শাখাৰ পৰা ...{{data['loandate']  | date:'dd-MM-yyyy'}}.... 
+              তাৰিখত ……{{data['loanamount']}}/- টকা (…{{data['loanamount'] | numberToWords }}…. টকা মাত্ৰ)ৰ ঋণৰ সুৱিধা 
+              লাভ কৰিছিল।
+            </p>
+
+            <br>
+
+            <p>
+
+              উক্ত ধনৰাশিৰ ..{{data['loanamount']}}/-টকা (.{{data['loanamount']  | numberToWords }}.... টকা মাত্ৰ) সূতেমূলে ..{{data['emi']}}/-... টা সমান মাহেকীয়া 
+              কিস্টিত পৰিশোধ কৰিবলৈ আপুনি সন্মত হৈছিল। কিন্তু আপুনি সময়মতে ঋণ পৰিশোধ নকৰিলে। আজিৰ তাৰিখলৈকে, 
+              উক্ত ধনৰাশিৰ হিচাপত ...{{data['outstandingdue']}}/-... টকা দিবলৈ বাকী থকা ধন সোমাইছে।
+
+
+            </p>
+
+            <br>
+
+            <p>
+              আমি বাৰে-বাৰে অনুৰোধ কৰা স্বত্তেও, আপোনালোকে সম্পৰ্কিত দেয় আৰু অন্যান্য শুল্কৰ সৈতে দিবলৈ 
+              বাকী থকা ধন পৰিশোধ নকৰিলে।
+            </p>
+
+            <br>
+            <p>
+         
+              আগেয়ে উল্লেখ কৰাৰ দৰে আপুনি কৰা গাফিলতিৰ পৰিপ্ৰেক্ষিতত, ইয়াৰ দ্বাৰা আপোনাক জনোৱা যায় যে 
+              কোম্পানীৰদ্বাৰা ওপৰোক্ত ঋণ বাতিল কৰা হৈছে আৰু ইয়াৰ দ্বাৰা পৰিশোধ কৰা তাৰিখলৈকে সূত, গাফিলতিৰ
+               সূত আৰু খৰছ সহিতে বাকী থকা ঋণৰ সম্পূৰ্ণ ধনৰাশি .....{{data['outstandingdue']}}/- টকা (......{{data['outstandingdue'] | numberToWords}}... টকা মাত্ৰ) 
+               এই জাননী পোৱাৰ সাত দিনৰ ভিতৰত পৰিশোধ কৰিবলৈ আপোনাক আহ্বান জনোৱা হ’ল, অন্যথা ঋণ চুক্তিৰ পৰস্পৰ সন্মত 
+               মোকৰ্দ্দমাৰ ধাৰা অনুযায়ী বিবাদটো মুকৰ্দ্দমাৰ বাবে প্ৰেৰণ কৰিবলৈ আমি বাধ্য হ’ম আৰু তাৰপৰা উদ্ভৱ হোৱা সকলো খৰছ আৰু পৰিণামৰ বাবে আপুনিয়েই দায়ী হ’ব
+
+            </p>
+
+
+            <br>
+            <br>
+
+            <p> মনপ্পুৰম ফাইনান্স লিমিটেডৰ হৈ</p>
+
+            <p> কৰ্তৃত্বপ্ৰাপ্ত ক্ষ্বাক্ষৰকাৰী</p>
+
+
+
+
+          </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</div>

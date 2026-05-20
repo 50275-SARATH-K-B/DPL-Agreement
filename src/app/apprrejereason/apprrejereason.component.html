@@ -1,0 +1,91 @@
+<div class="card" fxLayout="column" fxLayout.xs="column">
+  <div fxLayout="row" fxLayout.xs="column">
+    <h1 mat-dialog-title>
+      Additional Charges
+    </h1>
+  </div>
+  <div fxLayout="row" fxLayout.xs="column" fxFlex="100%">
+    <div fxLayoutAlign="space-between" fxFlex="50%">
+      <mat-form-field fxFlex="100" appearance="outline" fxLayoutGap="2%">
+        <mat-label>Search</mat-label>
+        <input matInput autocomplete="off" placeholder="Search here..." type="text" [(ngModel)]="filter"
+          #filterText="ngModel" name="emp1" maxlength="50" pattern="^[a-zA-Z0-9]+$" (keyup.enter)="search()"
+          name="filter">
+      </mat-form-field>
+      <button mat-mini-fab color="primary" class="searchButton mat-elevation-z12" style="margin-left: 10px;
+    margin-top: 4px;" (click)="search()">
+          <i class="fa fa-search"></i>
+      </button>
+    </div>
+  </div>
+  <div fxFlex="100%" fxLayout="column"
+    style="overflow:scroll;-ms-overflow-style:scrollbar">
+    <table mat-table [dataSource]="dataSource" width="100%">
+      <ng-container matColumnDef="Chargeid">
+        <th mat-header-cell *matHeaderCellDef> Charge ID</th>
+        <td mat-cell *matCellDef="let element; let i = index;"> {{element.ChargeId}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Description">
+        <th mat-header-cell *matHeaderCellDef>Charge Description</th>
+        <td mat-cell *matCellDef="let element; let i = index;">{{element.ChargeName}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Chargerate">
+        <th mat-header-cell *matHeaderCellDef> Charge rate </th>
+        <td mat-cell *matCellDef="let element; let i = index;"> {{element.ChargeRate}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Computedon">
+        <th mat-header-cell *matHeaderCellDef>Computed On</th>
+        <td mat-cell *matCellDef="let element; let i = index;">{{element.ComputedOn}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Amount">
+        <th mat-header-cell *matHeaderCellDef> Amount </th>
+        <td mat-cell *matCellDef="let element; let i = index;"> {{element.Amount}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Total">
+        <th mat-header-cell *matHeaderCellDef>Total Charged Amount</th>
+        <td mat-cell *matCellDef="let element; let i = index;" style="background: gainsboro;
+          border: 1px solid #bfafaf;
+          border-radius: 12px;">
+          <input matInput matInput name="original" #original=ngModel [readonly]="isReadonly"
+            [(ngModel)]="element.TotalChargedAmount" autocomplete="off" (keypress)="keyPress($event)"
+            (focusout)="Totalamounts(element)">
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Tax">
+        <th mat-header-cell *matHeaderCellDef>Tax Amount </th>
+        <td mat-cell *matCellDef="let element; let i = index;"> {{element.TaxAmount}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Taxable">
+        <th mat-header-cell *matHeaderCellDef>Taxable Amount</th>
+        <td mat-cell *matCellDef="let element; let i = index;">{{element.TaxableAmount}}
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered}" class="a_custom"
+        (mouseover)="row.hovered = true" (mouseout)="row.hovered = false">
+      </tr>
+    </table>
+    <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+  </div>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxFlex="100%">
+    <mat-form-field fxFlex="33.3" appearance="outline" fxLayoutGap="2%">
+      <mat-label>Total Charged Amount</mat-label>
+      <input matInput autocomplete="off" [(ngModel)]="Totalvalue" name="Totalvalue" readonly>
+    </mat-form-field>
+    <mat-form-field fxFlex="33.3" appearance="outline" fxLayoutGap="2%">
+      <mat-label>Total Tax Amount </mat-label>
+      <input matInput autocomplete="off" [(ngModel)]="Tax" name="Tax" readonly>
+    </mat-form-field>
+    <mat-form-field fxFlex="33.3" appearance="outline" fxLayoutGap="2%">
+      <mat-label>Total Taxable Amount</mat-label>
+      <input matInput autocomplete="off" [(ngModel)]="Taxable" name="Taxable" readonly>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions fxLayoutGap="2%" fxLayoutAlign="center">
+    <button mat-button class="false mat-elevation-z12" (click)="onDismiss()">Close</button>
+    <button mat-button class="true mat-elevation-z12" (click)="onConfirm()" *ngIf="visible">ok</button>
+    <button mat-button class="cal mat-elevation-z12" (click)="Totalamount()" *ngIf="nonvisible">Total Amount</button>
+  </div>
+</div>

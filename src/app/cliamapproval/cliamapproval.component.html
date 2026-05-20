@@ -1,0 +1,129 @@
+<form #loanapps="ngForm">
+  <mat-card fxFlex="100%" fxLayout="column" fxLayout.xs="column">
+      <!-- <div class="head">
+          <h3>BILLING CHECKER</h3>
+      </div> -->
+      <!-- <h2 class="h2-head">
+          <mat-icon class="home-icon" routerLink="/home">home</mat-icon>Home/Billing Checker
+      </h2> -->
+      <div fxLayout.xs="column" fxLayout="column" class="flex-p">
+          <div fxFlex="100" fxLayoutGap="3%" fxLayout.xs="column" id="mg">
+            <div fxFlex="50" fxLayoutGap="3%" style="margin-left:20px">
+              <mat-form-field fxFlex="24%">
+                <mat-select [(ngModel)]="accountListType2" placeholder="Loan ID" 
+                  name="accountListType2Text" #accountListTyp2eText="ngModel" required>
+                  <mat-option *ngFor="let item of accountList" value={{item.loan_id}}>
+                    {{item.loan_id}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+       
+              <div fxFlex="10" fxLayoutAlign="center center">
+                  <button mat-mini-fab color="accent" class="searchButton" type="button" (click)="loanSearchloan()"
+                  >
+                      <mat-icon>search</mat-icon>
+                  </button>
+              </div>
+            </div>
+            <!-- <div fxFlex="50">
+              <mat-form-field fxFlex="90">
+                <mat-select placeholder="Select Payment Mode" [(ngModel)]="field['paymentModeID']" name="payment"
+                  required>
+                  <mat-option *ngFor="let option of paymentModeList" value="{{option.PaymentModeID}}">
+                    {{option.PaymentMode}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> -->
+          </div>
+        </div>
+ 
+   
+
+ 
+
+
+  
+
+        <div fxLayout="column" class="form-block flex-p">
+          <form #InstallmentForm="ngForm" fxLayout="column" fxFlex="100%" novalidate>
+            <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+              <mat-form-field appearance="outline" fxFlex="25%">
+                <mat-label>Customer ID</mat-label>
+                <input matInput [(ngModel)]="customerID" name="Customer_ID" #Customer_IDTxt="ngModel" readonly >
+              </mat-form-field>
+              <mat-form-field appearance="outline" fxFlex="25%">
+                <mat-label>Customer Name</mat-label>
+                <input matInput [(ngModel)]="customerName" name="Customer_Name" #Customer_NameText="ngModel" readonly
+                  >
+              </mat-form-field>
+              <mat-form-field appearance="outline" fxFlex="25%">
+                <mat-label>Loan Date</mat-label>
+                <input matInput [(ngModel)]="LoanDate" name="Loan_Date" #Loan_DateTxt="ngModel" readonly >
+              </mat-form-field>
+              <mat-form-field appearance="outline" fxFlex="25%">
+                <mat-label>Loan Amount</mat-label>
+                <input matInput [(ngModel)]="LoanAmount" name="Loan_Amount" #Loan_AmountTxt="ngModel" readonly >
+              </mat-form-field>
+            </div>
+            <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%" style="margin-top: 30px;">
+              <mat-form-field appearance="outline" fxFlex="25%">
+                <mat-label>Enter Claim Amount</mat-label>
+                <input matInput [(ngModel)]="claimamount" name="claim_amt" readonly #aamtcloamed="ngModel">
+              </mat-form-field>
+              <mat-form-field appearance="outline" fxFlex="25%">
+                <mat-label>UTR Number</mat-label>
+                <input matInput [(ngModel)]="utramount" name="Current_Due" #Current_DueTxt="ngModel"  readonly >
+              </mat-form-field>
+
+              
+              <div fxFlex=77.5% fxLayout.xs="row" fxLayoutGap="2%">
+                <div fxFlex=100% ngClass.xs="single-search-responsive">
+                  <mat-form-field fxFlex="100%" appearance="outline">
+                    <mat-label>Approval Attachment</mat-label>
+                    <input matInput readonly *ngIf="FileName == 'No File Selected'" style="font-size: 12px;"
+                      value="Approval Attachment(Supports:PDF)">
+                    <input matInput readonly *ngIf="FileName != 'No File Selected'" [(ngModel)]="FileName" name="FileNAME"
+                      #tittleAttachment="ngModel">
+                    <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1% fxLayoutAlign="end" *ngIf="FileName">
+                       <i (click)="OpenFile()"  class="fa fa-eye eye"></i>
+                    </div>
+                    <a mat-icon-button type="button" matTooltip="View file" *ngIf="!!FileName"
+                    (click)="OpenFile()" color="primary">
+                    <mat-icon>visibility</mat-icon>
+                  </a>
+                    <mat-hint>(Support:PDF)</mat-hint>
+                  </mat-form-field>
+        
+                </div>
+                <!-- <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1%> -->
+                  <!-- <mat-form-field fxFlex="100%"></mat-form-field> -->
+                  <!-- <input hidden="hidden" type='file' accept=".xlsx, application/pdf, image/*" (change)="onChangeFile($event)"
+                    #document>
+                  <button mat-icon-button color="primary" type="button" (click)="document.click()"
+                    class="mat-elevation-z12 box-button swing" id="but" color="primary">
+                    <mat-icon>scanner</mat-icon>
+                  </button>
+                </div> -->
+              </div>
+   
+            </div>
+           
+          
+ 
+
+     
+    
+            <div style="margin-top: 30px;" fxLayoutAlign="center" fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+              <button mat-button class="false mat-elevation-z12" color="primary"
+                (click)='clear(InstallmentForm)'>Clear</button>
+              <button mat-button class="true mat-elevation-z12" color="primary"
+                (click)='confirm(InstallmentForm)' [disabled]="!FileName" >Confirm</button>
+                <button mat-button class="true mat-elevation-z12" color="primary"
+                (click)='rejects(InstallmentForm)' [disabled]="!FileName" >Reject</button>
+            </div>
+          </form>
+        </div>
+  
+  </mat-card>
+</form>

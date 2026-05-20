@@ -1,0 +1,58 @@
+<!-- 
+Project :PERSONAL LOAN
+Path : /scr/app/pages/Allocation Priority
+UI created by : JINTO GEORGE
+Date :
+Assets :
+view-allocation-priority.component.html
+view-allocation-priority.component.scss
+view-allocation-priority.component.ts
+Functionally Coded by : 
+Date : 
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+
+<div class="flex-p" fxLayout="column">
+  <mat-card>
+    <mat-card-content fxLayout="column">
+      <h2>Collection Details</h2>
+      <div class="form-block">
+        <div style="overflow: scroll;-ms-overflow-style: scrollbar;">
+          <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="branchID">
+              <th mat-header-cell *matHeaderCellDef> Branch ID </th>
+              <td mat-cell *matCellDef="let element">{{element.BranchID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="branchName">
+              <th mat-header-cell *matHeaderCellDef> Branch Name </th>
+              <td mat-cell *matCellDef="let element">{{element.BranchName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="loanNo">
+              <th mat-header-cell *matHeaderCellDef>Loan No. </th>
+              <td mat-cell *matCellDef="let element"> {{element.LoanNo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="TraDate">
+              <th mat-header-cell *matHeaderCellDef> Transaction Date </th>
+              <td mat-cell *matCellDef="let element"> {{element.TraDate}} </td>
+            </ng-container>
+            <ng-container matColumnDef="collectionAmount">
+              <th mat-header-cell *matHeaderCellDef>Collection Amount </th>
+              <td mat-cell *matCellDef="let element"> {{element.CollectionAmount}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+        </div>
+        <div style="margin: 7px;" fxLayoutAlign="end">
+          <div fxFlex="30%" fxFlex.xs="100%" fxLayout="column">
+            <span><b>TOTAL COLLECTION AMOUNT : {{total}}</b></span>
+          </div>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+</div>

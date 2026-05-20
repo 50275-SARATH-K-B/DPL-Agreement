@@ -1,0 +1,46 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+    <div fxFlex="100" class="flex-p">
+        <mat-card>
+            <mat-card-header fxLayoutAlign="center">
+                <mat-card-subtitle>
+                    <h2>Basic Inputs</h2>
+                </mat-card-subtitle>
+            </mat-card-header>
+
+            <form fxLayoutAlign="center">
+                <mat-card-content fxLayout="column">
+                    <mat-form-field>
+                        <input matInput placeholder="First Name">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Last Name">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <textarea matInput placeholder="Enter Address"></textarea>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="Mobile Number">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput placeholder="E-mail ID">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-select placeholder="City">
+                            <mat-option value="option">Cochin</mat-option>
+                            <mat-option value="option">Calicut</mat-option>
+                            <mat-option value="option">Trivandrum</mat-option>
+                            <mat-option value="option">Trichur</mat-option>
+                            <mat-option value="option">Kannur</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput #input maxlength="6" placeholder="PIN Code">
+                    </mat-form-field>
+                    <button mat-raised-button color="accent">Submit</button>
+
+                </mat-card-content>
+            </form>
+        </mat-card>
+    </div>
+
+</div>

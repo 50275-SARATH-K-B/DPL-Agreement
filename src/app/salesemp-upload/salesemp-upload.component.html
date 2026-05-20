@@ -1,0 +1,132 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/LMS/cleared-bounced/add-cleared-bounced
+UI created by : Hareesh N
+Date : 26/12/2018
+emi-calculator :
+add-cleared-bounced.component.html
+add-cleared-bounced.component.scss
+add-cleared-bounced.component.ts
+Functionally Coded by : Hareesh N
+Date : 
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <form #activityEntryDataUploadForm="ngForm">
+      <mat-card fxFlex="100%" fxLayout="column">
+        <h2>Data Upload</h2>
+ 
+
+
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <form #enachDataUploadForm="ngForm">
+    <mat-card>
+      <div class="head">
+        <h3>Sales Employee Upload</h3>
+      </div>
+    
+      <div fxLayout="column" fxLayoutGap="2%">
+        <div fxFlex="100%" fxLayoutGap="2%">
+          <div fxFlex="30%">
+            <button mat-raised-button class="mat-elevation-z12" (click)="exportexcel('tableWithHeader')"
+              color="primary">Download Format</button>
+          </div>
+          <div fxFlex="60%" fxLayoutAlign="end">
+            <div fxLayout.xs="column" fxLayoutGap=2% fxLayoutAlign="end">
+              <input style="visibility: hidden;" type='file'
+                accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" (change)="addfile($event)"
+                #document>
+              <button mat-raised-button color="primary" (click)="document.click()"
+                class="mat-elevation-z12 box-button swing">
+                Upload EXCEL </button>
+              <!-- <label>
+              <input  type='file' accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" (change)="onSelectFile($event)"
+              #document
+              (change)="addfile($event)" accept=".xls, .xlsx" placeholder="Upload Excel"
+             #document>
+            </label> -->
+            </div>
+          </div>
+        </div>
+        <div style="overflow:scroll;-ms-overflow-style: scrollbar; max-height:410px;">
+          <table mat-table [dataSource]="eligibilitySource">
+
+            <ng-container matColumnDef="SlNo">
+              <th mat-header-cell *matHeaderCellDef> SlNo </th>
+              <td mat-cell *matCellDef="let element ;  let i= index"> {{i+1}} </td>
+            </ng-container>
+            <ng-container matColumnDef="loanid">
+              <th mat-header-cell *matHeaderCellDef>Loan ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.eligibilityAmount}} </td>
+            </ng-container>
+            <ng-container matColumnDef="customerid">
+              <th mat-header-cell *matHeaderCellDef>Customer ID</th>
+              <td mat-cell *matCellDef="let element"> {{element.customerID}} </td>
+            </ng-container>
+            <ng-container matColumnDef="csename">
+              <th mat-header-cell *matHeaderCellDef>CSE Name</th>
+              <td mat-cell *matCellDef="let element"> {{element.csmName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="empcode">
+              <th mat-header-cell *matHeaderCellDef>EMP Code</th>
+              <td mat-cell *matCellDef="let element"> {{element.empCode}} </td>
+            </ng-container>
+           
+            <!-- income_particulars: any;
+        income_Amount: any; -->
+            <!-- <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element;  let i= index">
+            <div fxLayoutGap="2%" fxFlex="15% auto" fxLayout="row">             
+              <button mat-icon-button (click)="deleteTableItem({element:element,index:i},1)"color="warn">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container> -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+        <div fxLayoutGap="2%" fxLayoutAlign="end">
+          <button type="submit" class="button-box box" mat-raised-button color="primary"
+            [disabled]="!upload"
+            (click)="savedata(enachDataUploadForm)" id="confirm_btn">Confirm</button>
+          <button mat-raised-button class="button-box box" color="primary" (click)="clear(enachDataUploadForm)"
+            id="clear_btn">Clear</button>
+        </div>
+        <div fxFlex="100%" style="visibility: hidden;">
+          <table class="table table-bordered" id="tableWithHeader">
+            <thead>
+              <tr>
+                <th>LOAN_ID</th>
+                <th>CUSTOMER_ID</th>
+                <th>CSE_NAME</th>
+                <th>EMP_CODE</th>                
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+      </div>
+    </mat-card>
+    </form>
+  </div>
+</div>

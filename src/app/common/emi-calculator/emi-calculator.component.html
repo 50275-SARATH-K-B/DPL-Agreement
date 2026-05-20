@@ -1,0 +1,105 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/LMS/emi-calculator
+UI created by : Hareesh N
+Date : 19/11/2018
+emi-calculator :
+emi-calculator.component.html
+emi-calculator.component.scss
+emi-calculator.component.ts
+
+Functionally Coded by : Hareesh N
+Date : 
+
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+<div fxLayout="column" fxLayout.gt-sm="row wrap" fxFlex="100%">
+    <div fxFlex="100%" class="flex-p">
+      <form #EMICalculatorForm="ngForm" fxLayoutAlign="center" fxLayoutGap="5%">
+        <mat-card fxFlex="100%" fxLayout="column">
+          <mat-card-content fxLayout.xs="column" fxLayout="row" ngClass="margine-top" fxLayoutGap="2%" fxFlex="100%">
+            <mat-form-field fxFlex="50%">
+              <input numbersOnly matInput
+                pattern="([1-9]|[0-9][1-9]|[1-9][0-9]|[0-9][0-9][1-9]|[0-9][1-9][0-9]|[1-9][0-9][0-9]|[0-9][0-9][0-9][0-9]*)+"
+                placeholder="Loan Amount" step="any" maxlength="10" autocomplete="off" [(ngModel)]="loanAmount"
+                #loanamount="ngModel" name="loanAmount" required>
+              <mat-error *ngIf="loanamount.errors?.pattern">Enter valid Loan Amount</mat-error>
+              <mat-error *ngIf="loanamount.errors?.required">Loan amount is required</mat-error>
+              <mat-error *ngIf="loanamount.errors?.min">Minimum value should be 1</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="50%">
+              <mat-select #selectInterestType [(ngModel)]="interestTypes" placeholder="Select Interest Types"
+                name="interestCategories" #interestCategories="ngModel" required>
+                <mat-option *ngFor="let item of interestTypeList" value={{item.CommonDataName}}>
+                  {{item.Description}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="interestCategories.errors?.required">Interest types is required</mat-error>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-content fxLayout.xs="column" fxLayout="row" ngClass="margine-top" fxLayoutGap="2%" fxFlex="100%">
+            <mat-form-field fxFlex="50%">
+              <input numbersOnly matInput
+                pattern="([1-9]|[0-9][1-9]|[1-9][0-9]|[0-9][0-9][1-9]|[0-9][1-9][0-9]|[1-9][0-9][0-9]|[1-9][0-9][0-9][0-9]*)+"
+                placeholder="Tenure" maxlength="4" autocomplete="off" [(ngModel)]="tenure" #tenureText="ngModel"
+                name="tenure" required>
+              <mat-error *ngIf="tenureText.errors?.required">Tenure is required</mat-error>
+              <mat-error *ngIf="tenureText.errors?.pattern">Enter valid Tenure</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="50%">
+              <mat-select #selectLoanTypes [(ngModel)]="loanTypes" placeholder="Select Loan Types" name="loanCategories"
+                #loanCategories="ngModel" required>
+                <mat-option *ngFor="let item of loanTypeList" value={{item.CommonDataName}}>
+                  {{item.Description}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="loanCategories.errors?.required">Loan types is required</mat-error>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-content fxLayout.xs="column" fxLayout="row" ngClass="margine-top" fxLayoutGap="2%" fxFlex="100%">
+            <mat-form-field fxFlex="50%">
+              <input numbersOnly matInput pattern="^\s*(?=.*[1-9])\d*(?:\.\d{1,2})?\s*$" placeholder="ROI" maxlength="5"
+                autocomplete="off" #roiText='ngModel' [(ngModel)]="roi" name="roi" required>
+              <mat-error *ngIf="roiText.errors?.pattern">Enter valid Rate of interest</mat-error>
+              <mat-error *ngIf="roiText.errors?.required">Rate of interest is required</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="50%">
+              <mat-select #selectCollectionTypes [(ngModel)]="collectionTypes" placeholder="Select Collection Types"
+                name="collectionCategories" #collectionCategories="ngModel" required>
+                <mat-option *ngFor="let item of collectionTypeList" value={{item.CommonDataName}}>
+                  {{item.Description}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="collectionCategories.errors?.required">Collection type is required</mat-error>
+  
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-content fxLayout.xs="column" fxLayout="row" ngClass="margine-top" fxLayoutGap="2%" fxFlex="100%">
+            <mat-form-field fxFlex="50%">
+              <mat-select #selectDuration [(ngModel)]="durationTypes" placeholder="Select Duration"
+                name="durationCategories" #durationCategories="ngModel" required>
+                <mat-option *ngFor="let item of durationTypeList" value={{item.CommonDataName}}>
+                  {{item.Description}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="durationCategories.errors?.required">Duration types is required</mat-error>
+            </mat-form-field>
+            <div fxFlex="50%" *ngIf="!!EMIAmount" ngClass="emi-amount">
+              <label> EMI AMOUNT : {{this.EMIAmount}}</label>
+            </div>
+          </mat-card-content>
+          <div class="flex-p">
+            <mat-card-actions>
+              <div fxLayoutGap="2%" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end">
+                <button [disabled]="!EMICalculatorForm.valid" class="mat-elevation-z12 box-button" mat-raised-button
+                  color="primary" (click)="Calculate()">Calculate</button>
+                <button mat-raised-button type="button" color="primary" (click)="Clear(EMICalculatorForm)">Clear</button>
+              </div>
+            </mat-card-actions>
+          </div>
+        </mat-card>
+      </form>
+    </div>
+  </div>

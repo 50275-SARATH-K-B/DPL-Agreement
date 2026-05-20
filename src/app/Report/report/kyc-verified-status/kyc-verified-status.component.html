@@ -1,0 +1,139 @@
+<div class="flex-p">
+  <mat-card>
+    <div class="head">
+      <h3>KYC Verification Report</h3>
+    </div>
+
+    <div fxLayout.xs="column" fxLayout="row" class="flex-p" style="margin-top: 50px;" fxLayoutAlign="center" fxLayoutGap="5%">
+      <div fxFlex="100" fxLayoutGap="3%" fxLayout.xs="column" id="mg">
+        <div fxFlex="100" fxLayoutGap="3%" style="margin-left:20px">
+          <mat-form-field fxFlex="50">
+            <input matInput #moroToText="ngModel" readonly [matDatepicker]="pickerMT" placeholder="From Date"
+              required name="moroto" [(ngModel)]="dueDate" >
+            <mat-datepicker-toggle matSuffix [for]="pickerMT"></mat-datepicker-toggle>
+            <mat-datepicker #pickerMT></mat-datepicker>
+            <mat-error *ngIf="moroToText.errors?.required">To-Date is required</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlex="50">
+            <input matInput #moroToText1="ngModel" readonly [matDatepicker]="pickerMT1" placeholder="To Date"
+              required name="moroto2" [(ngModel)]="presentationDate" >
+            <mat-datepicker-toggle matSuffix [for]="pickerMT1"></mat-datepicker-toggle>
+            <mat-datepicker #pickerMT1></mat-datepicker>
+            <mat-error *ngIf="moroToText1.errors?.required">To Date is required</mat-error>
+          </mat-form-field>
+
+          <mat-radio-group fxLayout="row" fxLayoutGap="5%" name="radioOpt2"  [(ngModel)]="selected2" fxFlex="50%" aria-required="true">
+            <mat-radio-button value="1" class="p-r">Approved</mat-radio-button> &nbsp;
+            <mat-radio-button value="2" class="p-r">Rejected</mat-radio-button>&nbsp;
+          </mat-radio-group>
+
+
+          <div fxFlex="10" fxLayoutAlign="center center">
+            <button mat-mini-fab color="primary"
+              [disabled]="dueDate==''|| dueDate==null|| !dueDate || presentationDate ==''|| presentationDate ==null || !presentationDate || !selected2 "
+              class="mat-elevation-z12 box-button" matTooltip="Search" type="button" color="primary"
+              (click)="getKycdetails()">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+          <div fxFlex="100" fxLayoutGap="3%" >
+            <mat-form-field fxFlex="70%">
+              <input matInput placeholder="Search with Customer ID ..." name="customerID" [(ngModel)]="customerID" >
+            </mat-form-field>
+
+              <div fxFlex="10" fxLayoutAlign="center center" style="margin-right: 30px;">
+                <button mat-mini-fab color="primary"
+                  [disabled]="!customerID || !selected2"
+                  class="mat-elevation-z12 box-button" matTooltip="Search" type="button" color="primary"
+                  (click)="getcustdetails()">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="overflow: scroll;-ms-overflow-style: scrollbar;max-height: 390px;text-align: center;">
+      <table mat-table [dataSource]="dataSource" width="100%">
+          <ng-container matColumnDef="slno" >
+              <th mat-header-cell *matHeaderCellDef style="width: 120px !important;text-align: center;"> SL. No.</th>
+              <td mat-cell *matCellDef="let element; let i = index;" style="width: 120px !important;">{{i+1}} </td>
+            </ng-container>
+        <ng-container matColumnDef="custid">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;">customer ID</th>
+          <td mat-cell *matCellDef="let element;">{{element.cusT_ID}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="adharid">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Aadhar Id </th>
+          <td mat-cell *matCellDef="let element;">{{element.aadharno}}</td>
+        </ng-container>
+      
+        <ng-container matColumnDef="panId">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Pan Id </th>
+          <td mat-cell *matCellDef="let element;">{{element.panno}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="customerPhoto">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Customer Photo</th>
+          <td mat-cell *matCellDef="let element;">
+            <mat-icon (click)="changeIcon(element,fileExte,1)" style="background-color: bisque;cursor: pointer;fill:none">photo_size_select_actual</mat-icon>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Aadharfront">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Aadhar Front </th>
+          <td mat-cell *matCellDef="let element;">
+            <mat-icon (click)="changeIcon(element,fileExte,2)" style="background-color: bisque;cursor: pointer;">photo_size_select_actual</mat-icon>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Aadharback">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Aadhar Back </th>
+          <td mat-cell *matCellDef="let element;">
+            <mat-icon (click)="changeIcon(element,fileExte,3)" style="background-color: bisque;">photo_size_select_actual</mat-icon>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Panpic">
+          <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Pan</th>
+          <td mat-cell *matCellDef="let element;">
+            <mat-icon (click)="changeIcon(element,fileExte,4)" style="background-color: bisque;">photo_size_select_actual</mat-icon>
+          </td>
+        </ng-container>
+      
+        <!-- <ng-container matColumnDef="Status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let element;">{{element.status}}</td>
+        </ng-container> -->
+
+        <!-- <ng-container matColumnDef="verifyon">
+          <th mat-header-cell *matHeaderCellDef>Verified On</th>
+          <td mat-cell *matCellDef="let element;">{{element.verifieD_DATE | date:'dd-MM-yyyy'}}</td>
+
+
+        </ng-container>
+        <ng-container matColumnDef="verifyby">
+          <th mat-header-cell *matHeaderCellDef>Verified By</th>
+          <td mat-cell *matCellDef="let element;">{{element.verifieD_BY}}</td>
+        </ng-container>
+        <ng-container matColumnDef="remarks">
+          <th mat-header-cell *matHeaderCellDef> Remarks </th>
+          <td mat-cell *matCellDef="let element;">{{element.remarks}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Enterby">
+          <th mat-header-cell *matHeaderCellDef>Entered By</th>
+          <td mat-cell *matCellDef="let element;">{{element.enteR_BY}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Enterdate">
+          <th mat-header-cell *matHeaderCellDef>Entered Date</th>
+          <td mat-cell *matCellDef="let element;">{{element.enteR_DATE | date:'dd-MM-yyyy'}}</td>
+        </ng-container> -->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+        <tr mat-row *matRowDef="let element;let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered}" class="a_custom">
+        </tr>
+      </table>
+      <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+    </div> 
+  </mat-card>
+</div>

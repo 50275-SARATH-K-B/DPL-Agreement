@@ -1,0 +1,130 @@
+<mat-progress-bar mode="indeterminate" *ngIf="disabled"></mat-progress-bar>
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <mat-card>
+      <form #presentationForm='ngForm'>
+        <mat-card-header>
+          <mat-card-subtitle>
+            <h2>NACH PRESENTATION</h2>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <div fxLayout.xs="column" fxLayout="column" class="flex-p">
+          <div fxFlex="100" fxLayoutGap="3%" fxLayout.xs="column" id="mg">
+            <div fxFlex="50" fxLayoutGap="3%" style="margin-left:20px">
+              <mat-form-field fxFlex="45">
+                <input matInput #moroToText="ngModel" readonly [matDatepicker]="pickerMT" placeholder="Due Date"
+                  required name="moroto" [(ngModel)]="field['dueDate']" (dateChange)="dueDateChange($event)" >
+                <mat-datepicker-toggle matSuffix [for]="pickerMT"></mat-datepicker-toggle>
+                <mat-datepicker #pickerMT></mat-datepicker>
+                <mat-error *ngIf="moroToText.errors?.required">To-Date is required</mat-error>
+              </mat-form-field>
+              <mat-form-field fxFlex="45">
+                <input matInput #moroToText1="ngModel" readonly [matDatepicker]="pickerMT1" placeholder="Presentation Date"
+                  required name="moroto2" [(ngModel)]="field['presentationDate']" (dateChange)="presDateChange($event)">
+                <mat-datepicker-toggle matSuffix [for]="pickerMT1"></mat-datepicker-toggle>
+                <mat-datepicker #pickerMT1></mat-datepicker>
+                <mat-error *ngIf="moroToText1.errors?.required">Presentation Date is required</mat-error>
+              </mat-form-field>
+              <div fxFlex="10" fxLayoutAlign="center center">
+                <button mat-mini-fab color="primary"
+                  [disabled]="field['dueDate']==''||field['dueDate']==null||!field['dueDate'] ||field['presentationDate']==''||field['presentationDate']==null||!field['presentationDate']"
+                  class="mat-elevation-z12 box-button" matTooltip="Search" type="button" color="primary"
+                  (click)="getInstallmentdetailsByDate(presentationForm)">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+            </div>
+            <!-- <div fxFlex="50">
+              <mat-form-field fxFlex="90">
+                <mat-select placeholder="Select Payment Mode" [(ngModel)]="field['paymentModeID']" name="payment"
+                  required>
+                  <mat-option *ngFor="let option of paymentModeList" value="{{option.PaymentModeID}}">
+                    {{option.PaymentMode}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="flex-p" *ngIf="installmentList.length>0">
+          <div fxLayout="row" fxLayoutGap="1%"  fxLayoutAlign="end" class="myt-1">
+            <mat-form-field fxFlex="30%" fxFlex.xs="90%">
+              <input matInput autocomplete="off" placeholder="Enter Loan ID..." type="text" [(ngModel)]="filter" (keyup.enter)="filterSource()"
+                name="filter">
+            </mat-form-field>
+    
+            <button matTooltip="Search" class="mat-elevation-z12 box-button" type="button" color="primary" (click)="search()"
+              mat-mini-fab>
+              <mat-icon>search</mat-icon>  
+            </button>
+          </div>
+          <div style="overflow: scroll;-ms-overflow-style: scrollbar;max-height: 390px"
+            *ngIf="installmentList.length>0">
+
+            <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox #ref (change)="$event ? masterToggle(ref) : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null;isSomeSelected()"
+                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="slno" >
+                <th mat-header-cell *matHeaderCellDef style="color: black;width: 120px !important;"> SL. No.</th>
+                <td mat-cell *matCellDef="let element; let i = index;" style="width: 120px !important;">{{i+1}} </td>
+              </ng-container>
+              <ng-container matColumnDef="MandateCode">
+                <th mat-header-cell *matHeaderCellDef> Mandate ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.MandateCode}} </td>
+              </ng-container>
+              <ng-container matColumnDef="CUSTOMER_NAME">
+                <th mat-header-cell *matHeaderCellDef> Customer Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.CUSTOMER_NAME}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="LOAN_ID">
+                <th mat-header-cell *matHeaderCellDef> Loan ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.LOAN_ID}} </td>
+              </ng-container>
+              <ng-container matColumnDef="INTEREST_AMOUNT">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Interest Amount </th>
+                <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.INTEREST_AMOUNT| number}} </td>
+              </ng-container>
+              <ng-container matColumnDef="INSTALLMENT_AMOUNT">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Installment Amount </th>
+                <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.INSTALLMENT_AMOUNT| number}} </td>
+              </ng-container>
+              <ng-container matColumnDef="LATE_FEE">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Late Fee </th>
+                <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.LATE_FEE| number}} </td>
+              </ng-container>
+              <ng-container matColumnDef="DUE_DATE">
+                <th mat-header-cell *matHeaderCellDef> Due Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.DUE_DATE |  date: 'MM/dd/yyyy'}} </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator style="margin-right:10px" [pageSize]="5" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
+        <div fxLayout.xs="column" fxLayoutGap="2%">
+          <div class="example-button-row" fxLayoutGap="2%" fxLayoutAlign="end">
+            <button mat-raised-button color="primary" [disabled]="selection.selected.length==0||disabled"
+              id="confirm_btn" (click)="confirm(selectedDatas,field['presentationDate'],presentationForm)">Confirm</button>
+            <button mat-raised-button color="primary" (click)="clear(presentationForm)" type="button"
+              id="clear_btn">Clear</button>
+          </div>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

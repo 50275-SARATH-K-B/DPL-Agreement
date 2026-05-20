@@ -1,0 +1,25 @@
+<app-info-cards></app-info-cards>
+
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-sm="50" class="flex-p"> 
+        <app-lead-status></app-lead-status>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="50" class="flex-p">
+        <app-application-status></app-application-status>
+    </div>
+</div>
+
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-sm="100" class="flex-p"> 
+        <app-analytics></app-analytics>
+        <!-- <button mat-raised-button class="mat-elevation-z12 box-button" (click)="openEmiCalculator()" color="primary">EMI CALCULATOR</button> -->
+
+    </div>
+</div>
+<div fxLayout="row wrap">
+    <div fxFlex="100" fxFlex.gt-sm="100" class="flex-p"> 
+        <!-- <app-analytics></app-analytics> -->
+        <button mat-raised-button class="mat-elevation-z12 box-button" (click)="openEmiCalculator()" color="primary">EMI CALCULATOR</button>
+
+    </div>
+</div>

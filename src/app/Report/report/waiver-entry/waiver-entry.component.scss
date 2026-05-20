@@ -1,0 +1,27 @@
+
+  .disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: rgb(152, 61, 249);
+   
+  }
+  table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  th, td {
+    overflow: hidden;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: black;
+  }
+
+  .w-75{
+    width: 75px;
+}
+
+.w-100{
+    width: 100px;
+}

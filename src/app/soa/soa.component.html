@@ -1,0 +1,842 @@
+
+<div fxLayout="column">
+  <div class="card" fxFlex="100%" fxLayout="column" fxLayout.xs="column">
+    <mat-card>
+      <!-- <div class="head">
+        <h3>SOA</h3>
+      </div> -->
+        <!-- <h2 class="h2-head">
+          <mat-icon class="home-icon" routerLink="/home" *ngIf="funID == 23">home</mat-icon>Home/SOA
+        </h2> -->
+      <div fxLayout="row" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="center">
+        <mat-form-field fxFlex="33.3%" appearance="outline">
+          <mat-label>Loan ID</mat-label>
+          <input matInput placeholder="Loan ID" [(ngModel)]="loanID" (click)="loanSearch()" name="loan_ID"
+            #loanIDTxt="ngModel" readonly required>
+          <mat-error *ngIf="loanIDTxt.errors?.required">Loan ID is required</mat-error>
+        </mat-form-field>
+        <button mat-fab color="primary" class="mat-elevation-z12" type="button"
+          aria-label="Example icon button with a delete icon" (click)="loanSearch()">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+    </mat-card>
+  </div>
+  <div id="letter" fxLayout="column" fxFlex="100%">
+    <mat-card fxFlex="100%" fxLayout="column">
+      <div fxLayout="row" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="end">
+        <button *ngIf="!!loanID&&loanID!==null" mat-button class="mat-elevation-z12 box-button addLoan"
+          (click)="printLetter('printSectionId')" color="primary" type="submit" class="true">Print Report</button>
+      </div><br>
+      <div  fxLayout="row" fxLayout.xs="row" fxLayoutGap="2%" fxFlex.xs="100%" fxFlex="100%" *ngIf="!!AddressList" style="overflow: scroll;
+      padding-bottom: 18px;">
+
+        <div fxLayout="column">
+          <div fxLayout="row" fxLayoutGap="2%" fxLayout.xs="column">
+            <div *ngFor="let buttonItem of buttonList;let i=index">
+              <button type="button" mat-raised-button *ngIf="i<6" [disabled]="displayFlag==buttonItem.id"
+                class="mat-elevation-z12 box-button" color="warn"
+                (click)="onDisplay(buttonItem.id)">{{buttonItem.name}}</button>
+
+              <button type="button" mat-raised-button [disabled]="displayFlag==buttonItem.id" *ngIf="i>6"
+                class="mat-elevation-z12 box-button" color="warn"
+                (click)="onDisplay(buttonItem.id)">{{buttonItem.name}}</button>
+            </div>
+
+          </div>
+        </div><br>
+      </div><br>
+      <mat-card fxFlex="100%" fxLayout="column" id="printSectionId">
+        <table fxFlex="100%" id="DetailsReport">
+          <thead>
+            <tr>
+              <td>
+                <div class="header" style=" margin-bottom: 5px;">
+                  <table border="0" style="width: 100%;">
+                    <tr>
+                      <td style="width: 200px;">
+                        <img style="width: 100%;" src="assets/img/manappuram-logo.jpg" class="logoImg"
+                          alt="">
+                      </td>
+                      <td>
+                        <h3 style="margin-left: 35px;
+                    margin: 0;
+                    font-size: 14px;
+                    font-family: sans-serif;
+                    text-transform: uppercase;
+                    letter-spacing: 5px;color: #797979;">Loan Account Statement For {{loanID}} </h3>
+                      </td>
+
+                    </tr>
+                    <tr>
+                      <td>{{custname}}
+                      </td>
+                      <td style="text-align: right;">Issue Date:{{today|date:'dd/MM/yyyy'}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </thead>
+          <tr>
+            <td>
+              <div>
+                <table border="0" style="width: 100%;
+            line-height: 30px;
+            font-family: sans-serif;
+            font-size: 12px;">
+                  <div>
+                    <h2 style="text-align: center;
+                    background-color: #2196f3;
+                    color: #ffffff;
+                    font-family: sans-serif;
+                    font-size: 17px;
+                    text-transform: capitalize;
+                    padding: 5px;
+                    border-radius: 8px;">{{MainHeader}} as on {{today|date:'dd/MM/yyyy'}}
+                    </h2>
+                  </div>
+
+                  <tr *ngFor="let item of AddressList">
+                    <td style="text-align: left;border-color: transparent;">{{item}}</td>
+                  </tr>
+
+                </table>
+              </div>
+
+              <div *ngIf="(displayFlag==1||displayFlag==0||displayFlag==2)&&!!TablLoaneHeader">
+                <table border="1" style="width: 100%;
+            line-height: 30px;margin-bottom: 2rem;
+            font-family: sans-serif;
+            font-size: 12px;" cellspacing="0px">
+                  <tr style="background: #e6e6e6;">
+                    <th *ngFor='let item of TablLoaneHeader' [ngStyle]="{'width':item==bla?starbold:starbolds}"
+                      style="background: #9c9c9c3d;">{{item}}</th>
+                  </tr>
+                  <tr *ngFor='let TableDataRows of TLoandata'>
+                    <td [style.text-align]="TableDataCols['allignment']" *ngFor='let TableDataCols of TableDataRows'
+                      style="text-align: center;">{{TableDataCols['value']}}</td>
+                  </tr>
+                </table>
+              </div>
+               
+              <div *ngIf="displayFlag==1||displayFlag==0||displayFlag==2">
+                <table style="width: 100%;border-color: transparent;">
+                  <tr>
+                    <td style="text-align: left;border-color: transparent;width: 50%;">
+                      <table style="width: 100%;border-color: transparent;">
+                        <tr *ngFor="let item of TablCoAppListLeft;index as i">
+                          <td style="text-align: left;border-color: transparent;">{{item}}</td>
+                          <td style="text-align: left;border-color: transparent;">{{TableCoAppListLeftData &&
+                            TableCoAppListLeftData[i] ? TableCoAppListLeftData[i]:''}}</td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td style="align-content: flex-end;border-color: transparent;width: 50%;">
+                      <table border="0" cellspacing="0px" style="width: 100%;
+                  line-height: 30px;
+                  font-family: sans-serif;
+                  font-size: 13px;">
+                        <tr *ngFor="let item of TablCoAppListRight;index as i">
+                          <td>{{item}}</td>
+                          <td>{{TableCoAppListRightData && TableCoAppListRightData[i] ?TableCoAppListRightData[i] :''}}
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+                <div>
+                  <tr>
+             
+        
+        
+                    <th fxLayoutAlign="left">NPA Category</th>
+                    <td>:</td>
+                    <td style="text-align: left;border-color: transparent;">{{npa_category}}</td>
+                    <th></th>
+              </tr>
+              <tr>
+                    <th fxLayoutAlign="left">Accounting Classification</th>
+                    <td>:</td>
+                    <td style="text-align: left;border-color: transparent;">{{accounting_classification}}</td>
+                  </tr>
+                  <tr>
+
+                  
+                    <th fxLayoutAlign="left">NPA Date</th>
+                    <td>:</td>
+                    <td style="text-align: left;border-color: transparent;">{{npa_date }}</td>
+                    <th></th>
+                  </tr>
+                  <tr>
+
+                  
+                    <th fxLayoutAlign="left">NPA Release Date</th>
+                    <td>:</td>
+                    <td style="text-align: left;border-color: transparent;">{{npa_release_date}}</td>
+                        </tr>
+                  
+                 </div>
+                <p style="page-break-after: always;"></p><br>
+                <table border="1" style="width: 100%;text-align: center;
+            line-height: 30px;
+            font-family: sans-serif;
+            font-size: 13px;" cellspacing="0px">
+                  <thead>
+                    <tr>
+                      <th *ngFor='let item of TableInstaHeader' style="background: #e6e6e6;">
+                        <div class="header">{{item}}</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor='let TableDataRows of TInstadata'>
+                      <td [style.text-align]="TableDataCols['allignment']" *ngFor='let TableDataCols of TableDataRows'>
+                        <div class="content">{{TableDataCols['value'] }}</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br><br>
+              </div>
+            </td>
+          </tr>
+          <tr  style=" page-break-inside: avoid ;">
+            <td>
+
+
+              <!-- Customer Information  -->
+              <div *ngIf="displayFlag==0 && !!L119mainHeader">
+                <h2 style="text-align: center;
+                    background-color: #2196f3;
+                    color: #ffffff;
+                    font-family: sans-serif;
+                    font-size: 17px;
+                    text-transform: capitalize;
+                    padding: 5px;
+                    border-radius: 8px;">{{L119mainHeader}}
+
+                </h2>
+              </div>
+              <div *ngIf="displayFlag==0">
+                <table style="width: 100%;border-color: transparent;">
+                  <tr>
+                    <td style="text-align: left;border-color: transparent;width: 50%;">
+                      <table style="width: 100%;border-color: transparent;">
+                        <tr *ngFor="let item of TablCustomerInfoListLeft;index as i">
+                          <td style="text-align: left;border-color: transparent;">{{item}}</td>
+                          <td style="text-align: left;border-color: transparent;">
+                            {{!!TableCustomerInfoListLeftData&&TableCustomerInfoListLeftData[i]?TableCustomerInfoListLeftData[i]:''}}
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                    <td style="align-content: flex-end;border-color: transparent;width: 50%;">
+                      <table border="0" cellspacing="0px" style="width: 100%;
+                  line-height: 30px;
+                  font-family: sans-serif;
+                  font-size: 13px;">
+                        <tr *ngFor="let item of TablCustomerInfoListRight;index as i">
+                          <td>{{item}}</td>
+                          <td>{{TableCustomerInfoListRightData[i]}}</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+
+              <!-- End of Customer Information  -->
+
+              <!-- Repayment Information  -->
+              <!-- End of Repayment Information  -->
+
+
+              <!-- Collateral Information  -->
+
+              <div *ngIf="(displayFlag==3||displayFlag==0)&&!!T121Heading">
+                <div>
+                  <h2 style="text-align: center;
+            background-color: #2196f3;
+            color: #ffffff;
+            font-family: sans-serif;
+            font-size: 17px;
+            text-transform: capitalize;
+            padding: 5px;
+            border-radius: 8px;">{{T121Heading}}
+                  </h2>
+                </div>
+              </div>
+              <div *ngIf="(displayFlag==3||displayFlag==0)&&Table121Header">
+                <table border="1" style="width: 100%;
+          line-height: 30px;
+          font-family: sans-serif;
+          font-size: 13px;" cellspacing="0px">
+                  <thead>
+                    <tr>
+                      <th *ngFor='let item of Table121Header' style="background: #e6e6e6;">
+                        <div class="header">{{item}}</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor='let TableDataRows of T121data' style=" page-break-inside: avoid ;">
+                      <td style="text-align: center;" *ngFor='let TableDataCols of TableDataRows'>
+                        <div class="content">{{TableDataCols}}</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br><br>
+              </div>
+            </td>
+          </tr>
+
+          <!-- <div *ngIf="displayFlag==3||displayFlag==0">
+              <div>
+                <h2 style="text-align: center;
+            background-color: #2196f3;
+            color: #ffffff;
+            font-family: sans-serif;
+            font-size: 17px;
+            text-transform: capitalize;
+            padding: 5px;
+            border-radius: 8px;">{{collateralHeading}}
+                </h2>
+              </div>
+            </div>
+            <div *ngIf="displayFlag==3||displayFlag==0">
+              <table border="1" style="width: 100%;
+          line-height: 30px;
+          font-family: sans-serif;
+          font-size: 13px;" cellspacing="0px">
+                <tr>
+                  <th *ngFor='let item of TableCollateralHeader' style="background: #e6e6e6;">{{item}}</th>
+                </tr>
+                <tr *ngFor='let TableDataRows of TCollateraldata'>
+                  <td style="text-align: center;" *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+                </tr>
+              </table>
+            </div>
+            <br><br> -->
+          <!-- End of Collateral Information  -->
+
+          <!-- Disb infor  -->
+          <tr style=" page-break-inside: avoid ;">
+            <td>
+              <!-- <div style=" page-break-inside: avoid;page-break-before:auto;"> -->
+
+              <div *ngIf="(displayFlag==4||displayFlag==0)&&DisburseHeading">
+                <h2 style="text-align: center;
+              background-color: #2196f3;
+              color: #ffffff;
+              font-family: sans-serif;
+              font-size: 17px;
+              text-transform: capitalize;
+              padding: 5px;
+              border-radius: 8px;">{{DisburseHeading}}
+
+                </h2>
+
+              </div>
+              <div *ngIf="(displayFlag==4||displayFlag==0)&&TableDisburseHeader">
+                <table border="1" style="width: 100%;
+                line-height: 30px;
+                font-family: sans-serif;
+                font-size: 13px;" cellspacing="0px">
+                  <thead>
+                    <tr>
+                      <th *ngFor='let item of TableDisburseHeader' style="background: #e6e6e6;">
+                        <div class="header">{{item}}</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor='let TableDataRows of TDisbursedata' style=" page-break-inside: avoid ;">
+                      <td [style.text-align]="TableDataCols['allignment']" *ngFor='let TableDataCols of TableDataRows'>
+                        <div class="content">{{TableDataCols['value']}}</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br><br>
+              </div>
+              <!-- </div> -->
+            </td>
+          </tr>
+          <!-- End of Disb infor  -->
+          <!-- <p style="page-break-after: always;">&nbsp;</p> -->
+          <!-- Part Prepaymnt/Resscheduling info  -->
+          <!-- <div style=" page-break-inside: avoid;"> -->
+          <tr style=" page-break-inside: avoid ;">
+            <td>
+              <!-- <div style=" page-break-inside: avoid;page-break-before:auto;"> -->
+
+              <div *ngIf="(displayFlag==5||displayFlag==0)&&PartPrePaymentHeading">
+                <h2 style="text-align: center;
+                    background-color: #2196f3;
+                    color: #ffffff;
+                    font-family: sans-serif;
+                    font-size: 17px;
+                    text-transform: capitalize;
+                    padding: 5px;
+                    border-radius: 8px;">{{PartPrePaymentHeading}}
+
+                </h2>
+              </div>
+              <div *ngIf="(displayFlag==5||displayFlag==0)&&TablePartPrePaymentHeader">
+                <table border="1" style="width: 100%;
+          line-height: 30px;
+          font-family: sans-serif;
+          font-size: 13px;" cellspacing="0px">
+                  <thead>
+                    <tr>
+                      <th *ngFor='let item of TablePartPrePaymentHeader'
+                        [ngStyle]="{'width':item==bla2?starbold:starbolds}"
+                        [ngStyle]="{'width':item==bla1?starbold:starbolds}" style="background: #e6e6e6;">
+                        <div class="header">{{item}}</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor='let TableDataRows of TPartPrePaymentdata' style=" page-break-inside: avoid ;">
+                      <td style="text-align: center;" *ngFor='let TableDataCols of TableDataRows'>
+                        <div class="content">{{TableDataCols}}</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <br><br>
+              </div>
+              <!-- </div> -->
+              <!-- End of Part Prepaymnt/Resscheduling info   -->
+            </td>
+          </tr>
+          <tr style=" page-break-inside: avoid ;">
+            <td>
+
+              <!-- Transaction Summary  -->
+              <!-- <div style=" page-break-inside: avoid;page-break-before:auto;"> -->
+
+              <div *ngIf="displayFlag==0&&T125Heading">
+                <h2 style="text-align: center;
+                    background-color: #2196f3;
+                    color: #ffffff;
+                    font-family: sans-serif;
+                    font-size: 17px;
+                    text-transform: capitalize;
+                    padding: 5px;
+                    border-radius: 8px;">{{T125Heading}}
+
+                </h2>
+              </div>
+              <div *ngIf="displayFlag==0&&Table125Header">
+                <div>
+                  <table border="1" style="width: 100%;
+                line-height: 30px;
+                font-family: sans-serif;
+                font-size: 13px;" cellspacing="0px">
+                    <thead>
+                      <tr>
+                        <th *ngFor='let item of Table125Header' style="background: #e6e6e6;">
+                          <div class="header">{{item}}</div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor='let TableDataRows of T125data' style=" page-break-inside: avoid ;">
+                        <td [style.text-align]="TableDataCols['allignment']"
+                          *ngFor='let TableDataCols of TableDataRows'>
+                          <div class="content">{{TableDataCols['value']}}</div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <br><br>
+              </div>
+              <!-- </div> -->
+            </td>
+          </tr>
+          <tr style=" page-break-inside: avoid ;">
+            <td>
+
+              <!-- End of Transaction Summary -->
+              <!-- <div style=" page-break-inside: avoid;page-break-before:auto;"> -->
+
+              <div *ngIf="(displayFlag==2)&&T112Heading">
+                <br><br>
+                <div>
+                  <h2 style="text-align: center;
+                background-color: #2196f3;
+                color: #ffffff;
+                font-family: sans-serif;
+                font-size: 17px;
+                text-transform: capitalize;
+                padding: 5px;
+                border-radius: 8px;">{{T112Heading}}
+
+                  </h2>
+                </div><br>
+
+                <!-- installment -->
+                <div *ngIf="(displayFlag==2)&&Table112Header">
+                  <div>
+                    <table border="1" style="width: 100%;text-align: rcenter;
+                line-height:30px !important;
+                font-family: sans-serif;
+                font-size: 12px;" cellspacing="0px">
+                      <thead>
+                        <tr>
+                          <th *ngFor='let item of Table112Header' style="background: #e6e6e6;">
+                            <div class="header">{{item}}</div>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr style="text-align: right; padding-right: 6px;" *ngFor='let TableDataRows of T112data' style=" page-break-inside: avoid ;">
+                          <td style="text-align: right; padding-right: 6px;" *ngFor='let TableDataCols of TableDataRows'
+                            [ngStyle]="{backgroundColor: getBackgroundColor(TableDataRows[0])}">
+                            <div class="content">{{TableDataCols.split("Y").length>1?TableDataCols.slice( 1
+                              ):TableDataCols}}</div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <br><br>
+              </div>
+              <!-- </div> -->
+            </td>
+          </tr>
+          <tr style=" page-break-inside: avoid ;">
+            <td>
+              <!-- Unrealized Receipts Info  -->
+              <!-- <div style=" page-break-inside: avoid;page-break-before:auto;"> -->
+
+              <div *ngIf="(displayFlag==8||displayFlag==0)&&UnRealisedHeading">
+                <h2 style="text-align: center;
+                    background-color: #2196f3;
+                    color: #ffffff;
+                    font-family: sans-serif;
+                    font-size: 17px;
+                    text-transform: capitalize;
+                    padding: 5px;
+                    border-radius: 8px;">{{T122Heading}}
+
+                </h2>
+
+              </div>
+              <div *ngIf="(displayFlag==8||displayFlag==0)&&TableUnRealisedHeader">
+                <div>
+                  <table border="1" style="width: 100%;
+                line-height: 30px;
+                font-family: sans-serif;
+                font-size: 13px;" cellspacing="0px">
+                    <thead>
+                      <tr>
+                        <th *ngFor='let item of Table122Header' style="background: #e6e6e6;">
+                          <div class="header">{{item}}</div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor='let TableDataRows of T122data' style=" page-break-inside: avoid ;">
+                        <td [style.text-align]="TableDataCols['allignment']"
+                          *ngFor='let TableDataCols of TableDataRows'>
+                          <div class="content">{{TableDataCols['value']}}</div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <br><br>
+              </div>
+              <!-- </div> -->
+            </td>
+          </tr>
+          <tr style=" page-break-inside: avoid ;">
+            <td>
+              <!-- End of Unrealized Receipts Info -->
+
+              <!-- List Of Instrments Cleared  -->
+              <!-- <div style=" page-break-inside: avoid;page-break-before:auto;"> -->
+
+              <div *ngIf="(displayFlag==11||displayFlag==0)&&T123Heading">
+                <h2 style="text-align: center;
+                    background-color: #2196f3;
+                    color: #ffffff;
+                    font-family: sans-serif;
+                    font-size: 17px;
+                    text-transform: capitalize;
+                    padding: 5px;
+                    border-radius: 8px;">{{T123Heading}}
+
+                </h2>
+              </div>
+              <div *ngIf="(displayFlag==11||displayFlag==0)&&Table123Header">
+                <div>
+                  <table border="1" style="width: 100%;
+                line-height: 30px;
+                font-family: sans-serif;
+                font-size: 13px;" cellspacing="0px">
+                    <thead>
+                      <tr>
+                        <th *ngFor='let item of Table123Header' style="background: #e6e6e6;">
+                          <div class="header">{{item}}</div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor='let TableDataRows of T123data' style=" page-break-inside: avoid ;">
+                        <td [style.text-align]="TableDataCols['allignment']"
+                          *ngFor='let TableDataCols of TableDataRows'>
+                          <div class="content">{{TableDataCols['value']}}</div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <br><br>
+              </div>
+              <!-- </div> -->
+            </td>
+          </tr>
+          <tr style=" page-break-inside: avoid ;">
+            <td>
+              <!-- End of List Of Instrments Cleared -->
+
+              <!-- List Of Instrments Bounced  -->
+              <!-- <div style=" page-break-inside: avoid;page-break-before:auto;"> -->
+
+              <div *ngIf="(displayFlag==12||displayFlag==0)&&T124Heading">
+                <h2 style="text-align: center;
+                    background-color: #2196f3;
+                    color: #ffffff;
+                    font-family: sans-serif;
+                    font-size: 17px;
+                    text-transform: capitalize;
+                    padding: 5px;
+                    border-radius: 8px;">{{T124Heading}}
+
+                </h2>
+              </div>
+              <div *ngIf="(displayFlag==12||displayFlag==0)&&Table124Header">
+                <div>
+                  <table border="1" style="width: 100%;
+                line-height: 30px;
+                font-family: sans-serif;
+                font-size: 13px;" cellspacing="0px">
+                    <thead>
+                      <tr>
+                        <th *ngFor='let item of Table124Header' style="background: #e6e6e6;">
+                          <div class="header">{{item}}</div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor='let TableDataRows of T124data' style=" page-break-inside: avoid ;">
+                        <td style="text-align: center;" *ngFor='let TableDataCols of TableDataRows'>
+                          <div class="content">{{TableDataCols}}</div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+               
+              </div>
+              <!-- </div> -->
+            </td>
+          </tr>
+          <!-- End of List Of Instrments Bounced-->
+
+
+
+
+
+
+
+          <!-- <div *ngIf="displayFlag==6||displayFlag==0">
+          <h2 style="text-align: center;
+                    background-color: #2196f3;
+                    color: #ffffff;
+                    font-family: sans-serif;
+                    font-size: 17px;
+                    text-transform: capitalize;
+                    padding: 5px;
+                    border-radius: 8px;">{{TransactionHeading}}
+
+                </h2>
+        </div>
+        <div  *ngIf="displayFlag==6||displayFlag==0">
+          <table border="1" style="width: 100%;
+          line-height: 30px;
+          font-family: sans-serif;
+          font-size: 13px;" cellspacing="0px">
+            <tr>
+              <th *ngFor='let item of TableTransactionHeader' style="background: #e6e6e6;">{{item}}</th>
+            </tr>
+            <tr *ngFor='let TableDataRows of TTransactiondata'>
+              <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+            </tr>
+          </table>
+        </div>
+        <br><br>
+        <div  *ngIf="displayFlag==7||displayFlag==0">
+          <h2 style="text-align: center;
+                    background-color: #2196f3;
+                    color: #ffffff;
+                    font-family: sans-serif;
+                    font-size: 17px;
+                    text-transform: capitalize;
+                    padding: 5px;
+                    border-radius: 8px;">{{TransHeading}}
+
+                </h2>
+        </div>
+        <div  *ngIf="displayFlag==7||displayFlag==0">
+          <div class="overflow" style="height:550px;">
+            <table border="1" style="width: 100%;
+                line-height: 30px;
+                font-family: sans-serif;
+                font-size: 13px;" cellspacing="0px">
+              <tr>
+                <th *ngFor='let item of TableTransHeader' style="background: #e6e6e6;">{{item}}</th>
+              </tr>
+              <tr *ngFor='let TableDataRows of TTransdata'>
+                <td *ngFor='let TableDataCols of TableDataRows'>{{TableDataCols}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <br><br> -->
+
+          <tr style=" page-break-inside: avoid ;">
+            <!-- <tr> -->
+            <td>
+              <!-- <div style=" page-break-inside: avoid;page-break-before:auto;"> -->
+              <!-- <div style=" page-break-inside: avoid;"> -->
+              <div *ngIf="(displayFlag==9||displayFlag==0)&&T113Heading">
+                <h2 style="text-align: center;
+                    background-color: #2196f3;
+                    color: #ffffff;
+                    font-family: sans-serif;
+                    font-size: 17px;
+                    text-transform: capitalize;
+                    padding: 5px;
+                    border-radius: 8px;">{{T113Heading}}
+
+                </h2>
+              </div>
+              <div *ngIf="(displayFlag==9||displayFlag==0)&&Table113Header">
+                <div>
+                  <table border="1" style="width: 100%;
+                line-height: 30px;
+                font-family: sans-serif;
+                font-size: 13px;" cellspacing="0px">
+                    <thead>
+                      <tr>
+                        <th *ngFor='let item of Table113Header'
+                          [ngStyle]="{'width':item.split('Dat').length>1?starbold:starbolds}"
+                          style="background: #e6e6e6;">
+                          <div class="header">{{item}}</div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor='let TableDataRows of T113data' style=" page-break-inside: avoid ;"> 
+                        <td [style.text-align]="TableDataCols['allignment']"
+                          *ngFor='let TableDataCols of TableDataRows'>
+                          <div class="content">{{TableDataCols['value']}}</div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+               
+              </div>
+              <!-- </div> -->
+            </td>
+          </tr>
+          <tr style=" page-break-inside: avoid ;">
+            <!-- <tr > -->
+            <td>
+
+              <div *ngIf="(displayFlag==10||displayFlag==0)&&T114Heading">
+                <h2 style="text-align: center;
+                    background-color: #2196f3;
+                    color: #ffffff;
+                    font-family: sans-serif;
+                    font-size: 17px;
+                    text-transform: capitalize;
+                    padding: 5px;
+                    border-radius: 8px;">{{T114Heading}}
+
+                </h2>
+              </div>
+              <div *ngIf="(displayFlag==10||displayFlag==0)&&Table114Header">
+                <div>
+                  <table border="1" style="width: 100%;
+            line-height: 30px;
+            font-family: sans-serif;
+            font-size: 13px;" cellspacing="0px">
+                    <thead>
+                      <tr>
+                        <th *ngFor='let item of Table114Header'
+                          [ngStyle]="{'width':item.includes('Date')?starbold:starbolds}" style="background: #e6e6e6;">
+                          <div class="header"></div>{{item}}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor='let TableDataRows of T114data' style=" page-break-inside: avoid ;">
+                        <td [style.text-align]="TableDataCols['allignment']"
+                          *ngFor='let TableDataCols of TableDataRows'>
+                          <div class="content">
+                            {{TableDataCols['value']}}</div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <br><br>
+              </div>
+              <!-- </div> -->
+            </td>
+          </tr>
+
+          <!-- <tr style="page-break-inside: avoid;">
+            <td>
+              <div>
+                <p style="text-align: justify;line-height: 30px; font-family: sans-serif;">Regd Off :<br>
+                  Corp Off : Manappuram Finance Ltd , Kanakia Wall Street , B Wing ,3rd Floor , Andheri Kurla Road ,
+                  Andheri
+                  East,
+                  Mumbai, 400093 , Maharashtra , India . Contact #: 022-68182827/ 022-68182833/022-68182834/022-68182835
+                  Website:
+                  www.manappuram.com</p><br>
+                <p style=" text-align: justify;
+          font-style: italic;
+          background: #e6e6e6;
+          padding: 10px;">
+                  This is a system generated report. For any clarifications, customers are requested to contact us
+                  within
+                  7
+                  days of the receipt of this
+                  statement. Manappuram reserves the right to rectify any errors/discrepancies with due intimation to
+                  the
+                  customer
+                </p>
+              </div>
+              <h3 style="text-align: right">Generated By:{{employeeName}} - {{employeecode}} </h3>
+              <h5 style="text-align: center;">***********End Of Report***********</h5>
+            </td>
+          </tr> -->
+        </table>
+      </mat-card>
+    </mat-card>
+  </div>
+
+</div>

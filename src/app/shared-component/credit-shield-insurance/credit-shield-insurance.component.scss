@@ -1,0 +1,15 @@
+.disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    color: black;
+  }
+
+  .form-block {
+    display: block !important;
+    border: 2px solid #00695c;
+    box-shadow: 1px 0px 8px 0px #888888;
+    margin-bottom: 16px;
+    border-radius: 5px;
+  
+    padding: 10px 14px 10px 14px;
+  }

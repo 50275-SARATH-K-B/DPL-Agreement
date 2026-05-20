@@ -1,0 +1,12 @@
+<div id="app" class="app" [dir]="(settings.rtl) ? 'rtl' : 'ltr'" [ngClass]="settings.theme" [class.fixed-header]="settings.fixedHeader"
+    [class.horizontal-menu]="settings.menu == 'horizontal'" [class.compact]="settings.menuType == 'compact'"
+    [class.mini]="settings.menuType == 'mini'">
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <router-outlet></router-outlet>
+    <div id="app-spinner" [class.hide]="!settings.loadingSpinner">
+        <mat-spinner color="primary"></mat-spinner>
+        <h4>Preparing ...</h4>
+    </div>
+</div>

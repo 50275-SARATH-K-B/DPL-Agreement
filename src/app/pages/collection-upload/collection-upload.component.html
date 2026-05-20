@@ -1,0 +1,104 @@
+<form #uploadForm="ngForm">
+  <mat-card>
+    <!-- <div class="head">
+      <h3>COLLECTION UPLOAD</h3>
+    </div> -->
+   
+    <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%">
+      <mat-form-field appearance="outline" fxFlex="25%">
+        <mat-label>Value Date</mat-label>
+        <input matInput [matDatepicker]="picker" autocomplete="off" [(ngModel)]="date" #DateText="ngModel" name="Date"
+          [max]="datesdata" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="DateText.errors?.required">Date is required</mat-error>
+      </mat-form-field>
+      <div fxFlex="25%"></div>
+      <div fxFlex="25%"></div>
+      <div fxFlex="25%"></div>
+    </div> -->
+    <div fxLayout="row" fxLayout="column">
+      <div fxFlex="100%" fxLayoutAlign="end">
+        <button mat-raised-button class="mat-elevation-z12" (click)="exportexcel('tableWithHeader')"
+          color="primary">Download Excel</button>
+      </div>
+      <div fxFlex="100%" fxLayoutGap="2%">
+
+        <mat-form-field fxFlex="33.3%" appearance="outline">
+          <mat-label>Payment Mode</mat-label>
+          <mat-select [(ngModel)]="paymentModeSearchType" placeholder="Payment Mode"
+            name="paymentModeSearchText" #paymentModeSearchText="ngModel" required>
+            <mat-option *ngFor="let item of paymentModeList"
+              value="{{item.LedgerID}}^{{item.PaymentModeID}}^{{item.PaymentMode}}">
+              {{item.PaymentMode}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="paymentModeSearchText.errors?.required">Payment Mode is required</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="33.3%" *ngIf="showPaymentMethodExtras" appearance="outline">
+          <mat-select [(ngModel)]="accountListType" placeholder="Account Types" (ngModelChange)="onChangeAction($event)"
+            name="accountListTypeText" #accountListTypeText="ngModel" required>
+            <mat-option *ngFor="let item of accountList" value={{item.AccountNo}}>
+              {{item.AccountName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+      <div fxFlex="100%" fxLayoutAlign="end">
+        <div fxFlex="100%" fxLayout.xs="column" fxLayoutGap=2% fxLayoutAlign="end">
+          <input style="visibility: hidden;" type='file'
+            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" (change)="onSelectFile($event)"
+            #document>
+          <button mat-raised-button color="primary" (click)="document.click()"
+            class="mat-elevation-z12 box-button swing">
+            Upload EXCEL </button>
+        </div>
+      </div>
+      <div fxFlex="100%" style="visibility: hidden;">
+        <table class="table table-bordered" id="tableWithHeader">
+          <thead>
+            <tr>
+              <th>RecordNo</th>
+              <th>TransactionValueDate</th>
+              <th>DepositDate</th>
+              <th>InstrumentReferenceNumber</th>
+              <th>ReceiptNo</th>
+              <th>LoanAccountNumber</th>
+              <th>PaymentMode</th>
+              <th>Customer_Id</th>
+              <th>Loan_id</th>
+              <th>Collection_amount</th>
+              <th>ReceiptPurpose</th>
+              <th>Status</th>
+              <th>BounceCancelReason</th>
+              <th>BounceCancelDate</th>
+              <th>Remarks</th>
+              <th>DepositBankAccountNumber</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </mat-card>
+</form>

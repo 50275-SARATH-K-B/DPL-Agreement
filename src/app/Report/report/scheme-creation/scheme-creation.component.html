@@ -1,0 +1,185 @@
+<div class="flex-p" fxLayout="column">
+  <mat-card>
+    <mat-card-content fxLayout="column">
+
+
+      <form [formGroup]="schemeCreation"  fxLayout="column" fxLayoutGap="2%">
+        
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+         
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Product" autocomplete="off"
+            name="product" formControlName="product" readonly>
+        </mat-form-field>
+
+        <div fxFlex="30"></div>
+
+        <div fxFlex="30" *ngIf="!editflag"></div>
+
+        <mat-form-field fxFlex="30" *ngIf="editflag">
+          <input matInput placeholder="Scheme Id" autocomplete="off"
+            name="schemeId" formControlName="schemeId" readonly>
+        </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+        
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Scheme Name" autocomplete="off"
+            name="schemeName" formControlName="schemeName" maxlength="80" pattern="^[0-9A-Za-z\s]{0,80}$">
+            <mat-error *ngIf="schemeCreation.controls.schemeName.errors?.required">Scheme Name Is Required</mat-error>
+            <mat-error *ngIf="schemeCreation.controls.schemeName.errors?.pattern">Enter Valid Scheme Name</mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Loan Amount Minimum" autocomplete="off" pattern="^\d+$"
+            name="loanAmount1" formControlName="loanAmount1"  (focusout)="valuecheck('loanAmount1')">
+            <mat-error *ngIf="schemeCreation.controls.loanAmount1.errors?.pattern">Enter Valid Loan Amount</mat-error>
+            <mat-hint>5000 - 500000/-</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Loan Amount Maximum" autocomplete="off" pattern="^\d+$"
+            name="loanAmount2" formControlName="loanAmount2"  (focusout)="valuecheck('loanAmount2')">
+            <mat-error *ngIf="schemeCreation.controls.loanAmount2.errors?.pattern">Enter Valid Loan Amount</mat-error>
+            <mat-hint>5000 - 500000/-</mat-hint>
+        </mat-form-field>
+
+
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+        
+        <mat-form-field  fxFlex="30">
+        <mat-label>Select Scheme Type</mat-label>
+        <mat-select name="schemetype" formControlName="schemetype" (ngModelChange)="Schemetypechange()">
+          <mat-option *ngFor="let val of schemetypeData" [value]="val.id">
+            {{val.name}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30" *ngIf="schemeCreation.controls.schemetype.value=='2'">
+          <input matInput placeholder="From Pincode" autocomplete="off"
+            name="val1" formControlName="val1" pattern="[0-9]{6}" (focusout)="Calculation()">
+            <mat-error *ngIf="schemeCreation.controls.val1.errors?.pattern">Enter Valid Pincode</mat-error>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30" *ngIf="schemeCreation.controls.schemetype.value=='2'">
+          <input matInput placeholder="To Pincode"  autocomplete="off"
+            name="val2" formControlName="val2" pattern="[0-9]{6}" (focusout)="Calculation()">
+            <mat-error *ngIf="schemeCreation.controls.val2.errors?.pattern">Enter Valid Pincode</mat-error>
+        </mat-form-field>
+
+        <mat-form-field  fxFlex="30" *ngIf="schemeCreation.controls.schemetype.value=='1'">
+          <mat-label>Select State</mat-label>
+          <mat-select name="val1" formControlName="val1" (ngModelChange)="districtSelect()">
+            <mat-option *ngFor="let val of StateList" [value]="val.StateID">
+              {{val.StateName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="schemeCreation.controls.val1.errors?.required">State Is Required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field  fxFlex="30" *ngIf="schemeCreation.controls.schemetype.value=='1'">
+            <mat-label>Select District</mat-label>
+            <mat-select name="val2" formControlName="val2">
+              <mat-option *ngFor="let val of DistrictList" [value]="val.DistrictID">
+                {{val.DistrictName}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="schemeCreation.controls.val2.errors?.required">District Is Required</mat-error>
+            </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+        
+
+        <mat-form-field  fxFlex="30">
+          <mat-label>Select Score Range</mat-label>
+          <mat-select name="cibilScore" formControlName="cibilScore">
+            <mat-option *ngFor="let val of CibilList" [value]="val.CommonDataID">
+              {{val.CommonDataName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="schemeCreation.controls.cibilScore.errors?.required">Cibil Score Is Required</mat-error>
+          </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Interest Rate" autocomplete="off" pattern="^\d+$"
+            name="interestRate" formControlName="interestRate" (focusout)="valuecheck('interestRate')">
+            <mat-error *ngIf="schemeCreation.controls.interestRate.errors?.pattern">Enter Valid Interest Rate</mat-error>
+            <mat-hint>10 - 36 %</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field fxFlex="30">
+          <input matInput placeholder="Processing Fees" autocomplete="off" pattern="^-?\d+(\.\d+)?$"
+            name="processingFee" formControlName="processingFee" (focusout)="valuecheck('processingFee')">
+            <mat-error *ngIf="schemeCreation.controls.processingFee.errors?.pattern">Enter Valid Processing Fees</mat-error>
+            <mat-hint>1 - 10 %</mat-hint>
+        </mat-form-field>
+
+      </div>
+
+      
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+
+        <mat-form-field  fxFlex="30">
+          <mat-label>Select Tenure From</mat-label>
+          <mat-select name="tenure1" formControlName="tenure1" (ngModelChange)="valuecheck('tenure1')">
+            <mat-option *ngFor="let val of TenureList" [value]="val">
+              {{val.Description}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="schemeCreation.controls.tenure1.errors?.required">Tenure Is Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field  fxFlex="30">
+          <mat-label>Select Tenure To</mat-label>
+          <mat-select name="tenure2" formControlName="tenure2" (ngModelChange)="valuecheck('tenure2')">
+            <mat-option *ngFor="let val of TenureList" [value]="val">
+              {{val.Description}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="schemeCreation.controls.tenure2.errors?.required">Tenure Is Required</mat-error>
+        </mat-form-field>
+
+          <div fxFlex="30"></div>
+
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+
+        <mat-form-field fxFlex="30%" [class.disabled]="true">
+          <input matInput [matDatepicker]="picker" 
+          name="FromDate" formControlName="FromDate" (ngModelChange)="valuecheck('FromDate')"
+          placeholder="Select Scheme Start Date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-hint>DD/MM/YYYY</mat-hint>
+      </mat-form-field>
+
+
+      <mat-form-field fxFlex="30%" [class.disabled]="true">
+        <input matInput [matDatepicker]="picker1" 
+        name="ToDate" formControlName="ToDate" (ngModelChange)="valuecheck('ToDate')"
+        placeholder="Select Scheme End Date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-hint>DD/MM/YYYY</mat-hint>
+      </mat-form-field>
+
+      </div>
+
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="3%" fxLayoutAlign="center">
+        <button mat-raised-button color="primary" [disabled]="!schemeCreation.valid" (click)="confirm()">Confirm</button>
+        <button mat-raised-button color="warn" (click)="clearfunc()">Clear</button>
+      </div>
+
+      </form>
+
+    </mat-card-content>
+  </mat-card>
+</div>

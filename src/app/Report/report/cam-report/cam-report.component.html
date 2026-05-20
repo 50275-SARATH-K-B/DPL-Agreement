@@ -1,0 +1,368 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/Allocation Priority
+UI created by : Niphy Anto
+Date : 30/11/2018
+
+UI correctioned by : Thankappan
+Date : 09/01/2019
+
+Assets :
+view-allocation-priority.component.html
+view-allocation-priority.component.scss
+view-allocation-priority.component.ts
+
+Functionally Coded by : 
+Date : 
+
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+
+<div fxLayout="row" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100%" class="flex-p">
+    <mat-card fxFlex="100%" fxLayout="row">
+      <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="5%" fxFlex="80%">
+        <h2>CAM</h2>
+      </mat-card-content>
+      <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="20%" fxLayoutAlign="end">
+        <div fxLayoutGap="2%" fxLayout="row" style="text-align: center;" fxLayoutAlign="end">
+          <button mat-raised-button class="mat-elevation-z12 box-button addLoan" (click)="convert()" color="primary"
+            type="submit">Download PDF</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100%" class="flex-p">
+    <mat-card fxFlex="100%" fxLayout="column" id="contentToConvert">
+      <h4 *ngIf="!!applicationData&&applicationData!==null">Application Details</h4>
+      <mat-card-content *ngIf="!!applicationData&&applicationData!==null">
+        <table fxFlex="100%" id="applicationDetails">
+          <tr>
+            <th>Application ID</th>
+            <td>{{applicationData['applicationId']}}</td>
+            <th>Product</th>
+            <td>{{applicationData['productName']}}</td>
+          </tr>
+          <tr>
+            <th>Branch</th>
+            <td>{{applicationData['branchName']}}</td>
+            <th>Application Creation Date</th>
+            <td>{{applicationData['traDate']}}</td>
+            <!-- <th>Date of Receipt</th>
+            <td> {{applicationData['traDate']}}</td> -->
+          </tr>
+        </table>
+      </mat-card-content>
+      <br>
+      <h4 *ngIf="!!applicationData&&applicationData!==null&&!!loanParameters&&loanParameters!==null">Loan Details</h4>
+      <mat-card-content fxLayoutGap="5%"
+        *ngIf="!!applicationData&&applicationData!==null&&!!loanParameters&&loanParameters!==null">
+        <table fxFlex="100%" id="loanDetails">
+          <tr>
+            <th>Application Id</th>
+            <td>{{applicationData['applicationId']}}</td>
+            <th>Credit Manager's Name</th>
+            <td>--</td>
+          </tr>
+          <tr>
+            <th>Sourcing Branch</th>
+            <td>{{applicationData['branchName']}}</td>
+            <th>Date</th>
+            <td>{{currentDate| date: 'dd-MM-yyyy'}}</td>
+          </tr>
+          <tr>
+            <th>Loan Branch</th>
+            <td>{{applicationData['branchName']}}</td>
+            <th>Application Creation Date</th>
+            <td>{{applicationData['traDate']}}</td>
+          </tr>
+          <tr>
+            <th>Product</th>
+            <td>{{applicationData['productName']}}</td>
+            <th>Category</th>
+            <td>--</td>
+          </tr>
+          <tr>
+            <th>Scheme</th>
+            <td>{{loanParameters['schemeName']}}</td>
+            <th>Channel</th>
+            <td>{{applicationData['leadTypeDescr']}}</td>
+          </tr>
+          <tr>
+            <th>DSA</th>
+            <td>{{applicationData['productName']}}</td>
+            <th>Loan Applied</th>
+            <td>{{applicationData['requestAmount']}}</td>
+          </tr>
+          <tr>
+            <th>Loan Amount Sanctioned</th>
+            <td>{{loanParameters['loanAmount']| number: '.2'}}</td>
+            <th>Insurance Amount</th>
+            <td>{{loanParameters['insuranceAmount']| number: '.2'}}</td>
+          </tr>
+          <tr>
+            <th>Tenure(Months)</th>
+            <td>{{loanParameters['tenure']}}</td>
+            <th>Rate Type</th>
+            <td>{{loanParameters['interestRateType']}}</td>
+          </tr>
+          <tr>
+            <th>Installment Amount</th>
+            <td>{{loanParameters['instAmount']| number: '.2'}}</td>
+            <th>ROI(%)</th>
+            <td>{{loanParameters['rate']}}</td>
+          </tr>
+          <tr>
+            <th>Purpose of Loan</th>
+            <td>{{applicationData['purposeDescr']}}</td>
+            <th>Processing Fee(incl. servive Tax)</th>
+            <td>--</td>
+          </tr>
+        </table>
+      </mat-card-content>
+      <br>
+      <h4 *ngIf="!!applicationData&&applicationData!==null">Key Ability Indicator</h4>
+      <mat-card-content fxLayoutGap="5%" *ngIf="!!applicationData&&applicationData!==null">
+        <table fxFlex="100%" id="keyability">
+          <tr>
+            <th>DBR(%)</th>
+            <td></td>
+            <th>IIR(%)</th>
+            <td>--</td>
+          </tr>
+          <tr>
+            <th>Gross LTV(%)</th>
+            <td>{{applicationData['ltv']}}</td>
+            <th>Net LTV(%)</th>
+            <td>{{applicationData['ltv']}}</td>
+          </tr>
+          <tr>
+            <th>VAP LTV(%)</th>
+            <td>{{applicationData['ltv']}}</td>
+            <th>Aggregate LTV(%)</th>
+            <td>{{applicationData['ltv']}}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+      <br>
+      <h4 *ngIf="!!insuranceList&&insuranceList!==null&&insuranceList.length>0">Insurance Funding Details</h4>
+      <mat-card-content fxLayoutGap="5%" *ngIf="!!insuranceList&&insuranceList!==null&&insuranceList.length>0">
+        <table fxFlex="100%" id="insurancedetails">
+          <tr>
+            <th>Type of Insurance</th>
+            <th>Insured</th>
+            <th>Sum Insured</th>
+            <th>Insurance Provider</th>
+            <th>Premium Amount</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+          <tr *ngFor="let option of insuranceList">
+            <td>{{option.insuranceTypeName}}</td>
+            <td>{{option.insured}}</td>
+            <td>{{option.sumInsured| number: '.2'}}</td>
+            <td>{{option.insuranceProviderName}}</td>
+            <td>{{option.premiumAmount| number: '.2'}}</td>
+            <td>{{_datePipe(option.startDate)}}</td>
+            <td>{{_datePipe(option.endDate)}}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+      <br>
+      <h4 *ngIf="!!customerList&&customerList!==null&&customerList.length>0">Applicant Personal Details</h4>
+      <mat-card-content fxLayoutGap="5%" *ngIf="!!customerList&&customerList!==null&&customerList.length>0">
+        <table fxFlex="100%" id="applicantDetails">
+          <tr>
+            <th>Applicant Type</th>
+            <th>Name</th>
+            <th>Relationship</th>
+            <th>Phone No.</th>
+            <th>Age(Years)</th>
+            <th>Age During Maturity of Loan</th>
+            <th>Constitution</th>
+          </tr>
+          <tr *ngFor="let option of customerList">
+            <td>{{option.applicantType}}</td>
+            <td>{{option.name}}</td>
+            <td>{{option.relationshipDescr}}</td>
+            <td>{{option.phoneNo}}</td>
+            <td>{{option.age}}</td>
+            <td>{{option.maturity_Age}}</td>
+            <td>{{option.tdsCategoryDescr}}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+      <br>
+      <h4
+        *ngIf="!!employmentList&&employmentList!==null&&employmentList.length>0&&!!applicationData&&!!applicationData!==null">
+        Employment/Business Details</h4>
+      <mat-card-content fxLayoutGap="5%"
+        *ngIf="!!employmentList&&employmentList!==null&&employmentList.length>0&&!!applicationData&&!!applicationData!==null">
+        <table fxFlex="100%" id="employmentDetails">
+          <tr>
+            <th>Applicant Name</th>
+            <th>Company Type</th>
+            <th>Employer Name</th>
+            <th>Nature of Business</th>
+            <th>Industry Name</th>
+            <th>Employed From</th>
+            <th>Employed Till</th>
+          </tr>
+          <tr *ngFor="let option of employmentList">
+            <td>{{applicationData['name']}}</td>
+            <td>{{option.companyTypeDescr}}</td>
+            <td>{{option.employerName}}</td>
+            <td>{{option.businessNatureDescr}}</td>
+            <td>{{option.industryName}}</td>
+            <td>{{option.employedFrom}}</td>
+            <td>{{option.employedTill}}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+      <br>
+      <h4
+        *ngIf="!!bankAccountList&&bankAccountList.length>0&&bankAccountList!==null&&!!applicationData&&!!applicationData!==null">
+        Bank Statement</h4>
+      <mat-card-content fxLayoutGap="5%"
+        *ngIf="!!bankAccountList&&bankAccountList.length>0&&bankAccountList!==null&&!!applicationData&&!!applicationData!==null">
+        <table fxFlex="100%" id="bankStatement">
+          <tr>
+            <th>Name of Apllicant/Organization</th>
+            <th>Bank Name</th>
+            <th>Acc. Type</th>
+            <th>No. of Years and Months Banking</th>
+            <th>Min. Balance</th>
+            <th>Average Balance</th>
+            <th>Max. Balance</th>
+            <th>Bonus Cheque</th>
+          </tr>
+          <tr *ngFor="let option of bankAccountList">
+            <td>{{applicationData['name']}}</td>
+            <td>{{option.bankName}}</td>
+            <td>{{option.bankAccountType}}</td>
+            <td>{{option.openingYear}}</td>
+            <td>{{option.minimumBalance| number: '.2'}}</td>
+            <td>{{option.averageBalance| number: '.2'}}</td>
+            <td>{{option.maximumBalance| number: '.2'}}</td>
+            <td>{{option.bounceCheques}}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+      <br>
+      <h4 *ngIf="!!verificationList&&verificationList!==null&&verificationList.length>0">Verification Details</h4>
+      <mat-card-content fxLayoutGap="5%" *ngIf="!!verificationList&&verificationList!==null&&verificationList.length>0">
+        <table fxFlex="100%" id="verificationDetails">
+          <tr>
+            <th>Customer Name</th>
+            <th>Verification Type</th>
+            <th>Verification Status</th>
+          </tr>
+          <tr *ngFor="let option of verificationList">
+            <td>{{option.custname}}</td>
+            <td>{{option.verificationTypeName}}</td>
+            <td>{{option.verificationStatus}}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+      <br>
+      <h4 *ngIf="loanAssetList.length>0&&!!loanAssetList&&loanAssetList!==null">New Asset Details</h4>
+      <mat-card-content fxLayoutGap="5%" *ngIf="loanAssetList.length>0&&!!loanAssetList&&loanAssetList!==null">
+        <table fxFlex="100%" id="assetDetails">
+          <tr>
+            <th>Model</th>
+            <th>Category</th>
+            <th>Manufacturer</th>
+            <th>Asset Cost</th>
+            <th>Margin Money</th>
+            <th>Amount Financed</th>
+            <th>Dealer</th>
+          </tr>
+          <tr *ngFor="let option of loanAssetList">
+            <td>{{option.assetModelName}}</td>
+            <td>{{option.assetCategoryName}}</td>
+            <td>{{option.manufacturerName}}</td>
+            <td>{{option.assetCost| number: '.2'}}</td>
+            <td>{{option.downPaymentAmount| number: '.2'}}</td>
+            <td>{{loanParameters['loanAmount']| number: '.2'}}</td>
+            <td>{{option.boughtFromName}}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+      <br>
+      <mat-card-content fxLayoutGap="5%" *ngIf="loanAssetList.length>0&&loanVehicleList.length>0&&!!loanVehicleList&&loanVehicleList!==null">
+        <table fxFlex="100%" id="loanVehicleDetails">
+          <tr>
+            <th>Asset Model</th>
+            <th>Registration Number</th>
+            <th>Month/Year Of Manufacturing</th>
+            <!-- <th>Body Type</th>
+            <th>Free/Financed/Deemed free(75% tenner completion)</th> -->
+          </tr>
+          <tr *ngFor="let option of loanVehicleList">
+            <td>{{loanAssetList[0].assetModelName}}</td>
+            <td>{{option.registrationNumber}}</td>
+            <td>{{option.manufactureYear}}</td>
+            <!-- <td>--</td>
+            <td>--</td> -->
+          </tr>
+        </table>
+      </mat-card-content>
+      <!-- <br><br>
+      <h4>Body Details</h4>
+      <mat-card-content fxLayoutGap="5%" *ngIf="!!loanAssetBodyDataList&&loanAssetBodyDataList!==null">
+        <table fxFlex="100%" id="bodyDetails">
+          <tr>
+            <th>Body Type</th>
+            <th>Body Manufacturer Name</th>
+            <th>Body Cost</th>
+            <th>Body Cost As Per Grid</th>
+            <th>Margin Money</th>
+            <th>Amount Financed</th>
+          </tr>
+          <tr *ngFor="let option of loanAssetBodyDataList">
+            <td>{{option.bodyType}}</td>
+            <td>{{option.bodyManufacturerName}}</td>
+            <td>{{option.bodyCost}}</td>
+            <td>{{option.BodyCostGrid}}</td>
+            <td>--</td>
+            <td>--</td>
+          </tr>
+        </table>
+      </mat-card-content> -->
+      <br>
+      <h4 *ngIf="!!applicationData&&applicationData!==null">PSL Category Details</h4>
+      <mat-card-content fxLayoutGap="5%" *ngIf="!!applicationData&&applicationData!==null">
+        <table fxFlex="100%" id="categoryDetails">
+          <tr>
+            <th>PSL Category Applicable</th>
+            <td>{{applicationData['pslStatus']}}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+      <br>
+      <h4 *ngIf="!!deviationList&&deviationList!==null&&deviationList.length>0">Deviaton Level</h4>
+      <mat-card-content fxLayoutGap="5%" *ngIf="!!deviationList&&deviationList!==null&&deviationList.length>0">
+        <table fxFlex="100%" id="deviation">
+          <tr>
+            <th>Deviation Description</th>
+            <th>Status</th>
+            <th>Approval Level</th>
+            <th>Approved By</th>
+            <th>Remarks</th>
+          </tr>
+          <tr *ngFor="let option of deviationList">
+            <td>{{option.description}}</td>
+            <td>{{option.deviationStatusDescr}}</td>
+            <td>{{option.deviationTypeName}}</td>
+            <td>{{option.approvedBy}}</td>
+            <td>{{option.comments}}</td>
+          </tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+<form #loanapps="ngForm">
+    <mat-card fxFlex="100%" fxLayout="column" fxLayout.xs="column">
+        <!-- <div class="head">
+            <h3>BILLING CHECKER</h3>
+        </div> -->
+        <!-- <h2 class="h2-head">
+            <mat-icon class="home-icon" routerLink="/home">home</mat-icon>Home/Billing Checker
+        </h2> -->
+        <div fxLayout.xs="column" fxLayout="column" class="flex-p">
+            <div fxFlex="100" fxLayoutGap="3%" fxLayout.xs="column" id="mg">
+              <div fxFlex="50" fxLayoutGap="3%" style="margin-left:20px">
+                <mat-form-field fxFlex="45">
+                    <mat-label>Select Date</mat-label>
+                    <input matInput [matDatepicker]="picker1" [max]="today" [(ngModel)]="credit" name="cred"
+                        #creditapproval="ngModel" readonly required>
+                    <!-- [disabled]="isDateDisabled" -->
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+         
+                <div fxFlex="10" fxLayoutAlign="center center">
+                    <button mat-mini-fab color="accent" class="searchButton" type="button" (click)="loanSearch()"
+                    [disabled]="!credit">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+              </div>
+              <!-- <div fxFlex="50">
+                <mat-form-field fxFlex="90">
+                  <mat-select placeholder="Select Payment Mode" [(ngModel)]="field['paymentModeID']" name="payment"
+                    required>
+                    <mat-option *ngFor="let option of paymentModeList" value="{{option.PaymentModeID}}">
+                      {{option.PaymentMode}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div> -->
+            </div>
+          </div>
+   
+        <div fxLayout="row" fxLayoutAlign="end">
+            <button [disabled]="certificatearray.length==0" color="accent" mat-raised-button
+                (click)="ExportExcel()">Export Excel</button>
+        </div>
+
+        <div fxLayoutGap="2%" style="margin-top: 12px;">
+            <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Total Billed Loan Count in LMS</mat-label>
+                <input matInput name="billlos" [(ngModel)]="billcount" required readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Total Billed EMI Amt in LMS</mat-label>
+                <input matInput name="emiisn" required [(ngModel)]="emiamnt" required readonly></mat-form-field>
+            <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Total Billed Int Amt in LMS</mat-label>
+                <input matInput name="yesint" [(ngModel)]="intamnt" readonly required>
+            </mat-form-field>
+        </div>
+        <div fxLayoutGap="2%" style="margin-top: 10px;">
+            <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Total Billed Prin Amt in LMS</mat-label>
+                <input matInput name="lanss" [(ngModel)]="prinamnt" readonly required>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Account total Billed Debtors Amt</mat-label>
+                <input matInput name="amntts" [(ngModel)]="billdebt" readonly required>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Account total Billed Loan Account Amt</mat-label>
+                <input matInput name="lokkan" [(ngModel)]="loanamnt" readonly required>
+            </mat-form-field>
+        </div>
+
+        <div fxLayoutGap="2%" style="margin-top: 10px;">
+            <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Account total Billed Interest Received Amt</mat-label>
+                <input matInput name="lardd" [(ngModel)]="receiveamnt" readonly numbersOnly required>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Different Amount LMS & Account</mat-label>
+                <input matInput name="lasyys" [(ngModel)]="lmsaccont" readonly numbersOnly required>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Select the verified</mat-label>
+                <mat-select name="irayyws" [(ngModel)]="verified" (selectionChange)="changedata()" required>
+                    <mat-option  value="Positive" >
+                        Positive                    </mat-option>
+                    <mat-option  value="Negative" >
+                        Negative                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div fxLayoutGap="2%">
+            <mat-form-field fxFlex="30%" appearance="outline" *ngIf="hidess">
+                <mat-label>select the negative</mat-label>
+                <mat-select name="tenuuss" [(ngModel)]="negative" required>
+                    <mat-option value="Duplicate">Duplicate</mat-option>
+                    <mat-option value="Billing Missing">Billing Missing</mat-option>
+                    <mat-option value="Amount Different">Amount Different</mat-option>
+                    <mat-option value="Other Reason">Other Reason</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- <textarea fxFlex="30%" placeholder="Remarks" cols="80"  >
+                <mat-label>Remarks</mat-label>
+            </textarea> -->
+
+            <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Remarks</mat-label>
+                <textarea matInput autocomplete="off" [(ngModel)]="remark" required maxlength="120"
+                    name="addryys" upperCase></textarea>
+                <!-- <mat-error *ngIf="Installment_PaidTxt.errors?.required">Remarks is required</mat-error> -->
+                <!-- #Installment_PaidTxt="ngModel" -->
+            </mat-form-field>
+
+            <!-- <mat-form-field fxFlex="30%" appearance="outline">
+                <mat-label>Remarks</mat-label>
+                <input matInput name="addryys" [(ngModel)]="remark" required>
+            </mat-form-field> -->
+
+
+            <div fxFlex="30%"></div>
+        </div>
+
+        <div fxLayoutGap="1%" fxLayout="row" style="margin-top: 1%;" fxLayout.xs="column" fxLayoutAlign="center">
+            <button mat-raised-button class="mat-elevation-z12 box-button" color="accent" (click)="confirm()"
+                [disabled]="!loanapps.valid || billcount == '0'">Confirm</button>
+            <button mat-raised-button color="warn" (click)="clear()">Clear</button>
+        </div>
+    </mat-card>
+</form>

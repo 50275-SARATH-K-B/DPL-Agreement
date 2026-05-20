@@ -1,0 +1,52 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap" fxFlex="100%">
+  <div fxFlex="100%" class="flex-p" fxLayout="column">
+    <mat-card>
+      <mat-card-content fxLayout="column">
+        <h2>Users</h2>
+        <div fxLayout="row" fxLayoutGap="2%" fxFlex="100%" class="myt-1">
+          <mat-form-field fxFlex="50%" fxFlex.xs="90%">
+            <input matInput autocomplete="off" pattern="^[a-zA-Z0-9\s]*$" placeholder="Search by employee code/name"
+              type="text" [(ngModel)]="filter" name="filter">
+          </mat-form-field>
+          <button matTooltip="Search" class="mat-elevation-z12 box-button" type="button" color="primary"
+            (click)="filterSource()" mat-mini-fab>
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="userList.length>0" style="overflow:scroll;-ms-overflow-style: scrollbar;max-height: 390px" class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="EmpName">
+              <th mat-header-cell *matHeaderCellDef> Employee Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.EmpName}} </td>
+            </ng-container>
+            <ng-container matColumnDef="EmpCode">
+              <th mat-header-cell *matHeaderCellDef> Employee Code </th>
+              <td mat-cell *matCellDef="let element"> {{element.EmpCode}} </td>
+            </ng-container>
+            <ng-container matColumnDef="ContactNo">
+              <th mat-header-cell *matHeaderCellDef> Contact No</th>
+              <td mat-cell *matCellDef="let element"> {{element.ContactNo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="EmailID">
+              <th mat-header-cell *matHeaderCellDef> Email ID </th>
+              <td mat-cell *matCellDef="let element"> {{element.EmailID}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered}"
+              (click)="onRowClick(row)" class="a_custom" (mouseover)="row.hovered = true"
+              (mouseout)="row.hovered = false" [style.background]="highlightedRows.indexOf(row) != -1 ? '#999' : ''">
+            </tr>
+          </table>
+        </div>
+      </mat-card-content>
+      <mat-card-content fxLayoutAlign="end">
+        <mat-card-actions fxLayoutAlign="end" fxLayout="column">
+          <div fxLayoutGap="5%" fxFlex="15% auto" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end">
+            <button mat-raised-button tabindex="20" [disabled]="highlightedRows.length==0" *ngIf="userList.length>0"
+              type="button" (click)="confirm()" class="mat-elevation-z12 box-button" color="primary">OK</button>
+          </div>
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

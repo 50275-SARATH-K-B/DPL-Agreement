@@ -1,0 +1,100 @@
+<div fxLayout="column" fxLayout.xs="column" fxLayoutGap="2%"
+  style="padding-left: 5%;padding-right: 5%;padding-top: 2%;">
+  <div fxLayout="column" fxFlex="100%">
+
+    <h3>Success List</h3>
+    <div style="overflow:scroll;-ms-overflow-style: scrollbar; max-height:210px;">
+      <table mat-table [dataSource]="SuccessDataSource" class="mat-elevation-z8">
+        <!-- <ng-container matColumnDef="LoanId">
+          <th mat-header-cell *matHeaderCellDef> SL. No. </th>
+          <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+        </ng-container> -->
+        <ng-container matColumnDef="CustId">
+          <th mat-header-cell *matHeaderCellDef> Customer ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.CustId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="LoanId">
+          <th mat-header-cell *matHeaderCellDef> Loan ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.LoanId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="CollectionAmt">
+          <th mat-header-cell *matHeaderCellDef>Collection Amount</th>
+          <td mat-cell *matCellDef="let element"> {{element.CollectionAmt}} </td>
+        </ng-container>
+        <ng-container matColumnDef="AccNo">
+          <th mat-header-cell *matHeaderCellDef> Account No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.AccNo}} </td>
+        </ng-container>
+        <ng-container matColumnDef="AccType">
+          <th mat-header-cell *matHeaderCellDef>Account Type</th>
+          <td mat-cell *matCellDef="let element"> {{element.AccType}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="EnterDate">
+          <th mat-header-cell *matHeaderCellDef>Entered Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.EnterDate | date:'dd-MM-yyyy'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Reason">
+          <th mat-header-cell *matHeaderCellDef>Reason</th>
+          <td mat-cell *matCellDef="let element"> {{element.Reason}} </td>
+        </ng-container>        
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsSuccess;sticky:true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsSuccess;"></tr>
+      </table>
+      <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+    </div>
+
+
+  </div>
+  <div fxLayout="column" fxFlex="100%">
+
+    <h3>Failed List</h3>
+    <div style="overflow:scroll;-ms-overflow-style: scrollbar; max-height:210px;">
+      <table mat-table [dataSource]="FailedDataSource" class="mat-elevation-z8">
+        <!-- <ng-container matColumnDef="LoanId">
+          <th mat-header-cell *matHeaderCellDef> SL. No. </th>
+          <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+        </ng-container> -->
+        <ng-container matColumnDef="CustId">
+          <th mat-header-cell *matHeaderCellDef> Customer ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.CustId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="LoanId">
+          <th mat-header-cell *matHeaderCellDef> Loan ID</th>
+          <td mat-cell *matCellDef="let element"> {{element.LoanId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="CollectionAmt">
+          <th mat-header-cell *matHeaderCellDef>Collection Amount</th>
+          <td mat-cell *matCellDef="let element"> {{element.CollectionAmt}} </td>
+        </ng-container>
+        <ng-container matColumnDef="AccNo">
+          <th mat-header-cell *matHeaderCellDef> Account No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.AccNo}} </td>
+        </ng-container>
+        <ng-container matColumnDef="AccType">
+          <th mat-header-cell *matHeaderCellDef>Account Type</th>
+          <td mat-cell *matCellDef="let element"> {{element.AccType}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="EnterDate">
+          <th mat-header-cell *matHeaderCellDef>Entered Date</th>
+          <td mat-cell *matCellDef="let element"> {{element.EnterDate | date:'dd-MM-yyyy'}} </td>
+        </ng-container>
+        <ng-container matColumnDef="Reason">
+          <th mat-header-cell *matHeaderCellDef>Reason</th>
+          <td mat-cell *matCellDef="let element"> {{element.Reason}} </td>
+        </ng-container> 
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsSuccess;sticky:true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsSuccess;"></tr>
+      </table>
+      <mat-paginator [pageSize]="5" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</div>
+
+
+
+<div fxLayoutAlign="end" fxLayout.xs="column" fxLayoutGap="2%" class="flex-p">
+  <button mat-raised-button class="mat-elevation-z12 box-button" color="primary" mat-button
+    mat-dialog-close (click)="close()">Close</button>
+</div>

@@ -1,0 +1,66 @@
+<div fxLayout="column" fxLayout.gt-sm="row wrap" fxLayoutAlign="center">
+  <div fxLayout="column" fxFlex="100" class="flex-p" fxLayoutAlign="center">
+      <form fxLayout="column" #ReasonForm='ngForm' fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center"
+          fxLayoutGap="2%">
+          <div fxFlex="100" fxLayoutGap="2%" fxLayout.xs="column"  fxLayout="column" fxLayoutAlign="center">
+             <div fxLayoutGap="2%">
+              <!-- <mat-form-field appearance="fill" fxFlex="25" appearance="outline">
+                  <mat-label>Select Remark Type</mat-label>
+                  <mat-select [(ngModel)]="reasonMasterID"  name="reasonMasterID" #reasonMasterIDText="ngModel"
+                      required [disabled]="!can_edit" class="custom-dropdown"
+                      >
+                      <mat-option *ngFor="let item of reasonMasterList" [value]="item.CommonDataName" >
+                          {{item.Description}}
+                      </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="reasonMasterIDText.errors?.required"> Remark Type required</mat-error>
+              </mat-form-field> -->
+              <div fxFlex=100% ngClass.xs="single-search-responsive">
+                <mat-form-field fxFlex="100%" appearance="outline">
+                    <mat-label>Approval Attachment</mat-label>
+                    <input matInput readonly *ngIf="FileName == 'No File Selected'" style="font-size: 12px;"
+                        value="Approval Attachment(Supports:JPG,PNG,PDF)">
+                    <input matInput readonly *ngIf="FileName != 'No File Selected'" [(ngModel)]="FileName"
+                        name="FileNAME" #tittleAttachment="ngModel">
+                        <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1% fxLayoutAlign="end" >
+                          <i (click)="OpenFile()"  class="fa fa-eye eye"></i>
+                       </div>
+                       <a mat-icon-button type="button" matTooltip="View file" *ngIf="!!FileName"
+                       (click)="OpenFile()" color="primary">
+                       <mat-icon>visibility</mat-icon>
+                      </a>
+                    <mat-hint>(Supports:JPG,PNG,EXCEL,PDF)</mat-hint>
+                </mat-form-field>
+
+            </div>
+              <!-- <mat-form-field appearance="fill" fxFlex="75" appearance="outline">
+                  <mat-label>Enter Remark</mat-label>
+                  <textarea matInput placeholder="Remarks" [(ngModel)]="reasonText" name="reasonText"
+                      #reasonTextText="ngModel" readonly></textarea>
+                  <!<mat-error *ngIf="reasonTextText.errors?.required"> Remarks  required</mat-error> -->
+              <!-- </mat-form-field>  -->
+
+             </div>
+          </div>
+            
+       
+      </form>
+      <!-- <button mat-raised-button color="primary" [disabled]="highlightedRows.length==0" class="mat-elevation-z12 box-button" (click)="close()"
+          [ngStyle]="{'height':'40px'}" id="confirm_btn">OK</button> -->
+
+  </div>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2%" fxflex="100%" fxLayoutAlign="center">
+      <mat-form-field fxFlex="75%" appearance="outline">
+          <mat-label>Maker EmpCode</mat-label>
+          <input matInput [(ngModel)]="EmpCode" name="EmpCode" autocomplete="off" readonly>
+      </mat-form-field>
+      <mat-form-field fxFlex="75%" appearance="outline">
+          <mat-label>Maker Name</mat-label>
+          <input matInput [(ngModel)]="Name" name="Name" autocomplete="off" readonly>
+      </mat-form-field>
+  </div>
+      <div fxFlex="100" fxLayoutGap="2%" fxFlex.xs="column" fxLayoutAlign="center">
+          <button mat-raised-button type="button" [disabled]="!ReasonForm.valid"
+              class="mat-elevation-z12 box-button true" (click)="postReason(ReasonForm)">Confirm</button>
+      </div>
+</div>

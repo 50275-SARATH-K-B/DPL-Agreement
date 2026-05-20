@@ -1,0 +1,43 @@
+.mat-header-cell{
+  background: #f5dc02 !important; 
+  color: black !important;
+}
+
+.form-block {
+    border-radius: 5px !important;
+    padding: 5px !important;
+    margin-bottom: 5px !important;
+    box-shadow: -1px 0 4px 0 #888;
+  }
+  
+  
+#accountStatement {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    white-space: nowrap;
+  }
+  #accountStatement td,
+#accountStatement th {
+  border: 1px solid black;
+  padding: 8px;
+}
+#accountStatement th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  border: 1px solid black;
+  background-color: #f2f2f2;
+}
+
+.display{
+    display: none !important;
+} 
+.heading-container{
+    margin-bottom: 10px !important;
+} 
+
+.report{
+  padding: 9px;
+
+}

@@ -1,0 +1,110 @@
+<div fxLayout="row" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100%" class="flex-p">
+    <mat-card fxFlex="100%" fxLayout="column">
+      <div fxFlex="100%" fxLayout="row" fxLayout.xs="column" class="confirm-container" ngClass.xs="display-block">
+        <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="5%" fxFlex="80%">
+          <h2>Manual Entry Approval</h2>
+        </mat-card-content>
+        <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="20%" fxLayoutAlign="end">
+          <div fxLayoutGap="2%" fxLayout="row" class="display-block" fxLayoutAlign="end">
+            <button mat-raised-button ngStyle.xs="width: 100%;" color="primary" type="button"
+              (click)="loanSearch()">Search
+              Customer</button>
+          </div>
+        </div>
+      </div>
+      <div fxLayout.xs="column" class="form-block display-block disabled">
+        <form #custDetailsForm='ngForm'>
+          <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+            <mat-form-field fxFlex="25%">
+              <input matInput placeholder="Customer ID" name="custID" [(ngModel)]="custData['customerID']">
+            </mat-form-field>          
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Customer Name" name="custName" [(ngModel)]="custData['customerName']">
+            </mat-form-field>
+            <mat-form-field fxFlex="15%">
+              <input matInput placeholder="Loan ID" name="loanid" [(ngModel)]="custData['loanID']">
+            </mat-form-field>
+            <mat-form-field fxFlex="20%">
+              <input matInput placeholder="Loan Amount" name="loanAmount" [(ngModel)]="custData['loanAmount']">
+            </mat-form-field>
+            <mat-form-field fxFlex="20%">
+              <input matInput placeholder="Loan Date" name="loandate" [(ngModel)]="custData['loanDate']">
+            </mat-form-field>
+          </mat-card-content>
+        </form>
+      </div>
+      <div fxLayout.xs="column" fxLayout="column" fxLayoutGap="2%" class="form-block display-block">
+        <form #ManualEntryForm="ngForm">
+          <mat-card-content fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+            <mat-form-field fxFlex="18">
+              <mat-select placeholder="Select Charge name" name="accountname" #accountnameText="ngModel"
+                [(ngModel)]="accountData['accountId']" required>
+                <mat-option *ngFor="let item of ChargeList" [value]="item.ChargeId">{{item.ChargeDesc}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="accountnameText.errors?.required">Account name is required</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="25">
+              <input matInput placeholder="Description" autocomplete="off" maxlength="30"
+                [(ngModel)]="accountData['decription']" #decText="ngModel" name="dec" required>
+              <mat-error *ngIf="decText.errors?.pattern">Enter valid account name</mat-error>
+              <mat-error *ngIf="decText.errors?.required">Description is required</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="25%">
+              <input matInput placeholder="Amount" pattern="^[0-9]*$" maxlength="10" numbersOnly autocomplete="off"
+                #amountText="ngModel" name="amount" [(ngModel)]="accountData['Amount']" required>
+              <mat-error *ngIf="amountText.errors?.required">Amount is required</mat-error>
+              <mat-error *ngIf="amountText.errors?.pattern">Please enter valid amount</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="18">
+              <mat-select placeholder="Select Type" name="type" required #typeText="ngModel"
+                [(ngModel)]="accountData['typeID']" required>
+                <mat-option *ngFor="let items of typeList" [value]="items.CommonDataName">{{items.Description}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="typeText.errors?.required">Type is required</mat-error>
+            </mat-form-field>
+            <div fxFlex="7" fxFlex.xs="100" class="display-block">
+              <button mat-raised-button color="primary" ngStyle.xs="width:100%" fxFlex="100%"
+                [disabled]="!ManualEntryForm.valid" (click)="AddEntry(ManualEntryForm)" type="button">Add</button>
+            </div>
+          </mat-card-content>
+        </form>
+        <mat-card-content fxLayout.xs="column" class="display-block" fxLayout="row" fxLayoutGap="2%" fxFlex="100%">
+          <div style="overflow: scroll;-ms-overflow-style: scrollbar;" fxFlex="100%">
+            <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="accountName">
+                <th mat-header-cell *matHeaderCellDef>Account Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.accountName}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>Description </th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+              </ng-container>
+              <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef> Amount </th>
+                <td mat-cell *matCellDef="let element"> {{element.Amount}} </td>
+              </ng-container>
+              <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> Type </th>
+                <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky:true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </mat-card-content>
+      </div>
+      <mat-card-content fxLayout.xs="column" fxLayout="row" class="confirm-container" fxLayoutGap="2%" fxFlex="100%"
+        fxLayoutAlign="end">
+        <div fxLayoutGap="2%" fxLayout="row" style="text-align: center;" fxLayoutAlign="end">
+          <button mat-raised-button class="mat-elevation-z12 box-button addLoan" color="primary"
+            (click)="saveEntry(ManualEntryForm, custDetailsForm)" type="button">Confirm</button>
+          <button type="button" mat-raised-button color="primary" (click)="Clear(ManualEntryForm, custDetailsForm)"
+            id="clear_btn">Clear</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

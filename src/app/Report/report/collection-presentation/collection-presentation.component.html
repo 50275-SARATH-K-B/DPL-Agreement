@@ -1,0 +1,90 @@
+<div fxLayout="column" class="flex-p">
+  <mat-card>
+    <mat-card-content>
+      <div fxLayoutGap="3%" fxLayout.xs="column">
+        <div fxFlex="50%">
+          <h3 class="flex-p py-1"></h3>
+        </div>
+      </div>
+      <div class="flex-p">
+        <form #settlementForm="ngForm">
+          <div fxLayout="row" class="form-block">
+            <div fxFlex="100%" fxLayoutGap="2%">
+              <mat-form-field fxFlex="30%">
+                <input matInput placeholder="Loan Number" name="loadid" [(ngModel)]="loanId" required readonly>
+              </mat-form-field>
+              <div fxFlex="70%" fxLayoutAlign="end">
+                <button mat-raised-button color="primary" type="button" (click)="displayLoanSearchPopup()"
+                  class="mat-elevation-z12 box-button">Search</button>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="form-block">
+            <div fxLayoutGap="1%" fxFlex="100%">
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Customer ID" name="customerID" [(ngModel)]="customerID" readonly>
+              </mat-form-field>
+              <mat-form-field fxFlex="50%">
+                <input matInput placeholder="Customer Name" name="customerName" [(ngModel)]="customerName" readonly>
+              </mat-form-field>
+            
+            
+            </div>
+            </div>
+            <div>
+           
+              <div fxLayoutGap="1%" fxLayout.xs="column">
+                <mat-form-field fxFlex="50%">
+                  <input matInput placeholder="Settlement Amount" name="settlementAmount" [(ngModel)]="settlementAmount"
+                    required >
+                </mat-form-field>
+           
+                <mat-form-field fxFlex="50%" >
+                  <input matInput [matDatepicker]="picker2" placeholder="Presentation Date" name="picker2"
+                    readonly  [(ngModel)]="collectionDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+          
+          
+            
+              </div>
+            </div>
+            <div>
+           
+              <div fxLayoutGap="1%" fxLayout.xs="column" fxFlex="100%">
+                <mat-form-field fxFlex="50%">
+                  <mat-select placeholder="Select Payment Mode" [(ngModel)]="paymentModeID" name="payment"
+                    required>
+                    <mat-option *ngFor="let option of paymentModeList" value="{{option.PaymentModeID}}">
+                      {{option.PaymentMode}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+           
+                <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="1%" fxLayoutAlign="end" fxFlex="50%">
+                  <div fxLayoutGap="2%" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+                    <button mat-raised-button color="primary" class="mat-elevation-z12 box-button"
+                      [disabled]="!settlementForm.valid" [ngStyle]="{'height':'40px'}"
+                      (click)="confirm(settlementForm,settlementForm)">Confirm</button>
+                    <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" 
+                      [ngStyle]="{'height':'40px'}" (click)="clear(settlementForm)">Clear</button>
+                  </div>
+                </div>
+          
+          
+            
+              </div>
+            <!-- </div> -->
+
+           
+        
+          
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

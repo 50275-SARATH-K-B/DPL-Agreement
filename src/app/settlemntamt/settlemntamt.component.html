@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>
+  Waiver Bifurcation
+</h1>
+<!-- <div class="example-container-table mat-elevation-z8" style="margin-bottom: 2rem;overflow: scroll;height: 27rem;"> -->
+  <table mat-table [dataSource]="dataSource" width="100%">
+      <ng-container matColumnDef="ChargeName">
+          <th mat-header-cell *matHeaderCellDef style="position: initial;"> Charge Name </th>
+          <td mat-cell *matCellDef="let element; let i = index;"> {{element.ChargeName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Amount">
+          <th mat-header-cell *matHeaderCellDef style="position: initial;"> Amount </th>
+          <td mat-cell *matCellDef="let element; let i = index;"> {{element.ChargeAmount}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Waiver">
+          <th mat-header-cell *matHeaderCellDef style="position: initial;">Waiver Amount</th>
+          <td mat-cell *matCellDef="let element; let i = index;" style="background: gainsboro;
+          border: 1px solid #bfafaf;
+          border-radius: 12px;">
+              <input matInput matInput name="original" #original=ngModel [ngClass]="{'disabled': data['funid'] == 62 || data['funid'] == 63 || data['funid'] == 67 || data['funid'] == 35 || data['funid'] == 45 || data['funid'] == 59}"  [readonly]="(isReadonly) || (i == waiverArray.length-1)"
+                  [(ngModel)]="element.SendbackRemarks" autocomplete="off" (keypress)="keyPress($event)" (click)="change(element,i)" (focusout) = "Totalamounts(element,i)">
+              <!-- <mat-error *ngIf="original.errors?.required">Waiver Amount is required</mat-error> -->
+              <!-- <mat-error *ngIf="original.errors?.pattern">Waiver Amount is not matched</mat-error> -->
+          </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns;">
+      </tr>
+  </table>
+<!-- </div> -->
+<div mat-dialog-actions fxLayoutGap="2%" style="margin-top: 10px;" fxLayoutAlign="center">
+  <button mat-button class="false mat-elevation-z12" (click)="onDismiss()">Close</button>
+  <button mat-button class="cal mat-elevation-z12" (click)="Totalamount()" *ngIf = "nonvisible">Total Amount</button>
+  <button mat-button class="true mat-elevation-z12" (click)="onConfirm()" *ngIf = "visible">Yes</button>
+</div>

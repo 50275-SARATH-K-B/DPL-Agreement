@@ -1,0 +1,89 @@
+<div fxLayout="column" class="flex-p">
+  <mat-card>
+    <mat-card-content>
+      <h3 class="flex-p py-1">Nach Disbursement Approval </h3>
+      <div class="flex-p">
+        <form #nachApproval="ngForm">
+          <div fxLayoutGap="3%" fxLayout.xs="column">
+            <mat-form-field fxFlex="30%">
+              <!--                           
+                            <input matInput numbersOnly placeholder="Application ID"  (keyup.enter)="getApplicationDetails()"
+                              autocomplete="off" #ApplicationIdText="ngModel" name="ApplicationId" [(ngModel)]="ApplicationId"
+                              required> -->
+              <!-- <mat-error *ngIf="applicationText.errors?.pattern">Please enter valid Application ID</mat-error>
+                            <mat-error *ngIf="applicationText.errors?.required">Application ID is required</mat-error>
+                        -->
+              <!-- <button mat-mini-fab color="primary" fxLayoutAlign="end" matTooltip="Search" type="button"
+                            
+                            class="mat-elevation-z12 box-button" color="primary" (click)="getApplicationDetails()">
+                            <mat-icon>search</mat-icon>
+                          </button> -->
+              <mat-select #selectApplicationId [(ngModel)]="nachApproveData['ApplicationId']"
+                (selectionChange)="getApplicationDetails()" placeholder="Select ApplicationId" name="ApplicationId"
+                #ApplicationIdText="ngModel" required>
+                <mat-option *ngFor="let item of nachApprovalList" value={{item.ApplicationId}}>
+                  {{item.ApplicationId}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="ApplicationIdText.errors?.required">Application ID is required</mat-error>
+            </mat-form-field>
+
+          </div>
+          <div fxLayoutGap="3%" fxLayout.xs="column">
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Application ID" name="ApplicationId"
+                [(ngModel)]="nachApproveData['ApplicationId']" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Customer ID" name="CustomerId" [(ngModel)]="nachApproveData['CustomerId']"
+                readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Customer Name" name="custname" [(ngModel)]="nachApproveData['custname']"
+                readonly>
+            </mat-form-field>
+          </div>
+          <div fxLayoutGap="3%" fxLayout.xs="column">
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Loan Amount" name="LoanAmount" [(ngModel)]="nachApproveData['LoanAmount']"
+                readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Tenure" name="Tenure" [(ngModel)]="nachApproveData['Tenure']" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Interest rate" name="InterestRate"
+                [(ngModel)]="nachApproveData['InterestRate']" readonly>
+            </mat-form-field>
+
+          </div>
+          <div fxLayoutGap="3%" fxLayout.xs="column">
+            <mat-form-field fxFlex="30%">
+              <input matInput placeholder="Branch Name" name="Branch" [(ngModel)]="nachApproveData['Branch']" readonly>
+            </mat-form-field>
+            <mat-form-field fxFlex="30%">
+              <textarea matInput placeholder="Bank Details" [(ngModel)]="nachApproveData['BankDetails']"
+                maxlength="3999" name="BankDetails" #BankDetailsText="ngModel">
+              </textarea>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <div fxLayoutGap="2%" fxLayoutAlign="end" fxLayout.xs="column" fxLayoutAlign.xs="center">
+        <button mat-raised-button color="primary" type="button" (click)="clear(nachApproval)"
+          class="mat-elevation-z12 box-button" fxFlex="10%">Clear</button>
+        <button mat-raised-button color="primary" type="button" (click)="Reject(nachApproval)" class="mat-elevation-z12 box-button"
+          fxFlex="10%">Reject</button>
+        <button mat-raised-button color="primary" type="button" (click)="Approve(nachApproval)" class="mat-elevation-z12 box-button"
+          fxFlex="10%">Approve</button>
+        <button mat-raised-button color="primary" type="button"
+          (click)="ApprovePhysicalNach(nachApproval,ApplicationId)" class="mat-elevation-z12 box-button"
+          >Approve with Physical Nach</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,18 @@
+table {
+    width: 100%;
+  }
+ 
+.a_custom {
+  cursor: pointer !important;
+}
+
+.mat-row.hovered {
+  background: #eee;
+}
+:host ::ng-deep .mat-dialog-container{
+  width: 100% !important;
+}
+
+th.mat-header-cell {
+  position: inherit !important;
+}

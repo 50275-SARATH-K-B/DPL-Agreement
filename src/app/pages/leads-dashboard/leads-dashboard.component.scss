@@ -1,0 +1,32 @@
+a {
+    text-decoration: underline;
+    color:blue;
+  }
+//   .mat-fab .mat-button-wrapper  {padding: 0px !important;}
+// .mat-fab { width:35px; height:35px !important;}
+.mat-cell {
+  flex: 0 0 15%;
+  min-width: 130px;
+  justify-content: start;
+  background-color: inherit !important;
+}
+.mat-header-cell {
+  flex: 0 0 15%;
+  min-width: 130px;
+  justify-content: start;
+  background: #f5dc02 !important; 
+  color: black !important;
+  height: 55px ;
+}
+.mat-paginator{
+  background-color: inherit !important;
+}
+
+.mat-row.hovered {
+  background: #eee;
+}
+
+.mat-sort-header-arrow {
+  color: #fff !important;
+  opacity: 1 !important;
+  }

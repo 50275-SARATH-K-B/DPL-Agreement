@@ -1,0 +1,206 @@
+<div fxLayout="column">
+        <div class="flex-p" >
+                            <mat-card>
+                                <mat-card-content>
+                <h2>Approval for ABH</h2>
+           
+           
+<form fxLayout="column" fxLayoutAlign="center">
+        <mat-form-field>
+            <mat-select placeholder="QUOT.NO  SCHEME   NAME   INVENTORY.NO  INVENTORY.TYPE">
+                            <mat-option value="option">Option</mat-option>
+            </mat-select>
+        </mat-form-field>     
+    </form>   
+<!--------------->
+
+
+            
+    
+    <div fxLayout="column" > 
+        <div class="flex-p" flex="70">
+        <mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="itemname">
+    <mat-header-cell *matHeaderCellDef> Item Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.itemname}} </mat-cell>
+    </ng-container>
+    
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Item Count </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+    
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+    <mat-header-cell *matHeaderCellDef> D Education Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+    </ng-container>
+    
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+    <mat-header-cell *matHeaderCellDef> Gross Wt </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="sweight">
+    <mat-header-cell *matHeaderCellDef> Stone Wt </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.sweight}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="ssweight">
+    <mat-header-cell *matHeaderCellDef> Standard Wt </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.ssweight}} </mat-cell>
+    </ng-container>
+    
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="remark">
+    <mat-header-cell *matHeaderCellDef> Remarks </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.remark}} </mat-cell>
+    </ng-container>
+    
+    <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns1;"></mat-row>
+    
+    </mat-table>
+<!----------Photo ------------------>
+    <div  flex ="30" class="flex-p"  > 
+            <mat-card>
+                
+                <img mat-card-image src="assets/img/app/bluehost.jpg" alt="Photo 6">        
+                
+                <mat-divider></mat-divider>
+                <mat-card-actions>
+                    
+                        <div fxLayoutGap="3%" fxLayoutAlign="center">                
+                                <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" >Customer Photo</button>
+                               
+                                </div>
+            
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+    </div>
+
+    <!------------last table --------->
+
+
+    <div fxLayout="column">
+            <div class="flex-p" >
+                <mat-card>
+                    <mat-card-content>
+    
+    <div class="flex-p"> 
+        <mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="itemname">
+    <mat-header-cell *matHeaderCellDef> Item Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.itemname}} </mat-cell>
+    </ng-container>
+    
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Item Count </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+    
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+    <mat-header-cell *matHeaderCellDef> D Education Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+    </ng-container>
+    
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+    <mat-header-cell *matHeaderCellDef> Gross Wt </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="sweight">
+    <mat-header-cell *matHeaderCellDef> Stone Wt </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.sweight}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="ssweight">
+    <mat-header-cell *matHeaderCellDef> Standard Wt </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.ssweight}} </mat-cell>
+    </ng-container>
+    
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="remark">
+    <mat-header-cell *matHeaderCellDef> Remarks </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.remark}} </mat-cell>
+    </ng-container>
+    
+    <mat-header-row *matHeaderRowDef="displayedColumns2"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+    
+    </mat-table>
+    </div>
+
+    
+<div fxLayoutGap="3%" fxLayoutAlign="end start">                
+        <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" > Add </button>
+        <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" > Reject </button>
+        <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" > Cancel </button>
+        </div>
+
+    </mat-card-content>
+    </mat-card>
+    </div>
+    </div>
+
+<!----------------->    
+<div flexlayout="row">
+<div  flex ="30" class="flex-p"  > 
+        <mat-card>
+            
+            <img mat-card-image src="assets/img/app/bluehost.jpg" alt="Photo 6">        
+            
+            <mat-divider></mat-divider>
+            <mat-card-actions>
+                
+                    <div fxLayoutGap="3%" fxLayoutAlign="center">                
+                            <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" >Customer Photo</button>
+                           
+                            </div>
+        
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <div  flex ="30" class="flex-p"  > 
+            <mat-card>
+                
+                <img mat-card-image src="assets/img/app/bluehost.jpg" alt="Photo 6">        
+                
+                <mat-divider></mat-divider>
+                <mat-card-actions>
+                    
+                        <div fxLayoutGap="3%" fxLayoutAlign="center">                
+                                <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" >Customer Photo</button>
+                               
+                                </div>
+            
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div fxLayoutGap="3%" fxLayoutAlign="end start">                
+                <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" > Add </button>
+                <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" > Reject </button>
+                <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" > Cancel </button>
+                </div>
+        
+    </div>
+    <mat-form-field>
+            <input matInput placeholder="Enter Street Name">
+    </mat-form-field>
+</mat-card-content>
+        </mat-card>
+      </div>
+      </div>
+
+
+

@@ -1,0 +1,113 @@
+<div fxLayout="column" class="flex-p">
+    <mat-card>
+        <mat-card-content>
+            <h3 class="flex-p py-1"> Moratorium Approval </h3>
+            <div class="flex-p">
+                <form #morotoriumApproval="ngForm">
+                    <div fxLayoutGap="3%" fxLayout.xs="column">
+                        <mat-form-field fxFlex="30%">
+                            <mat-select #selectBranch [(ngModel)]="morottorium['BranchID']"
+                                (selectionChange)="onBranchChange()" placeholder="Select Branch" name="branch"
+                                #branchName="ngModel" required>
+                                <mat-option *ngFor="let item of branchList" value={{item.BranchID}}>
+                                    {{item.BranchName}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="branchName.errors?.required">Branch is required</mat-error>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30%"
+                            [class.disabled]="morottorium['BranchID']==''||morottorium['BranchID']==null||!morottorium['BranchID']">
+                            <mat-select #selectLoan (selectionChange)="onLoanNumberChange()"
+                                [(ngModel)]="morottorium['LoanID']" placeholder="Select Loan No." name="loanId"
+                                #loanName="ngModel" required>
+                                <mat-option *ngFor="let item of morottoriumList" value={{item.LoanId}}>
+                                    {{item.LoanId}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="loanName.errors?.required">Loan No. is required</mat-error>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Customer Name" name="custname"
+                                [(ngModel)]="morottorium['CustomerName']" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayoutGap="3%" fxLayout.xs="column">
+                        <mat-form-field fxFlex="30%" [class.disabled]="true">
+                            <input matInput [matDatepicker]="picker" name="loandate"
+                                [(ngModel)]="morottorium['LoanDate']" placeholder="Loan Date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Loan Amount" name="loanamount"
+                                [(ngModel)]="morottorium['LoanAmount']" readonly>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Loan Balance" name="loanbal"
+                                [(ngModel)]="morottorium['LoanBalance']" readonly>
+                        </mat-form-field>
+
+                    </div>
+                    <div fxLayoutGap="3%" fxLayout.xs="column">
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Debtors Balance" name="debtorsbal"
+                                [(ngModel)]="morottorium['DebtorsBalance']" readonly>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Charges Pending" name="charge"
+                                [(ngModel)]="morottorium['ChargesPending']" readonly>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Advance Amount received" name="adv"
+                                [(ngModel)]="morottorium['AdvanceAmt']" readonly>
+                        </mat-form-field>
+
+                    </div>
+                    <div fxLayoutGap="3%" fxLayout.xs="column">
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Number of Dues" name="dueno" [(ngModel)]="morottorium['DueNo']"
+                                readonly>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30%" [class.disabled]="true">
+                            <input matInput [matDatepicker]="picker1" placeholder="Morotorium From" name="picker1"
+                                [(ngModel)]="morottorium['MorotoriumFrom']">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30%" [class.disabled]="true">
+                            <input matInput [matDatepicker]="picker2" placeholder="Morotorium To" name="picker2"
+                                [(ngModel)]="morottorium['MorotoriumTo']">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+
+                    </div>
+                    <div fxLayoutGap="3%" fxLayout.xs="column">
+                        <mat-form-field fxFlex="30%">
+                            <input matInput placeholder="Morotorium Days" name="days" [(ngModel)]="morottorium['Days']"
+                                readonly>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="63%">
+                            <input matInput placeholder="Reason for Morotorium" name="reason"
+                                [(ngModel)]="morottorium['Reason']" readonly>
+                        </mat-form-field>
+                    </div>
+                </form>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-content>
+            <div fxLayoutGap="2%" fxLayoutAlign="end" fxLayoutAlign.xs="center">
+                <button mat-raised-button color="primary" type="button" (click)="approve(morotoriumApproval)"
+                    [disabled]="!morotoriumApproval.valid" class="mat-elevation-z12 box-button" fxFlex.xs="30%"
+                    fxFlex="10%">Approve</button>
+                <button mat-raised-button color="primary" type="button" (click)="reject(morotoriumApproval)"
+                    [disabled]="!morotoriumApproval.valid" class="mat-elevation-z12 box-button" fxFlex.xs="30%"
+                    fxFlex="10%">Reject</button>
+                <button mat-raised-button color="primary" type="button" (click)="clear(morotoriumApproval)"
+                    class="mat-elevation-z12 box-button" fxFlex.xs="30%" fxFlex="10%">Clear</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

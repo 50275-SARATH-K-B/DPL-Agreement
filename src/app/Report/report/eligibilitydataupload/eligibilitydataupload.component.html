@@ -1,0 +1,78 @@
+<!-- 
+Project :LMS
+Path : /scr/app/pages/LMS/cleared-bounced/add-cleared-bounced
+UI created by : Hareesh N
+Date : 26/12/2018
+emi-calculator :
+add-cleared-bounced.component.html
+add-cleared-bounced.component.scss
+add-cleared-bounced.component.ts
+Functionally Coded by : Hareesh N
+Date : 
+For Modifications @ the respective Line 
+Modified Date :
+By : 
+Reason : -->
+<div fxLayout="column" fxLayout.gt-sm="row wrap">
+  <div fxFlex="100" class="flex-p">
+    <form #activityEntryDataUploadForm="ngForm">
+      <mat-card fxFlex="100%" fxLayout="column">
+        <h2>Data Upload</h2>
+ 
+        <div fxFlex="30%">
+          <button mat-raised-button class="mat-elevation-z12" (click)="exportexcel('tableWithHeader')"
+            color="primary">Download Format</button>
+        </div>
+        <!-- <div fxLayout.xs="column" fxLayout="row" fxLayoutGap="2%">
+        
+          Upload Eligibility Data  Excel file
+          <label>  
+            <input type="file" (change)="addfile($event)" placeholder="Upload file" accept=".xls, .xlsx"> 
+          </label>
+        </div> -->
+        <div fxFlex="100%" fxLayoutAlign="end">
+          <div fxFlex="100%" fxLayout.xs="column" fxLayoutGap=2% fxLayoutAlign="end">
+            <label>
+              <input  type='file' 
+              (change)="addfile($event)" accept=".xls, .xlsx" placeholder="Upload file"
+             #document>
+            </label>
+            
+        
+          </div>
+        </div>
+          <div  fxLayoutGap="2%" fxLayoutAlign="end">
+            <button type="submit" class="button-box box" mat-raised-button color="primary" [disabled]="!upload"
+              (click)="savedata(activityEntryDataUploadForm)"  id="confirm_btn">Confirm</button>
+            <button mat-raised-button class="button-box box" color="primary" (click)="clear(activityEntryDataUploadForm)"  id="clear_btn">Clear</button>
+          </div>
+          <div fxFlex="100%" style="visibility: hidden;">
+            <table class="table table-bordered" id="tableWithHeader">
+              <thead>
+                <tr>
+                  <th>CUSTOMERID</th>
+                  <th>MAXAMOUNT</th>
+                  <th>INTERESTRATE</th>
+                  <th>UPDATEDDATE</th>                
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </mat-card>
+    </form>
+  </div>
+</div>

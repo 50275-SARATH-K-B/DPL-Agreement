@@ -1,0 +1,52 @@
+<form fxLayout="column" #ReasonForm='ngForm' fxLayout.xs="column" fxLayoutGap="2%" fxFlex="100">
+  <div fxFlex="100" fxLayoutGap="2%" fxLayout.xs="column" style="margin-top: 10px;">
+    <mat-form-field appearance="outline" fxFlex="50">
+      <mat-label>Cancel Reasons </mat-label>
+      <mat-select [(ngModel)]="reasonMasterID" name="reasonMasterID" #reasonMasterIDText="ngModel" required>
+        <mat-option *ngFor="let item of reasonArray" [value]="item.CommonDataName">
+          {{item.Description}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="reasonMasterIDText.errors?.required"> Cancel Reason is required</mat-error>
+    </mat-form-field>
+      <div fxFlex=77.5% fxLayout.xs="row" fxLayoutGap="2%">
+        <div fxFlex=100% ngClass.xs="single-search-responsive">
+          <mat-form-field fxFlex="100%" appearance="outline">
+            <mat-label>Approval Attachment</mat-label>
+            <input matInput readonly *ngIf="FileName == 'No File Selected'" style="font-size: 12px;"
+              value="Approval Attachment(Supports:JPG,PNG,PDF)">
+            <input matInput readonly *ngIf="FileName != 'No File Selected'" [(ngModel)]="FileName" name="FileNAME"
+              #tittleAttachment="ngModel">
+            <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1% fxLayoutAlign="end" *ngIf="FileName">
+               <i (click)="OpenFile()"  class="fa fa-eye eye"></i>
+            </div>
+            <a mat-icon-button type="button" matTooltip="View file" *ngIf="!!FileName"
+            (click)="OpenFile()" color="primary">
+            <mat-icon>visibility</mat-icon>
+          </a>
+            <mat-hint>(Supports:JPG,PNG,EXCEL,PDF)</mat-hint>
+          </mat-form-field>
+
+        </div>
+        <div fxLayout.xs="column" fxFlex=0% fxLayoutGap=1%>
+          <!-- <mat-form-field fxFlex="100%"></mat-form-field> -->
+          <input hidden="hidden" type='file' accept=".xlsx, application/pdf, image/*" (change)="onChangeFile($event)"
+            #document>
+          <button mat-icon-button color="primary" type="button" (click)="document.click()"
+            class="mat-elevation-z12 box-button swing" id="but" color="primary">
+            <mat-icon>scanner</mat-icon>
+          </button>
+        </div>
+      </div>
+  </div>
+
+  <div fxFlex="100" fxLayoutGap="2%" fxLayout.xs="column">
+    <mat-form-field fxFlex="100" appearance="outline">
+      <mat-label>Enter Remark</mat-label>
+      <textarea matInput [(ngModel)]="reasonText" name="reasonText" maxlength="100" #reasonTextText="ngModel"></textarea>
+    </mat-form-field>
+  </div>
+  <div fxFlex="100" fxLayoutAlign="center" fxLayout.xs="column" style="margin-top: 2rem;">
+    <button mat-button color="primary" class="true mat-elevation-z12" (click)="postReason(ReasonForm)">Confirm</button>
+  </div>
+</form>
