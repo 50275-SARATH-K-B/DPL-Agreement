@@ -24,7 +24,8 @@ export class CommonService {
   base_url_los: string = environment.baseUrl + environment.los_api;
   base_url_lms_los: string = environment.baseUrl + environment.lms_los_api;
   base_url_Adhaar: string = environment.baseUrl + environment.aadhaar_api;
-  base_url: string = environment.baseUrl + environment.plgen_api
+  base_url: string = environment.baseUrl + environment.plgen_api;
+  base_url_new: string = environment.baseUrl + environment.plgen_api_new;
   baseURL: string = environment.baseUrl;
   apiVer: string = environment.apiVersion;
   keydata: any
@@ -801,6 +802,14 @@ export class CommonService {
     }else {
      return null
     }
+  }
+
+
+  public getloanidagreement(params) {
+    return this.httpClient.get(this.base_url_new + 'api/' + this.apiVer + '/AgreementDownload/GetLoansForAgreementDownload', {params});
+  }
+  public getcustdtlsagreement(params) {
+    return this.httpClient.get(this.base_url_new + 'api/' + this.apiVer + '/AgreementDownload/GetDetailsForAgreementDownload', {params});
   }
 
 

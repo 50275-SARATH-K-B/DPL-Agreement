@@ -121,6 +121,7 @@ export const environment = {
   esign_api:'esign_public/',
   lmspersonalgen_api:'plapi_public/',
   plgen_api:'plapi_public/',
+  plgen_api_new:'plapi_public_new/',
   apiVersion: 'v1',
   session:'plapi_public/',
 

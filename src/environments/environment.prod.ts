@@ -26,6 +26,7 @@ export const environment = {
   // plgen_api:'plapi_public/',
   lmspersonalgen_api:'plapi_public/',
   plgen_api:'plapi_public/',
+  plgen_api_new:'plapi_public_new/',
   lms_path_tw:'tw/lms_api_public/',
   apiVersion: 'v1',
   buildVersion: "1.02.00",
