@@ -188,6 +188,7 @@ import { RefundsettlementComponent } from './refundsettlement/refundsettlement.c
 import { NewsettlementrequestComponent } from './newsettlementrequest/newsettlementrequest.component';
 import { NewsettlementapprovalComponent } from './newsettlementapproval/newsettlementapproval.component';
 import { environment } from '../environments/environment';
+import { LoanAgreementComponent } from './loan-agreement/loan-agreement.component';
 
 
 @NgModule({
@@ -369,7 +370,8 @@ import { environment } from '../environments/environment';
     LoansettletclaimapprComponent,
     RefundsettlementComponent,
     NewsettlementrequestComponent,
-    NewsettlementapprovalComponent
+    NewsettlementapprovalComponent,
+    LoanAgreementComponent
     
     
   
