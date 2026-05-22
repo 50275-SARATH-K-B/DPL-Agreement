@@ -46,6 +46,16 @@ export class LoanAgreementComponent implements OnInit {
   bnkacc: any;
   ifsc: any;
   reccur: any[] = [];
+  intchg: any;
+  upfrontchg: any;
+  othlinked: any;
+  netdisbursed: any;
+  totamt: any;
+  annualper: any;
+  repayfreq: any;
+  noofrepay: any;
+  penrt: any;
+  process_rate: any;
   // FromDate = "1-APR-2023";
   // ToDate = "31-DEC-2023";
 
@@ -122,7 +132,7 @@ export class LoanAgreementComponent implements OnInit {
         this.bnkname = this.bnkdtlsstr1[1];
         this.bnkacc = this.bnkdtlsstr1[2];
         this.ifsc = this.bnkdtlsstr1[3];
-
+        this.getdetails1();
 
         console.log("dtls", this.procfee, this.emiamt);
       } else {
@@ -165,7 +175,15 @@ export class LoanAgreementComponent implements OnInit {
         console.log("recrr", this.reccur)
 
       }
-    });
+      else {
+        this.DisplayMessage(res['status'].message, "Alert");
+        return;
+      }
+    }, error => {
+      this.settings.loadingSpinner = false;
+      this.DisplayMessage("Error ", "Alert");
+    }
+    );
   }
 
   getTotal(field: string): number {
@@ -174,6 +192,33 @@ export class LoanAgreementComponent implements OnInit {
         return sum + (parseFloat(item[field]) || 0);
       }, 0).toFixed(2)
     );
+  }
+
+  getdetails1() {
+    let params = {
+      "LOAN_AMT": Number(this.loanamt),
+      "TENURE": Number(this.tenure),
+      "ROI":  Number(this.anlint),
+      "customerid": this.custid,
+    }
+    this.settings.loadingSpinner = true;
+    this.commonService.getdetailsagreement(params).subscribe(res => {
+      this.settings.loadingSpinner = false;
+      console.log(res);
+      if(res['status'].flag == 1 && res['status'].code == 1){
+        this.intchg = res['totintchg'];
+        this.upfrontchg = res['upfrontchg'];
+        this.othlinked = res['otherschg'];
+        this.netdisbursed = res['netdisbamt'];
+        this.totamt = res['totamttobepaid'];
+        this.annualper = res['apr'];
+        this.repayfreq = res['repayfreqpr'];
+        this.noofrepay = res['noofrepay'];
+        this.penrt = res['annualpenalchg'];   //36
+        this.process_rate = res['processfeert'];
+      }
+
+    });
   }
 
 
