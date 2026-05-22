@@ -814,6 +814,9 @@ export class CommonService {
   public loopingtable(params) {
     return this.httpClient.get(this.base_url_new + 'api/' + this.apiVer + '/InstallmentSchedule/getInstallmentScheduleNew', {params});
   }
+  public getdetailsagreement(params) {
+    return this.httpClient.get(this.base_url_new + 'api/' + this.apiVer + '/InstallmentSchedule/getDetailsForAgreementExistLoans', {params});
+  }
 
 
 }
