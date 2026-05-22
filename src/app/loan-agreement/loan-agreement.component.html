@@ -1484,7 +1484,7 @@
                   </tr>
 
 
-                  <tr *ngFor="let item of schedule">
+                  <tr *ngFor="let item of reccur">
                     <td class="center">{{ item.dueDate | date:'dd-MMM-yyyy' }}</td>
 
                     <td class="center">{{ item.installmentNo }}</td>
@@ -1499,7 +1499,7 @@
                   </tr>
 
 
-                  <!-- <tr class="footer">
+                  <tr class="footer">
                       <td colspan="2" class="center"><b>Total</b></td>
 
                       <td></td>
@@ -1509,17 +1509,8 @@
                       <td class="right"><b>{{ getTotal('interestAmount') }}</b></td>
 
                       <td class="right"><b>{{ getTotal('installmentAmount') }}</b></td>
-                    </tr> -->
-                  <tr class="footer">
-                    <td colspan="2" class="center"><b>Total</b></td>
-
-                    <td></td>
-
-                    <td class="right"><b>{{ ('principalAmount') }}5678</b></td>
-                    <td class="right"><b>{{ ('interestAmount') }}5678</b></td>
-
-                    <td class="right"><b>{{ ('installmentAmount') }}5678</b></td>
-                  </tr>
+                    </tr>
+                  
 
                 </table>
               </div>

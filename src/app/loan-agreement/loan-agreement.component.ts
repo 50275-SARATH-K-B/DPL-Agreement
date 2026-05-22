@@ -45,6 +45,7 @@ export class LoanAgreementComponent implements OnInit {
   bnkname: any;
   bnkacc: any;
   ifsc: any;
+  reccur: any[] = [];
   // FromDate = "1-APR-2023";
   // ToDate = "31-DEC-2023";
 
@@ -61,44 +62,51 @@ export class LoanAgreementComponent implements OnInit {
     // this.commonService.session2()
     // this.getloanid();
     this.getcustomerdtls();
+    this.looptable();
+  }
+
+  DisplayMessage(message: string, action: string) {
+    const dialogRef = this.dialog.open(AlertMessageComponenent, {
+      width: '30%', data: { message: message, type: action },
+    });
   }
 
   getloanid() {
     let params = {
-      "FromDate" : "1-APR-2023",
-      "ToDate" : "31-DEC-2023",
+      "FromDate": "1-APR-2023",
+      "ToDate": "31-DEC-2023",
     }
     this.settings.loadingSpinner = true;
-    this.commonService.getloanidagreement(params).subscribe(res =>{
+    this.commonService.getloanidagreement(params).subscribe(res => {
       this.settings.loadingSpinner = false;
       console.log(res);
-      if(res['status'].flag == 1 && res['status'].code == 1 ){
+      if (res['status'].flag == 1 && res['status'].code == 1) {
 
       }
     })
   }
 
-  getcustomerdtls(){
-    let params ={
+  getcustomerdtls() {
+    let params = {
       "loanid": "58857",
     }
     this.settings.loadingSpinner = true;
-    this.commonService.getcustdtlsagreement(params).subscribe(res =>{
+    this.commonService.getcustdtlsagreement(params).subscribe(res => {
       this.settings.loadingSpinner = false;
       console.log(res);
-      if(res['status'].code == 1 && res['status'].flag == 1 ){
+      if (res['status'].code == 1 && res['status'].flag == 1) {
         this.custdtls1 = res['agreementDetails'].split('~');
         this.custdtls = this.custdtls1[0].split('^');
-         this.todaydt = this.custdtls[0];
+        this.todaydt = this.custdtls[0];
         //  this.place = this.custdtls[1];
-         this.loandt = this.custdtls[2];
-         this.anlint = this.custdtls[3];
-         this.loanpur = this.custdtls[4];
-         this.borrnm = this.custdtls[5];
-         this.addr = this.custdtls[6];
-         this.emailaddr = this.custdtls[7];
-         this.mobno = this.custdtls[8];
-         this.regmobno = this.custdtls[9];
+        this.loandt = this.custdtls[2];
+        this.anlint = this.custdtls[3];
+        this.loanpur = this.custdtls[4];
+        this.borrnm = this.custdtls[5];
+        this.addr = this.custdtls[6];
+        this.emailaddr = this.custdtls[7];
+        this.mobno = this.custdtls[8];
+        this.regmobno = this.custdtls[9];
         this.borrtype = this.custdtls[10];
         this.loanamt = this.custdtls[11];
         this.tenure = this.custdtls[12];
@@ -114,11 +122,62 @@ export class LoanAgreementComponent implements OnInit {
         this.bnkname = this.bnkdtlsstr1[1];
         this.bnkacc = this.bnkdtlsstr1[2];
         this.ifsc = this.bnkdtlsstr1[3];
-        
 
-        console.log("dtls",this.procfee, this.emiamt);
+
+        console.log("dtls", this.procfee, this.emiamt);
+      } else {
+        this.DisplayMessage(res['status'].message, "Alert");
+        return;
+      }
+    }, error => {
+      this.settings.loadingSpinner = false;
+      this.DisplayMessage("Error ", "Alert");
+    }
+    );
+  }
+
+  looptable() {
+    let params = {
+      "ROI": 0,
+      "LOAN_AMT": 0,
+      "SCHEME_ID": 1,
+      "TENURE_DTLS": "58857",
+      "TENURE": 0,
+    }
+    this.settings.loadingSpinner = true;
+    this.commonService.loopingtable(params).subscribe(res => {
+      this.settings.loadingSpinner = false;
+      console.log(res);
+      if (res['status'].code == 1 && res['status'].flag == 1) {
+        this.reccur = res['instScheduleList'];
+        this.reccur = this.reccur.map(item => ({
+
+          dueDate: item.DueDate,
+          installmentAmount: item.InstallmentAmount,
+          installmentNo: item.InstallmentNo,
+          interestAmount: item.InterestAmount,
+          openingBalance: item.OpeningBalance,
+          principalAmount: item.PrincipalAmount,
+
+
+
+        }));
+        console.log("recrr", this.reccur)
+
       }
     });
   }
+
+  getTotal(field: string): number {
+    return parseFloat(
+      this.reccur.reduce((sum, item) => {
+        return sum + (parseFloat(item[field]) || 0);
+      }, 0).toFixed(2)
+    );
+  }
+
+
+
+
 
 }
