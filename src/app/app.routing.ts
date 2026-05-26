@@ -127,6 +127,7 @@ import { LoansettletclaimapprComponent } from './loansettletclaimappr/loansettle
 import { NewsettlementrequestComponent } from './newsettlementrequest/newsettlementrequest.component';
 import { NewsettlementapprovalComponent } from './newsettlementapproval/newsettlementapproval.component';
 import { LoanAgreementComponent } from './loan-agreement/loan-agreement.component';
+import { DownloadloanAgreementComponent } from './downloadloan-agreement/downloadloan-agreement.component';
 
 export const routes: Routes = [
     
@@ -281,6 +282,7 @@ export const routes: Routes = [
             { path:'new-settlement-request',component:NewsettlementrequestComponent,data: { breadcrumb: 'New Settlement Request' }, pathMatch: 'full'},
             { path:'new-settlement-approval',component:NewsettlementapprovalComponent,data: { breadcrumb: 'New Settlement Approval' }, pathMatch: 'full'},
             { path:'Loan-Agreement',component:LoanAgreementComponent,data: { breadcrumb: 'Loan-Agreement' }, pathMatch: 'full'},
+             { path:'Loan-Agreement1',component:DownloadloanAgreementComponent,data: { breadcrumb: 'Loan-Agreement1' }, pathMatch: 'full'},
 
 
             // { path: 'manual-entry-request', component: ManualEntryComponent, data: { breadcrumb: 'MANUAL ENTRY REQUEST' }, pathMatch: 'full' },
