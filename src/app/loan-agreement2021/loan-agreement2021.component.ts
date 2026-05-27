@@ -7,7 +7,7 @@ import { RepaymentService } from '../services/report/repayment.service';
 import { CommonService } from '../services/report/common.service';
 import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FileviewComponent } from '../commoncomponents/fileview/fileview.component';
 
 @Component({
@@ -57,13 +57,14 @@ export class LoanAgreement2021Component implements OnInit {
   noofrepay: any;
   penrt: any;
   process_rate: any;
+  loanId: any;
   // FromDate = "1-APR-2023";
   // ToDate = "31-DEC-2023";
 
   constructor(public router: Router,
     private dialog: MatDialog,
     private datePipe: DatePipe,
-    private commonService: CommonService, public appSettings: AppSettings, private repaymentService: RepaymentService) {
+    private commonService: CommonService, public appSettings: AppSettings, private repaymentService: RepaymentService, public route: ActivatedRoute) {
     this.settings = this.appSettings.settings;
   }
 
@@ -72,6 +73,12 @@ export class LoanAgreement2021Component implements OnInit {
     console.log(this.userData);
     // this.commonService.session2()
     // this.getloanid();
+
+    this.route.queryParams.subscribe(params => {
+      this.loanId = params['loanId'];
+     console.log(this.loanId)
+    });
+
     this.getcustomerdtls();
     this.looptable();
   }
@@ -99,7 +106,7 @@ export class LoanAgreement2021Component implements OnInit {
 
   getcustomerdtls() {
     let params = {
-      "loanid": "58857",
+      "loanid": this.loanId,
     }
     this.settings.loadingSpinner = true;
     this.commonService.getcustdtlsagreement(params).subscribe(res => {
@@ -152,7 +159,7 @@ export class LoanAgreement2021Component implements OnInit {
       "ROI": 0,
       "LOAN_AMT": 0,
       "SCHEME_ID": 1,
-      "TENURE_DTLS": "58857",
+      "TENURE_DTLS": this.loanId,
       "TENURE": 0,
     }
     this.settings.loadingSpinner = true;
