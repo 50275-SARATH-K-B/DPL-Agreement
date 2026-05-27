@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { CustomOverlayContainer } from './theme/utils/custom-overlay-container';
 import { HttpClientModule, HTTP_INTERCEPTORS,HttpClient} from '@angular/common/http';
@@ -27,7 +27,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 import { CalendarModule } from 'angular-calendar';
 import { SharedModule } from './shared/shared.module';
 import { PipesModule } from './theme/pipes/pipes.module';
-import { routes, routing } from './app.routing';
+import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { PagesComponent } from './pages/pages.component';
 import { BlankComponent } from './pages/blank/blank.component';
@@ -220,7 +220,7 @@ import { LoanAgreement2021Component } from './loan-agreement2021/loan-agreement2
     ReportModule,
     AngularCropperjsModule,
     ImageViewerModule.forRoot(),
-    RouterModule.forRoot(routes, { useHash: false }),
+    
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -436,8 +436,7 @@ import { LoanAgreement2021Component } from './loan-agreement2021/loan-agreement2
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {provide:MatDialogRef , useValue:{} },
 
-    { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: LocationStrategy, useClass: PathLocationStrategy }
+    { provide: MAT_DIALOG_DATA, useValue: {} }
   ],
   bootstrap: [AppComponent]
 })
