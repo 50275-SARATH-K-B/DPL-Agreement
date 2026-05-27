@@ -282,9 +282,9 @@ export const routes: Routes = [
             { path:'settlement-claim-appr',component:LoansettletclaimapprComponent,data: { breadcrumb: 'Settlement Claim Approval' }, pathMatch: 'full'},
             { path:'new-settlement-request',component:NewsettlementrequestComponent,data: { breadcrumb: 'New Settlement Request' }, pathMatch: 'full'},
             { path:'new-settlement-approval',component:NewsettlementapprovalComponent,data: { breadcrumb: 'New Settlement Approval' }, pathMatch: 'full'},
-            { path:'Loan-Agreement',component:LoanAgreementComponent,data: { breadcrumb: 'Loan-Agreement' }, pathMatch: 'full'},
-            { path:'Loan-Agreement1',component:DownloadloanAgreementComponent,data: { breadcrumb: 'Loan-Agreement1' }, pathMatch: 'full'},
-            { path:'Loan-Agreement2',component:LoanAgreement2021Component,data: { breadcrumb: 'Loan-Agreement2' }, pathMatch: 'full'},
+            // { path:'Loan-Agreement',component:LoanAgreementComponent,data: { breadcrumb: 'Loan-Agreement' }, pathMatch: 'full'},
+            // { path:'Loan-Agreement1',component:DownloadloanAgreementComponent,data: { breadcrumb: 'Loan-Agreement1' }, pathMatch: 'full'},
+            // { path:'Loan-Agreement2',component:LoanAgreement2021Component,data: { breadcrumb: 'Loan-Agreement2' }, pathMatch: 'full'},
 
 
             // { path: 'manual-entry-request', component: ManualEntryComponent, data: { breadcrumb: 'MANUAL ENTRY REQUEST' }, pathMatch: 'full' },
@@ -293,6 +293,10 @@ export const routes: Routes = [
 
         ],canActivate: [AuthGuard]
     },
+     { path:'Loan-Agreement',component:LoanAgreementComponent,data: { breadcrumb: 'Loan-Agreement' }, pathMatch: 'full'},
+     { path:'Loan-Agreement1',component:DownloadloanAgreementComponent,data: { breadcrumb: 'Loan-Agreement1' }, pathMatch: 'full'},
+     { path:'Loan-Agreement2',component:LoanAgreement2021Component,data: { breadcrumb: 'Loan-Agreement2' }, pathMatch: 'full'},
+
     {
 
         path: 'moratorium',
