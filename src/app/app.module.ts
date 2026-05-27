@@ -190,6 +190,7 @@ import { NewsettlementapprovalComponent } from './newsettlementapproval/newsettl
 import { environment } from '../environments/environment';
 import { LoanAgreementComponent } from './loan-agreement/loan-agreement.component';
 import { DownloadloanAgreementComponent } from './downloadloan-agreement/downloadloan-agreement.component';
+import { LoanAgreement2021Component } from './loan-agreement2021/loan-agreement2021.component';
 
 
 @NgModule({
@@ -373,7 +374,8 @@ import { DownloadloanAgreementComponent } from './downloadloan-agreement/downloa
     NewsettlementrequestComponent,
     NewsettlementapprovalComponent,
     LoanAgreementComponent,
-    DownloadloanAgreementComponent
+    DownloadloanAgreementComponent,
+    LoanAgreement2021Component
     
     
   
