@@ -57,6 +57,7 @@ export class DownloadloanAgreementComponent implements OnInit {
   penrt: any;
   process_rate: any;
   loanId: any;
+  getsigned: any;
   // FromDate = "1-APR-2023";
   // ToDate = "31-DEC-2023";
 
@@ -81,6 +82,7 @@ export class DownloadloanAgreementComponent implements OnInit {
 
     this.getcustomerdtls();
     this.looptable();
+    this.digitSign();
   }
 
   DisplayMessage(message: string, action: string) {
@@ -228,6 +230,28 @@ export class DownloadloanAgreementComponent implements OnInit {
 
     });
   }
+
+
+  digitSign(){
+    let params = {
+      "loanid": this.loanId,
+    }
+     this.settings.loadingSpinner = true;
+    this.commonService.Digitsign(params).subscribe(res =>{
+      this.settings.loadingSpinner = false;
+      console.log(res);
+      if(res['status'].code == 1 && res['status'].flag == 1){
+        this.getsigned = res['agreementDetails'];
+      }else{
+        this.DisplayMessage(res['status'].message,"Alert");
+      }
+    }, error => {
+      this.settings.loadingSpinner = false;
+      this.DisplayMessage("Error ", "Alert");
+    }
+  );
+  }
+
 
 
 

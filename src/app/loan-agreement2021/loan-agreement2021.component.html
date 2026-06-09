@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container" id="printSectionId">
   <mat-card>
     <div class="form-container, table-wrapper">
       <table class="table" border="1">
-        <tr >
+        <tr>
           <td>
             <div>
               <p style="text-align: center">
@@ -63,6 +63,12 @@
                   Interest Rate by intimating the customers updating the same on its Website. The Borrower shall
                   keep himself/herself/itself advised of the variations from time to time. The Borrower shall also
                   pay and bear all interest tax and other taxes as may be applicable.</li>
+
+                <div class="print-footer" style="position:relative;">
+                  <p class="watermark"> {{getsigned}}</p>
+                </div>
+                <div class="page-break"></div>
+
                 <li> The Borrower shall repay/pay the Loan and interest that is due from time to time, in
                   equated
                   monthly instalments (“EMI”) / equated fortnightly instalments (“EFI”) as specified in the
@@ -117,6 +123,13 @@
                       properties
                       belongs to the Borrower including pledged gold ornaments, mortgaged immovable properties and
                       hypothecated movable assets which are with or in possession or control of the Lender.</li>
+
+                    <div class="print-footer" style="position:relative; height: 90px;">
+                      <p class="watermark"> {{getsigned}}</p>
+                    </div>
+                    <div class="page-break-after"></div>
+
+
                     <li> The statement of accounts of the lender shall be accepted and be binding on the
                       borrowers and shall be conclusive proof of the amounts due under this agreement.</li>
                     <li> The borrowers shall promptly inform the lender of any change in the borrowers
@@ -181,6 +194,12 @@
                 IN WITNESS WHEREOF, the parties here to have set their hands on the date and year
                 mentioned in the schedule herein.</p>
               <br><br>
+
+              <div class="print-footer" style="position:relative; height: 90px;">
+                <p class="watermark"> {{getsigned}}</p>
+              </div>
+              <div class="page-break"></div>
+
 
               <div class="table-wrapper">
 
@@ -336,7 +355,21 @@
                     <td>vii</td>
                     <td>Tenure (in Months)</td>
                     <td>{{ tenure }}</td>
+
+
                   </tr>
+                  <tr style="border: none;">
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;">
+                      <div class="print-footer" style="position:relative; text-align:right;">
+                        <p class="watermark"> {{getsigned}}</p>
+                      </div>
+                    </td>
+
+
+                  </tr>
+                  <!-- <p class="right" style="align-items: end;">Sheron</p> -->
 
                   <!-- <tr>
                     <td>viii</td>
@@ -416,6 +449,7 @@
                     <td>NEFT / IMPS / RTGS</td>
                   </tr> -->
 
+                  <div class="page-break"></div>
                   <!-- Disbursement -->
 
                   <tr>
@@ -484,6 +518,9 @@
 
               </div>
 
+
+
+
               <p style="text-align: center">
                 <strong>Schedule-3</strong>
               </p>
@@ -543,6 +580,9 @@
           </td>
         </tr>
       </table>
+    </div>
+    <div class="print-footer" style="position:relative;">
+      <p class="watermark"> {{getsigned}}</p>
     </div>
   </mat-card>
 </div>

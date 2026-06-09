@@ -817,6 +817,9 @@ export class CommonService {
   public getdetailsagreement(params) {
     return this.httpClient.get(this.base_url_new + 'api/' + this.apiVer + '/InstallmentSchedule/getDetailsForAgreementExistLoans', {params});
   }
+  public Digitsign(params) {
+    return this.httpClient.get(this.base_url_new + 'api/' + this.apiVer + '/AgreementDownload/GetDigitalSign', {params});
+  }
 
 
 }

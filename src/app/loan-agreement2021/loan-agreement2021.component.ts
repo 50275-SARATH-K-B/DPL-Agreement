@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AlertMessageComponenent } from '../commoncomponents/alertpopup/alertpopup.component';
 import { LoanSearchComponent } from '../common/loan-search/loan-search.component';
 import { Settings } from '../app.settings.model';
@@ -9,15 +9,16 @@ import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileviewComponent } from '../commoncomponents/fileview/fileview.component';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-loan-agreement2021',
   templateUrl: './loan-agreement2021.component.html',
   styleUrls: ['./loan-agreement2021.component.scss']
 })
-export class LoanAgreement2021Component implements OnInit {
+export class LoanAgreement2021Component implements AfterViewInit {
 
- settings: Settings;
+  settings: Settings;
   userData: any;
   todaydt: any;
   custdtls: any;
@@ -58,6 +59,7 @@ export class LoanAgreement2021Component implements OnInit {
   penrt: any;
   process_rate: any;
   loanId: any;
+  getsigned: any;
   // FromDate = "1-APR-2023";
   // ToDate = "31-DEC-2023";
 
@@ -76,11 +78,12 @@ export class LoanAgreement2021Component implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       this.loanId = params['loanId'];
-     console.log(this.loanId)
+      console.log(this.loanId)
     });
 
     this.getcustomerdtls();
     this.looptable();
+    this.digitSign();
   }
 
   DisplayMessage(message: string, action: string) {
@@ -206,14 +209,14 @@ export class LoanAgreement2021Component implements OnInit {
     let params = {
       "LOAN_AMT": Number(this.loanamt),
       "TENURE": Number(this.tenure),
-      "ROI":  Number(this.anlint),
+      "ROI": Number(this.anlint),
       "customerid": this.custid,
     }
     this.settings.loadingSpinner = true;
     this.commonService.getdetailsagreement(params).subscribe(res => {
       this.settings.loadingSpinner = false;
       console.log(res);
-      if(res['status'].flag == 1 && res['status'].code == 1){
+      if (res['status'].flag == 1 && res['status'].code == 1) {
         this.intchg = res['totintchg'];
         this.upfrontchg = res['upfrontchg'];
         this.othlinked = res['otherschg'];
@@ -227,6 +230,74 @@ export class LoanAgreement2021Component implements OnInit {
       }
 
     });
+  }
+  digitSign(){
+    let params = {
+      "loanid": this.loanId,
+    }
+     this.settings.loadingSpinner = true;
+    this.commonService.Digitsign(params).subscribe(res =>{
+      this.settings.loadingSpinner = false;
+      console.log(res);
+      if(res['status'].code == 1 && res['status'].flag == 1){
+        this.getsigned = res['agreementDetails'];
+      }else{
+        this.DisplayMessage(res['status'].message,"Alert");
+      }
+    }, error => {
+      this.settings.loadingSpinner = false;
+      this.DisplayMessage("Error ", "Alert");
+    }
+  );
+  }
+
+
+  // print(printSectionId): void {
+
+  //   let printContents, popupWin;
+  //   printContents = document.getElementById(printSectionId).innerHTML;
+  //   popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+  //   popupWin.document.open();
+  //   popupWin.document.write(printContents);
+  //   popupWin.print();
+  //   popupWin.document.close();
+
+  // }
+
+ print() {
+  const element = document.getElementById('printSectionId');
+  const printContents = element ? element.innerHTML : '';
+  const originalContents = document.body.innerHTML;
+
+  if (printContents) {
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+    // location.reload(); // optional but safer after replacing body
+  }
+}
+
+
+    ngAfterViewInit(): void {
+    // wait for API + UI render
+    setTimeout(() => {
+      this.convertToBase64();
+    }, 1000);
+  }
+
+    convertToBase64() {
+    const element = document.getElementById('printSectionId');
+
+    if (element) {
+      html2canvas(element).then((canvas) => {
+        const base64Image = canvas.toDataURL('image/png');
+
+        console.log(base64Image); // ✅ use this
+
+        // ✅ Call your API
+        // this.saveToApi(base64Image);
+      });
+    }
   }
 
 

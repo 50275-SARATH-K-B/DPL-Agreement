@@ -2,7 +2,7 @@
   <mat-card>
     <div class="form-container, table-wrapper">
       <table class="table" border="1">
-        <tr >
+        <tr>
           <td>
             <div>
               <p style="text-align: center">
@@ -71,6 +71,11 @@
                   keep himself/herself/itself advised of the variations from time to time. The Borrower shall also
                   pay and bear all interest tax and other taxes as may be applicable.</li>
 
+                <div class="print-footer" style="position:relative;height: 100px;">
+                  <p class="watermark"> {{getsigned}}</p>
+                </div>
+                <div class="page-break"></div>
+
                 <li> The Borrower shall repay/pay the Loan and interest that is due from time to time, in
                   equated
                   monthly instalments (“EMI”) / equated fortnightly instalments (“EFI”) as specified in the
@@ -130,6 +135,12 @@
                     <li> All costs, charges, expenses, taxes, duties (including stamp duties) paid by the
                       lender on the borrowers behalf; the borrower shall reimburse the same to the lender
                       within 24 hours of receipt of the lender&rsquo;s demand.</li>
+
+                    <div class="print-footer" style="position:relative;height: 100px;">
+                      <p class="watermark"> {{getsigned}}</p>
+                    </div>
+                    <div class="page-break"></div>
+
                     <li> to exchange, share, disclose or part with, any or all of the information and data
                       pertaining to him or his account(s) (including personal sensitive data/information
                       and/or any other information that requires a consent under the Information Technology
@@ -192,6 +203,12 @@
                       to be genuine), for their requirements. In case of any question as to what were the
                       Communications provided or received, the records of the Electronic Media
                       provided or received by the Lender shall be treated as final, conclusive and binding.</li>
+
+                    <div class="print-footer" style="position:relative;height: 50px;">
+                      <p class="watermark"> {{getsigned}}</p>
+                    </div>
+                    <div class="page-break"></div>
+
                     <li> The Borrower has ensured and shall ensure that the Communications provided
                       through the Electronic Media to the Lender are provided by the Borrower and
                       hereby agrees and confirms that the Lender shall not be responsible for
@@ -253,6 +270,12 @@
                   shall be joint and several.
                   The Borrower has affixed their signatures after verifying and understanding the content of this
                   agreement.</li>
+
+                <div class="print-footer" style="position:relative;height: 70px;">
+                  <p class="watermark"> {{getsigned}}</p>
+                </div>
+                <div class="page-break"></div>
+
                 <li> The Borrower(s) expressly recognizes, accepts and consents that the Lender shall
                   be absolutely entitled and have full power and authority to sell, assign, securitize
                   or transfer the Loan to any third party of the Lender’s choice without reference to
@@ -299,7 +322,7 @@
                   business or private address.</li>
 
               </ol>
-              <br><br>
+              <!-- <br><br> -->
               <p class="justify">
                 The Borrower hereby admits that this Agreement has been completely explained to him/her/them and
                 he/she/they has/have
@@ -309,8 +332,8 @@
               <p class="justify">
                 IN WITNESS WHEREOF, the parties here to have set their hands on the date and year
                 mentioned in the schedule herein.</p>
-              <p class="justify">
-                &nbsp;</p>
+              <!-- <p class="justify">
+                &nbsp;</p> -->
               <p class="justify">
                 &nbsp;</p>
               <p style="text-align:right;padding-right:10px">For Manappuram Finance Ltd
@@ -326,6 +349,10 @@
                 <p class="left">Borrower</p>
                 <p class="right">Lender</p>
               </div>
+              <div class="print-footer" style="position:relative;height: 50px;">
+                <p class="watermark"> {{getsigned}}</p>
+              </div>
+              <div class="page-break"></div>
               <br /> <br />
               <p style="text-align: center">
                 <img src="assets\img\login.png" height="100" width="250" style="text-align: center" />&nbsp;
@@ -482,6 +509,18 @@
                     <td>Total amount to be paid by the borrower (sum
                       of (i), (ii) and (iii)) (in Rupees)</td>
                     <td>Rs. {{ totamt }}</td>
+                  </tr>
+
+                  <tr style="border: none;">
+                    <td style="border: none;"></td>
+                    <td style="border: none;"></td>
+                    <td style="border: none;">
+                      <div class="print-footer" style="position:relative; text-align:right;height: 50px;">
+                        <p class="watermark"> {{getsigned}}</p>
+                      </div>
+                    </td>
+
+
                   </tr>
 
                   <tr>
@@ -642,6 +681,11 @@
 
               </div>
 
+              <div class="print-footer" style="position:relative;height: 70px;">
+                <p class="watermark"> {{getsigned}}</p>
+              </div>
+              <div class="page-break"></div>
+
               <p class="justify">
                 &nbsp;</p>
               <p class="justify">
@@ -735,11 +779,11 @@
                 <p class="left">Borrower</p>
                 <p class="right">Lender</p>
               </div>
-              <br /> <br />
-
-
-
-
+              <div class="print-footer" style="position:relative;height: 50px;">
+                <p class="watermark"> {{getsigned}}</p>
+              </div>
+              
+              <!-- <br /> <br /> -->
 
 
             </div>
