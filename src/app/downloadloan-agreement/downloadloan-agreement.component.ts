@@ -58,6 +58,7 @@ export class DownloadloanAgreementComponent implements OnInit {
   process_rate: any;
   loanId: any;
   getsigned: any;
+  dayValue: any;
   // FromDate = "1-APR-2023";
   // ToDate = "31-DEC-2023";
 
@@ -143,6 +144,7 @@ export class DownloadloanAgreementComponent implements OnInit {
         this.bnkacc = this.bnkdtlsstr1[2];
         this.ifsc = this.bnkdtlsstr1[3];
         this.getdetails1();
+        this.getDayWithSuffix();
 
         console.log("dtls", this.procfee, this.emiamt);
       } else {
@@ -252,7 +254,29 @@ export class DownloadloanAgreementComponent implements OnInit {
   );
   }
 
+ getDayWithSuffix(): void {
+    const value = Number(this.dueday);
+    let extension = 'th';
 
+    const lastTwoDigits = value % 100;
+    const lastDigit = value % 10;
+
+    if (lastTwoDigits < 11 || lastTwoDigits > 13) {
+      switch (lastDigit) {
+        case 1:
+          extension = 'st';
+          break;
+        case 2:
+          extension = 'nd';
+          break;
+        case 3:
+          extension = 'rd';
+          break;
+      }
+    }
+
+    this.dayValue = this.dueday + extension;
+  }
 
 
 

@@ -15,7 +15,7 @@ import { FileviewComponent } from '../commoncomponents/fileview/fileview.compone
   templateUrl: './loan-agreement.component.html',
   styleUrls: ['./loan-agreement.component.scss']
 })
-export class LoanAgreementComponent implements OnInit { 
+export class LoanAgreementComponent implements OnInit {
   settings: Settings;
   userData: any;
   todaydt: any;
@@ -58,13 +58,14 @@ export class LoanAgreementComponent implements OnInit {
   process_rate: any;
   loanId: any;
   getsigned: any;
+  dayValue: any;
   // FromDate = "1-APR-2023";
   // ToDate = "31-DEC-2023";
 
   constructor(public router: Router,
     private dialog: MatDialog,
     private datePipe: DatePipe,
-    private commonService: CommonService, public appSettings: AppSettings, private repaymentService: RepaymentService , public route: ActivatedRoute) {
+    private commonService: CommonService, public appSettings: AppSettings, private repaymentService: RepaymentService, public route: ActivatedRoute) {
     this.settings = this.appSettings.settings;
   }
 
@@ -76,7 +77,7 @@ export class LoanAgreementComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       this.loanId = params['loanId'];
-     console.log(this.loanId)
+      console.log(this.loanId)
     });
 
     this.getcustomerdtls();
@@ -142,6 +143,7 @@ export class LoanAgreementComponent implements OnInit {
         this.bnkacc = this.bnkdtlsstr1[2];
         this.ifsc = this.bnkdtlsstr1[3];
         this.getdetails1();
+        this.getDayWithSuffix();
 
         console.log("dtls", this.procfee, this.emiamt);
       } else {
@@ -207,14 +209,14 @@ export class LoanAgreementComponent implements OnInit {
     let params = {
       "LOAN_AMT": Number(this.loanamt),
       "TENURE": Number(this.tenure),
-      "ROI":  Number(this.anlint),
+      "ROI": Number(this.anlint),
       "customerid": this.custid,
     }
     this.settings.loadingSpinner = true;
     this.commonService.getdetailsagreement(params).subscribe(res => {
       this.settings.loadingSpinner = false;
       console.log(res);
-      if(res['status'].flag == 1 && res['status'].code == 1){
+      if (res['status'].flag == 1 && res['status'].code == 1) {
         this.intchg = res['totintchg'];
         this.upfrontchg = res['upfrontchg'];
         this.othlinked = res['otherschg'];
@@ -230,24 +232,51 @@ export class LoanAgreementComponent implements OnInit {
     });
   }
 
-  digitSign(){
+  digitSign() {
     let params = {
       "loanid": this.loanId,
     }
-     this.settings.loadingSpinner = true;
-    this.commonService.Digitsign(params).subscribe(res =>{
+    this.settings.loadingSpinner = true;
+    this.commonService.Digitsign(params).subscribe(res => {
       this.settings.loadingSpinner = false;
       console.log(res);
-      if(res['status'].code == 1 && res['status'].flag == 1){
+      if (res['status'].code == 1 && res['status'].flag == 1) {
         this.getsigned = res['agreementDetails'];
-      }else{
-        this.DisplayMessage(res['status'].message,"Alert");
+      } else {
+        this.DisplayMessage(res['status'].message, "Alert");
       }
     }, error => {
       this.settings.loadingSpinner = false;
       this.DisplayMessage("Error ", "Alert");
     }
-  );
+    );
+  }
+
+
+  
+
+  getDayWithSuffix(): void {
+    const value = Number(this.dueday);
+    let extension = 'th';
+
+    const lastTwoDigits = value % 100;
+    const lastDigit = value % 10;
+
+    if (lastTwoDigits < 11 || lastTwoDigits > 13) {
+      switch (lastDigit) {
+        case 1:
+          extension = 'st';
+          break;
+        case 2:
+          extension = 'nd';
+          break;
+        case 3:
+          extension = 'rd';
+          break;
+      }
+    }
+
+    this.dayValue = this.dueday + extension;
   }
 
 
