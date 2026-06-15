@@ -203,11 +203,11 @@ export class EnachService {
 
   public verifyMandateType(bankCode) {
     const httpOptions = {
-      headers: new HttpHeaders({
-        "Authorization":
-        `Bearer ${environment.testkey}`,
-        "skip": "true"
-      })
+      // headers: new HttpHeaders({
+      //   "Authorization":
+      //   `Bearer ${environment.testkey}`,
+      //   "skip": "true"
+      // })
     };
     return this.httpClient.get(
       'https://api-test.lotuspay.com/v1/nach_banks/' + bankCode, httpOptions)
